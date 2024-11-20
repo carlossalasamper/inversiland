@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import ExportedProviderRef from "../types/ExportedProviderRef";
-import { DynamicModule } from "../types/Module";
-import InversifySugar from "./InversifySugar";
-import { bindProviderToContainer } from "./binding/bindProviderToContainer";
+import { InversifySugar } from "../../classes";
+import ExportedProviderRef from "../../types/ExportedProviderRef";
+import { DynamicModule } from "../../types/Module";
+import bindProviderToContainer from "../binding/bindProviderToContainer";
 import createExportedProviderRef from "./createExportedProviderRef";
-import { getModuleMetadata } from "./metadata/getModuleMetadata";
+import { getModuleMetadata } from "../metadata/getModuleMetadata";
 
 export default function importDynamicModule({
   module,

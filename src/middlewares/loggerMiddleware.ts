@@ -1,5 +1,5 @@
 import { interfaces } from "inversify";
-import messagesMap from "../utils/messagesMap";
+import messagesMap from "../utils/messages/messagesMap";
 import inversifySugarOptions from "../utils/inversifySugarOptions";
 
 function loggerMiddleware(planAndResolve: interfaces.Next): interfaces.Next {

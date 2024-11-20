@@ -1,6 +1,6 @@
-import { InversifySugar, getModuleContainer, module } from "../../src";
-import { DynamicModule } from "../../src/types/Module";
-import importDynamicModule from "../../src/utils/importDynamicModule";
+import { InversifySugar, getModuleContainer, module } from "../../../src";
+import { DynamicModule } from "../../../src/types/Module";
+import importDynamicModule from "../../../src/utils/importing/importDynamicModule";
 
 describe("importDynamicModule", () => {
   it("should import a dynamic module", () => {

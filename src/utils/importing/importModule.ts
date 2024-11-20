@@ -1,13 +1,13 @@
-import { Newable } from "../types";
-import InversifySugar from "./InversifySugar";
-import messagesMap from "./messagesMap";
-import ExportedProviderRef from "../types/ExportedProviderRef";
+import { Newable } from "../../types";
+import InversifySugar from "../../classes/InversifySugar";
+import messagesMap from "../messages/messagesMap";
+import ExportedProviderRef from "../../types/ExportedProviderRef";
 import createExportedProviderRef from "./createExportedProviderRef";
 import processImports from "./processImports";
-import { MODULE_IS_BINDED_KEY } from "./constants";
-import { bindProviderToContainer } from "./binding/bindProviderToContainer";
-import { NewableModule } from "../types/Module";
-import { getModuleMetadata } from "./metadata/getModuleMetadata";
+import { MODULE_IS_BINDED_KEY } from "../constants";
+import bindProviderToContainer from "../binding/bindProviderToContainer";
+import { NewableModule } from "../../types/Module";
+import { getModuleMetadata } from "../metadata/getModuleMetadata";
 
 export default function importModule(
   Module: Newable,

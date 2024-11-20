@@ -1,12 +1,10 @@
 import Provider from "./Provider";
 import ExportedProvider from "./ExportedProvider";
-import { ModuleContainer } from "../utils";
 import Module from "./Module";
+import { ModuleContainer } from "../classes";
 
 /**
  * @description Interface defining the property object that describes the module.
- *
- * @publicApi
  */
 export interface ModuleMetadataArgs {
   /**

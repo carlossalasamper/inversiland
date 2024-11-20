@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
-import { ModuleContainer, getModuleContainer, module } from "../../src";
-import importModule from "../../src/utils/importModule";
+import { ModuleContainer, getModuleContainer, module } from "../../../src";
+import importModule from "../../../src/utils/importing/importModule";
 
 @injectable()
 class TestService {}

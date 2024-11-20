@@ -1,9 +1,3 @@
-import InversifySugar from "./InversifySugar";
-import SugaryContainer from "./ModuleContainer";
-import getModuleContainer from "./getModuleContainer";
+import getModuleContainer from "./modules/getModuleContainer";
 
-export {
-  InversifySugar,
-  SugaryContainer as ModuleContainer,
-  getModuleContainer,
-};
+export { getModuleContainer };

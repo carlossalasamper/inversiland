@@ -6,7 +6,7 @@ import {
   ValueProvider,
   AsyncFactoryProvider,
 } from "../../../src/types/Provider";
-import { bindProviderToContainer } from "../../../src/utils/binding/bindProviderToContainer";
+import bindProviderToContainer from "../../../src/utils/binding/bindProviderToContainer";
 import { PROVIDED_TAG } from "../../../src/utils/constants";
 
 const TestClassToken = Symbol();

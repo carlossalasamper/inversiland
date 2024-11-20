@@ -1,23 +1,28 @@
 import { injectable } from "inversify";
-import { InversifySugar, getModuleContainer, module } from "../../src";
-import allProvided from "../../src/decorators/allProvided";
+import {
+  InversifySugar,
+  getModuleContainer,
+  module,
+  multiInjectProvided,
+} from "../../src";
 
-describe("@allProvided", () => {
-  afterAll(() => {
+@injectable()
+class TestService {}
+
+@injectable()
+class TestController {
+  constructor(
+    @multiInjectProvided(TestService)
+    public readonly testServices: TestService[]
+  ) {}
+}
+
+describe("@multiInjectProvided", () => {
+  beforeEach(() => {
     InversifySugar.reset();
   });
 
   it("Should inject all the services provided with the same identifier.", () => {
-    @injectable()
-    class TestService {}
-
-    @injectable()
-    class TestController {
-      constructor(
-        @allProvided(TestService) public readonly testServices: TestService[]
-      ) {}
-    }
-
     @module({
       providers: [TestService, TestService, TestService, TestController],
     })

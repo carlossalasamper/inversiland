@@ -1,14 +1,14 @@
 import { Newable } from "../types";
-import importModule from "./importModule";
 import ModuleMetadata from "../types/ModuleMetadata";
-import messagesMap from "./messagesMap";
 import InversifySugarState from "../types/InversifySugarState";
-import unbindModule from "./binding/unbindModule";
 import { Container } from "inversify";
 import inversifySugarOptions, {
-  defaultInverseSugarOptions,
-} from "./inversifySugarOptions";
+  defaultInversifySugarOptions,
+} from "../utils/inversifySugarOptions";
 import { loggerMiddleware } from "../middlewares";
+import messagesMap from "../utils/messages/messagesMap";
+import importModule from "../utils/importing/importModule";
+import unbindModule from "../utils/binding/unbindModule";
 import ModuleContainer from "./ModuleContainer";
 
 /**
@@ -56,7 +56,7 @@ export default class InversifySugar {
       rootModule: undefined,
     });
 
-    Object.assign(InversifySugar.options, defaultInverseSugarOptions);
+    Object.assign(InversifySugar.options, defaultInversifySugarOptions);
   }
 
   static onModuleBinded(

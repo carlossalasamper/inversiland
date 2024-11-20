@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { interfaces } from "inversify";
 
-export default interface ExportedProviderRef<T = any> {
+export default interface ExportedProviderRef<T = unknown> {
   provide: interfaces.ServiceIdentifier<T>;
   multiple: boolean;
   getValue: () => T;

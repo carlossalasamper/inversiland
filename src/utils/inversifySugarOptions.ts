@@ -1,6 +1,6 @@
 import { InversifySugarOptions } from "../types";
 
-export const defaultInverseSugarOptions: InversifySugarOptions = {
+export const defaultInversifySugarOptions: InversifySugarOptions = {
   debug: false,
   defaultScope: "Transient",
   onModuleBinded: undefined,
@@ -8,7 +8,7 @@ export const defaultInverseSugarOptions: InversifySugarOptions = {
 
 const inversifySugarOptions: InversifySugarOptions = Object.assign(
   {},
-  defaultInverseSugarOptions
+  defaultInversifySugarOptions
 );
 
 export default inversifySugarOptions;

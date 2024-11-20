@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
-import processImports from "../../src/utils/processImports";
-import { getModuleContainer, module } from "../../src";
-import ExportedProviderRef from "../../src/types/ExportedProviderRef";
-import { DynamicModule } from "../../src/types/Module";
+import processImports from "../../../src/utils/importing/processImports";
+import { getModuleContainer, module } from "../../../src";
+import ExportedProviderRef from "../../../src/types/ExportedProviderRef";
+import { DynamicModule } from "../../../src/types/Module";
 
 describe("processImports", () => {
   it("Should group refs with the same provider.", () => {

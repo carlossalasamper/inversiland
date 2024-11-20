@@ -1,9 +1,9 @@
 import { inject, injectable } from "inversify";
-import { InversifySugar, module } from "../../src";
-import getModuleContainer from "../../src/utils/getModuleContainer";
-import importModule from "../../src/utils/importModule";
-import messagesMap from "../../src/utils/messagesMap";
-import provided from "../../src/decorators/provided";
+import { InversifySugar, module } from "../../../src";
+import getModuleContainer from "../../../src/utils/modules/getModuleContainer";
+import importModule from "../../../src/utils/importing/importModule";
+import messagesMap from "../../../src/utils/messages/messagesMap";
+import injectProvided from "../../../src/decorators/injectProvided";
 
 @injectable()
 class TestService {}
@@ -147,7 +147,9 @@ describe("importModule", () => {
 
     @injectable()
     class TestService {
-      constructor(@provided(AService) public readonly aService: AService) {}
+      constructor(
+        @injectProvided(AService) public readonly aService: AService
+      ) {}
     }
 
     @module({

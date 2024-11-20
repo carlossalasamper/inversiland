@@ -1,5 +1,5 @@
 import { Newable, InversifySugar, module } from "../../src";
-import messagesMap from "../../src/utils/messagesMap";
+import messagesMap from "../../src/utils/messages/messagesMap";
 import inversifySugarOptions from "../../src/utils/inversifySugarOptions";
 
 @module({})

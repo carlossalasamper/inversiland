@@ -1,6 +1,6 @@
 import { NewableModule } from "../../types/Module";
 import { IS_MODULE_KEY } from "../constants";
-import messagesMap from "../messagesMap";
+import messagesMap from "../messages/messagesMap";
 import isNewable from "../validation/isNewable";
 import { getModuleMetadata } from "../metadata/getModuleMetadata";
 

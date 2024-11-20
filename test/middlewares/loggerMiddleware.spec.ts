@@ -1,6 +1,6 @@
 import { Container, injectable } from "inversify";
 import { InversifySugar, loggerMiddleware } from "../../src";
-import messagesMap from "../../src/utils/messagesMap";
+import messagesMap from "../../src/utils/messages/messagesMap";
 
 describe("loggerMiddleware", () => {
   beforeAll(async () => {

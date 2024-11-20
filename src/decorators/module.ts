@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { ModuleContainer } from "../classes";
 import { Newable } from "../types";
 import ModuleMetadata, { ModuleMetadataArgs } from "../types/ModuleMetadata";
-import { ModuleContainer } from "../utils";
 
 export default function module({
   imports = [],

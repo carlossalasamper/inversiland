@@ -1,17 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { interfaces } from "inversify";
 
-export interface DetailedExportedProvider<T = any> {
+export interface DetailedExportedProvider<T = unknown> {
   provide: interfaces.ServiceIdentifier<T>;
   multiple?: boolean;
   deep?: boolean;
   prototype?: never;
 }
 
-export type TokenExportedProvider<T = any> = interfaces.ServiceIdentifier<T>;
+export type TokenExportedProvider<T = unknown> =
+  interfaces.ServiceIdentifier<T>;
 
-type ExportedProvider<T = any> =
+type ExportedProvider<T = unknown> =
   | TokenExportedProvider<T>
   | DetailedExportedProvider<T>;
 

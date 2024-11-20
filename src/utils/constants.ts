@@ -7,6 +7,6 @@ export const MODULE_IS_BINDED_KEY: keyof ModuleMetadata = "isBinded";
 
 export const MODULE_METADATA_KEYS = keys<ModuleMetadata>();
 
-export const IMPORTED_TAG = "exports";
+export const IMPORTED_TAG = Symbol.for("exports");
 
-export const PROVIDED_TAG = "provided";
+export const PROVIDED_TAG = Symbol.for("provided");

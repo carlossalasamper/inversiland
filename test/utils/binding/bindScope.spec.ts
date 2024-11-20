@@ -1,10 +1,10 @@
-import setScope from "../../../src/utils/binding/setScope";
+import bindScope from "../../../src/utils/binding/bindScope";
 import { InversifySugar } from "../../../src";
 import { Container } from "inversify";
 
 class ClassA {}
 
-describe("setScope", () => {
+describe("bindScope", () => {
   const container = new Container();
 
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe("setScope", () => {
     const binding = container.bind(ClassA).toSelf();
     const inTransientScope = jest.spyOn(binding, "inTransientScope");
 
-    setScope(binding, "Transient");
+    bindScope(binding, "Transient");
 
     expect(inTransientScope).toHaveBeenCalled();
   });
@@ -25,7 +25,7 @@ describe("setScope", () => {
     const binding = container.bind(ClassA).toSelf();
     const inRequestScope = jest.spyOn(binding, "inRequestScope");
 
-    setScope(binding, "Request");
+    bindScope(binding, "Request");
 
     expect(inRequestScope).toHaveBeenCalled();
   });
@@ -34,7 +34,7 @@ describe("setScope", () => {
     const binding = container.bind(ClassA).toSelf();
     const inSingletonScope = jest.spyOn(binding, "inSingletonScope");
 
-    setScope(binding, "Singleton");
+    bindScope(binding, "Singleton");
 
     expect(inSingletonScope).toHaveBeenCalled();
   });

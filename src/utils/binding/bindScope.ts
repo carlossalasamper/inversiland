@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { interfaces } from "inversify";
 
-export default function setScope(
+export default function bindScope(
   binding: interfaces.BindingInWhenOnSyntax<any>,
   scope: interfaces.BindingScope
 ) {

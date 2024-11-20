@@ -2,11 +2,11 @@ import { injectable } from "inversify";
 import {
   InversifySugar,
   getModuleContainer,
-  imported,
+  injectImported,
   module,
 } from "../../src";
 
-describe("@imported", () => {
+describe("@injectImported", () => {
   afterAll(() => {
     InversifySugar.reset();
   });
@@ -24,7 +24,7 @@ describe("@imported", () => {
     @injectable()
     class AppController {
       constructor(
-        @imported(TestService) public readonly testService: TestService
+        @injectImported(TestService) public readonly testService: TestService
       ) {}
     }
 
@@ -38,8 +38,8 @@ describe("@imported", () => {
 
     const appModuleContainer = getModuleContainer(AppModule);
 
-    expect(
-      appModuleContainer.getProvided(AppController).testService
-    ).toBeInstanceOf(TestService);
+    expect(appModuleContainer.get(AppController).testService).toBeInstanceOf(
+      TestService
+    );
   });
 });

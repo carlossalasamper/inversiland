@@ -6,7 +6,7 @@ interface WithProvide {
   /**
    * @description ServiceIdentifier / InjectionToken
    */
-  provide: string | symbol;
+  provide: interfaces.ServiceIdentifier;
 }
 
 interface WithIsGlobal {

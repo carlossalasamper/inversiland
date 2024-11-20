@@ -1,14 +1,14 @@
-import ExportedProviderRef from "../types/ExportedProviderRef";
+import ExportedProviderRef from "../../types/ExportedProviderRef";
 import importModule from "./importModule";
-import Module, { DynamicModule, NewableModule } from "../types/Module";
-import isNewable from "./validation/isNewable";
-import isDynamicModule from "./validation/isDynamicModule";
+import Module, { DynamicModule, NewableModule } from "../../types/Module";
+import isNewable from "../validation/isNewable";
+import isDynamicModule from "../validation/isDynamicModule";
 import importDynamicModule from "./importDynamicModule";
-import { getModuleMetadata } from "./metadata/getModuleMetadata";
+import { getModuleMetadata } from "../metadata/getModuleMetadata";
 
 /**
  * @description This function is used to process imports.
- * It will group all imported providers from different modules with the same 'provide' property.
+ * It will group all exported providers from different modules with the same 'provide' property.
  * Then you can inject them as an array.
  */
 export default function processImports(
@@ -43,17 +43,15 @@ export default function processImports(
   for (const ref of allRefs) {
     const key = ref.provide.toString();
 
-    if (!groups[key]) {
+    if (groups[key]) {
+      groups[key].getters.push(ref.getValue);
+    } else {
       Object.assign(groups, {
         [key]: {
           provide: ref.provide,
-          getters: [],
+          getters: [ref.getValue],
         },
       });
-
-      groups[key].getters.push(ref.getValue);
-    } else {
-      groups[key].getters.push(ref.getValue);
     }
   }
 

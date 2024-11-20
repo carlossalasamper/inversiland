@@ -2,7 +2,7 @@ import { inject, interfaces, tagged } from "inversify";
 import { DecoratorTarget } from "inversify/lib/annotation/decorator_utils";
 import { IMPORTED_TAG } from "../utils/constants";
 
-export default function imported<T = unknown>(
+export default function injectImported<T = unknown>(
   serviceIdentifier: interfaces.ServiceIdentifier
 ) {
   return (

@@ -1,7 +1,7 @@
 import { Container } from "inversify";
 import { Provider } from "../../types";
 import isNewable from "../validation/isNewable";
-import setScope from "./setScope";
+import bindScope from "./bindScope";
 import isClassProvider from "../validation/isClassProvider";
 import {
   AsyncFactoryProvider,
@@ -13,30 +13,31 @@ import {
 import isAsyncFactoryProvider from "../validation/isAsyncFactoryProvider";
 import isFactoryProvider from "../validation/isFactoryProvider";
 import isValueProvider from "../validation/isValueProvider";
-import { PROVIDED_TAG } from "../constants";
 import inversifySugarOptions from "../inversifySugarOptions";
+import bindWhenIsProvider from "./bindWhenIsProvider";
 
-export const bindProviderToContainer = (
+export default function bindProviderToContainer(
   provider: Provider,
   container: Container
-) => {
+) {
   if (isNewable(provider)) {
     const newableProvider = provider as NewableProvider;
     const scope = inversifySugarOptions.defaultScope;
 
-    setScope(container.bind(newableProvider).toSelf(), scope).whenTargetTagged(
-      PROVIDED_TAG,
-      true
+    bindWhenIsProvider(
+      bindScope(container.bind(newableProvider).toSelf(), scope)
     );
   } else if (isClassProvider(provider)) {
     const classProvider = provider as ClassProvider;
     const scope = classProvider.scope || inversifySugarOptions.defaultScope;
-    const bindingOnSyntax = setScope(
-      classProvider.provide
-        ? container.bind(classProvider.provide).to(classProvider.useClass)
-        : container.bind(classProvider.useClass).toSelf(),
-      scope
-    ).whenTargetTagged(PROVIDED_TAG, true);
+    const bindingOnSyntax = bindWhenIsProvider(
+      bindScope(
+        classProvider.provide
+          ? container.bind(classProvider.provide).to(classProvider.useClass)
+          : container.bind(classProvider.useClass).toSelf(),
+        scope
+      )
+    );
 
     classProvider.onActivation &&
       bindingOnSyntax.onActivation(classProvider.onActivation);
@@ -46,10 +47,11 @@ export const bindProviderToContainer = (
       bindingOnSyntax.onDeactivation(classProvider.onDeactivation);
   } else if (isValueProvider(provider)) {
     const valueProvider = provider as ValueProvider;
-    const bindingOnSyntax = container
-      .bind(valueProvider.provide)
-      .toConstantValue(valueProvider.useValue)
-      .whenTargetTagged(PROVIDED_TAG, true);
+    const bindingOnSyntax = bindWhenIsProvider(
+      container
+        .bind(valueProvider.provide)
+        .toConstantValue(valueProvider.useValue)
+    );
 
     valueProvider.onActivation &&
       bindingOnSyntax.onActivation(valueProvider.onActivation);
@@ -58,10 +60,11 @@ export const bindProviderToContainer = (
       bindingOnSyntax.onDeactivation(valueProvider.onDeactivation);
   } else if (isFactoryProvider(provider)) {
     const factoryProvider = provider as FactoryProvider;
-    const bindingOnSyntax = container
-      .bind(factoryProvider.provide)
-      .toFactory(factoryProvider.useFactory)
-      .whenTargetTagged(PROVIDED_TAG, true);
+    const bindingOnSyntax = bindWhenIsProvider(
+      container
+        .bind(factoryProvider.provide)
+        .toFactory(factoryProvider.useFactory)
+    );
 
     factoryProvider.onActivation &&
       bindingOnSyntax.onActivation(factoryProvider.onActivation);
@@ -70,10 +73,11 @@ export const bindProviderToContainer = (
       bindingOnSyntax.onDeactivation(factoryProvider.onDeactivation);
   } else if (isAsyncFactoryProvider(provider)) {
     const asyncFactoryProvider = provider as AsyncFactoryProvider;
-    const bindingOnSyntax = container
-      .bind(asyncFactoryProvider.provide)
-      .toProvider(asyncFactoryProvider.useAsyncFactory)
-      .whenTargetTagged(PROVIDED_TAG, true);
+    const bindingOnSyntax = bindWhenIsProvider(
+      container
+        .bind(asyncFactoryProvider.provide)
+        .toProvider(asyncFactoryProvider.useAsyncFactory)
+    );
 
     asyncFactoryProvider.onActivation &&
       bindingOnSyntax.onActivation(asyncFactoryProvider.onActivation);
@@ -81,4 +85,4 @@ export const bindProviderToContainer = (
     asyncFactoryProvider.onDeactivation &&
       bindingOnSyntax.onDeactivation(asyncFactoryProvider.onDeactivation);
   }
-};
+}

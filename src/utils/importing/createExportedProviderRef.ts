@@ -1,12 +1,12 @@
-import { Newable } from "../types";
+import { Newable } from "../../types";
 import ExportedProvider, {
   DetailedExportedProvider,
   TokenExportedProvider,
-} from "../types/ExportedProvider";
-import ExportedProviderRef from "../types/ExportedProviderRef";
-import messagesMap from "./messagesMap";
-import isDetailedExportedProvider from "./validation/isDetailedExportedProvider";
-import { getModuleMetadata } from "./metadata/getModuleMetadata";
+} from "../../types/ExportedProvider";
+import ExportedProviderRef from "../../types/ExportedProviderRef";
+import messagesMap from "../messages/messagesMap";
+import isDetailedExportedProvider from "../validation/isDetailedExportedProvider";
+import { getModuleMetadata } from "../metadata/getModuleMetadata";
 
 export default function createExportedProviderRef(
   Module: Newable,
@@ -24,21 +24,12 @@ export default function createExportedProviderRef(
         }
   ) as DetailedExportedProvider;
   const isBound = detailedExportedProvider.deep
-    ? metadata.container.isProvided(detailedExportedProvider.provide) &&
-      metadata.container.isImported(detailedExportedProvider.provide)
+    ? metadata.container.isBound(detailedExportedProvider.provide)
     : metadata.container.isProvided(detailedExportedProvider.provide);
   const getValue = () => {
-    const results = [];
-
-    results.push(
-      ...metadata.container.getAllProvided(detailedExportedProvider.provide)
-    );
-    if (detailedExportedProvider.deep) {
-      results.push(
-        ...metadata.container.getAllImported(detailedExportedProvider.provide)
-      );
-    }
-
+    const results = detailedExportedProvider.deep
+      ? metadata.container.getAll(detailedExportedProvider.provide)
+      : metadata.container.getAllProvided(detailedExportedProvider.provide);
     return results.length === 1 ? results[0] : results;
   };
 

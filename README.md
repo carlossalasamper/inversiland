@@ -13,6 +13,7 @@
 - [Introduction](#introduction)
   - [Other Dependency Systems](#other-dependency-systems)
   - [Inversify API Disadvantages](#inversify-api-disadvantages)
+- [Changelog](#changelog)
 - [Getting Started](#getting-started)
   - [1. Installation](#1-installation)
   - [2. Define a Scoped Module](#2-define-a-scoped-module)
@@ -125,6 +126,10 @@ export container;
 **Inversify Sugar** is a framework built on top of Inversify with a clear objective: to offer an API on par with the most cutting-edge hierarchical dependency systems.
 
 Once you try it you will no longer be able to live without it.
+
+## Changelog
+
+See the [list of changes](CHANGELOG.md) introduced in each release.
 
 ## Getting Started
 
@@ -396,7 +401,7 @@ export class CatsModule {}
 ```
 
 ```bash
-@imported(CatNameToken) = ["Toulouse", "Tomas O'Malley", "Duchess"]
+@multiInjectImported(CatNameToken) = ["Toulouse", "Tomas O'Malley", "Duchess"]
 ```
 
 And if you want to re-export providers with an identifier that have been imported into a module you must add the `deep` property.
@@ -446,7 +451,7 @@ export class MoreCatsModule {}
 ```
 
 ```bash
-@imported(CatNameToken) = ["Toulouse", "Tomas O'Malley", "Duchess", "Félix"]
+@multiInjectImported(CatNameToken) = ["Toulouse", "Tomas O'Malley", "Duchess", "Félix"]
 ```
 
 #### Get the Container of a Module
@@ -484,18 +489,24 @@ InversifySugar.run(AppModule);
 const appModuleContainer = getModuleContainer(AppModule);
 const testModuleContainer = getModuleContainer(TestModule);
 
-// Getting a service provided to module
+// Getting a service provided or imported
+const providedService = testModuleContainer.get(ProvidedService);
+const importedService = appModuleContainer.get(ImportedService);
+
+// Getting a service locally provided to module
 const providedService = testModuleContainer.getProvided(ProvidedService);
 
-// Getting a provider imported to a module
-const exportedService = appModuleContainer.getImported(ExportedService);
+// Getting a service imported from a module to another
+const importedService = appModuleContainer.getImported(ImportedService);
 ```
 
 The container returned by the `getModuleContainer()` function is a wrapper of the Inversify's `Container` class that exposes only the necessary methods to access dependencies in both the providers section of the container and the container section of services imported by other modules.
 
-It has been necessary for us to separate the providers declared in one module from those imported from another module in these compartments in order to implement the functionality of exporting imported suppliers (re-exporting).
-
 #### ModuleContainer
+
+```typescript
+isBound(serviceIdentifier: interfaces.ServiceIdentifier<T>): boolean
+```
 
 ```typescript
 isProvided(serviceIdentifier: interfaces.ServiceIdentifier<T>): boolean
@@ -511,6 +522,14 @@ bindProvider(provider: Provider): void
 
 ```typescript
 bindExportedProviderRef(exportedProviderRef: ExportedProviderRef): void
+```
+
+```typescript
+get<T = unknown>(serviceIdentifier: interfaces.ServiceIdentifier<T>): T
+```
+
+```typescript
+getAll<T = unknown>(serviceIdentifier: interfaces.ServiceIdentifier<T>): T
 ```
 
 ```typescript
@@ -533,12 +552,6 @@ getAllImported<T = unknown>(serviceIdentifier: interfaces.ServiceIdentifier<T>):
 unbindAll(): void
 ```
 
-> ⚠️ For the moment the `getImported()` function will return a single value or an array depending on how many providers with the same `ServiceIdentifier` have been imported into the module.
->
-> So `getImported()` and `getAllImported()` will return the same list of services when more than one service with the same identifier is bound.
->
-> However, we do not rule out that this API changes in the future.
-
 ### Injection
 
 When injecting the dependencies, either as a parameter in the constructor of a class, or as a property of the class, we have to use 2 sets of decorators that we have prepared.
@@ -549,11 +562,15 @@ You will have to use one or the other depending on how the dependency has been r
 >
 > In any case, this solution is not a whim, since to organize the content of the container of each module, the [tagged bindings](https://github.com/inversify/InversifyJS/blob/master/wiki/tagged_bindings.md) feature of Inversify is used.
 
-#### Provider Injection
+#### Local Provider Injection
 
-We will use the `@provided` decorator when we want to inject a provider into another provider that belongs to the same module (`CatsModule`).
+We may only want to get the services provided locally in a module without those that have been imported from other modules with the same `ServiceIdentifier`.
 
-In the same way, we can use the `@allProvided` decorator to obtain an array with all providers registered with that identifier. This would be the decorator equivalent to Inversify's `@multiInject`.
+Use the `@injectProvided` decorator when you want to inject a service into another that belongs to the same module (`CatsModule`).
+
+In the same way, we can use the `@multiInjectProvided` decorator to obtain an array with all providers registered with that identifier.
+
+In any case, it is almost never necessary to be so explicit about the origin of the services, so the recommendation is to use `@inject` and `@multiInject` by default.
 
 ```typescript
 // cats/CatsService.ts
@@ -575,18 +592,16 @@ export const CatNameToken = Symbol("CatName");
 
 import { injectable, provided, allProvided } from "inversify-sugar";
 import { CatsService } from "./CatsService";
-import { CatNameToken } from './constants'
+import { CatNameToken } from "./constants";
 
 @injectable()
 export class CatsController {
   constructor(
-    @provided(CatsService) public readonly catsService: CatsService
-    @allProvided(CatNameToken) public readonly catNames: string[]
+    @injectProvided(CatsService) public readonly catsService: CatsService,
+    @multiInjectProvided(CatNameToken) public readonly catNames: string[]
   ) {}
 }
 ```
-
-<small></small>
 
 ```typescript
 // cats/CatsModule.ts
@@ -594,6 +609,7 @@ export class CatsController {
 import { module } from "inversify-sugar";
 import { CatsController } from "./CatsController";
 import { CatsService } from "./CatsService";
+import { CatNameToken } from "./CatNameToken";
 
 @module({
   providers: [
@@ -618,7 +634,9 @@ export class CatsModule {}
 
 #### Imported Provider Injection
 
-We will use the `@imported` decorator when we want to inject a provider exported by `CatsModule` into a provider belonging to `AppModule` which is importing `CatsModule`.
+Similarly, if at any time you need to obtain a service imported from another module leaving out the services provided locally in the module you can use `@injectImported` and `@multiInjectImported` decorators.
+
+Again, use `@inject` and `@multiInject` as a first option before using more specific decorators.
 
 ```typescript
 // cats/CatsService.ts
@@ -635,10 +653,31 @@ export class CatsService {}
 import { module } from "inversify-sugar";
 import { CatsController } from "./CatsController";
 import { CatsService } from "./CatsService";
+import { CatNameToken } from "./CatNameToken";
 
 @module({
-  providers: [CatsService],
-  exported: [CatsService],
+  providers: [
+    CatsService,
+    {
+      provide: CatNameToken,
+      useValue: "Toulouse",
+    },
+    {
+      provide: CatNameToken,
+      useValue: "Tomas O'Malley",
+    },
+    {
+      provide: CatNameToken,
+      useValue: "Duchess",
+    },
+  ],
+  exported: [
+    CatsService,
+    {
+      provide: CatNameToken,
+      multiple: true,
+    },
+  ],
 })
 export class CatsModule {}
 ```
@@ -646,13 +685,19 @@ export class CatsModule {}
 ```typescript
 // AppController.ts
 
-import { injectable, imported } from "inversify-sugar";
+import {
+  injectable,
+  injectImported,
+  multiInjectImported,
+} from "inversify-sugar";
 import { CatsService } from "./cats/CatsService";
+import { CatNameToken } from "./cats/CatNameToken";
 
 @injectable()
 export class AppController {
   constructor(
-    @imported(CatsService) public readonly catsService: CatsService
+    @injectImported(CatsService) public readonly catsService: CatsService,
+    @multiInjectImported(CatNameToken) public readonly catNames: string[]
   ) {}
 }
 ```
@@ -669,10 +714,6 @@ import { CatsModule } from "./cats/CatsModule";
 export class AppModule {}
 ```
 
-> ⚠️ As you can see there is no `@allImported()` decorator.
->
-> As with the `ModuleContainer.getImported()` method, the `@imported()` decorator will return a single value or an >array depending on how many providers with the specified `ServiceIdentifier` have been imported into the module.
-
 ## Testing
 
 The complexity of the memory state during the execution of Inversify Sugar, managing multiple Inversify containers under the hood, is too high to ensure that it is working correctly without writing unit tests of each of the functionalities separately.
@@ -688,7 +729,7 @@ So you can use it without worries. You are facing a completely armored dependenc
 
 ## Support the Project
 
-<p align="center">☕️ Buy me a coffee so the open source party never ends.</p>
+<p align="center">☕️ Buy me a coffee so the open source party will never end.</p>
 
 <p align="center"><a href="https://www.buymeacoffee.com/carlossala95" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a></p>
 

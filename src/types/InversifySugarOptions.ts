@@ -1,7 +1,7 @@
 import { interfaces } from "inversify";
 import ModuleMetadata from "./ModuleMetadata";
 import Newable from "./Newable";
-import { ModuleContainer } from "../utils";
+import { ModuleContainer } from "../classes";
 
 export default interface InversifySugarOptions {
   /**
