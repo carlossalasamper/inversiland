@@ -35,7 +35,7 @@
   ],
   "scripts": {
     "prepare": "husky install",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint . --ext .ts --max-warnings=0",
     "test:unit": "jest --coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ./assets/badges/coverage",
     "test": "yarn test:unit",
     "build": "ttsc --project tsconfig.build.json",
