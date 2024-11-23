@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { interfaces } from "inversify";
+import { interfaces } from "@carlossalasamper/inversify";
 import { Newable } from ".";
 
 interface WithProvide {
@@ -9,7 +9,7 @@ interface WithProvide {
   provide: interfaces.ServiceIdentifier;
 }
 
-interface WithIsGlobal {
+export interface WithIsGlobal {
   /**
    * @description Flag that indicates if the provider is binded to the global container.
    */

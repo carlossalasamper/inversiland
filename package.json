@@ -45,11 +45,13 @@
     "npm:publish": "yarn test && yarn build && npm publish"
   },
   "dependencies": {
-    "inversify": "^6.0.1",
+    "@carlossalasamper/inversify": "file:.yalc/@carlossalasamper/inversify",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.6.7",
+    "@inversifyjs/common": "^1.3.3",
+    "@inversifyjs/core": "^1.3.4",
     "@types/jest": "^29.5.3",
     "@types/node": "^20.4.10",
     "@typescript-eslint/eslint-plugin": "^5.59.11",

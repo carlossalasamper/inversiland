@@ -34,7 +34,7 @@
 
 ## Introduction
 
-Inversify Sugar is a set of decorators, types and functions built on top of Inversify and offers an API to handle TypeScript applications with multiple dependency containers and relationships between them.
+Inversify Sugar is a set of decorators, types and functions built on top of a [custom fork of Inversify](https://github.com/carlossalasamper/InversifyJS) and offers an API to handle TypeScript applications with multiple dependency containers and relationships between them.
 
 Let me illustrate with a comparison.
 
@@ -372,7 +372,7 @@ If you export a provider with an injection token that is not registeres as a pro
 export class CatsModule {}
 ```
 
-If more than one provider is registered for the same identifier, you will have to add the `multiple` property to the `ExportedProvider`.
+And you'll only need to change the decorator to `@multiInject` if you export more than one provider with the same `ServiceIdentifier`.
 
 ```typescript
 @module({
@@ -393,7 +393,6 @@ If more than one provider is registered for the same identifier, you will have t
   exports: [
     {
       provide: CatNameToken,
-      multiple: true,
     },
   ],
 })
@@ -401,7 +400,7 @@ export class CatsModule {}
 ```
 
 ```bash
-@multiInjectImported(CatNameToken) = ["Toulouse", "Tomas O'Malley", "Duchess"]
+@multiInject(CatNameToken) = ["Toulouse", "Tomas O'Malley", "Duchess"]
 ```
 
 And if you want to re-export providers with an identifier that have been imported into a module you must add the `deep` property.
@@ -425,7 +424,6 @@ And if you want to re-export providers with an identifier that have been importe
   exports: [
     {
       provide: CatNameToken,
-      multiple: true,
     },
   ],
 })
@@ -442,7 +440,6 @@ export class CatsModule {}
   exports: [
     {
       provide: CatNameToken,
-      multiple: true,
       deep: true,
     },
   ],
@@ -451,7 +448,7 @@ export class MoreCatsModule {}
 ```
 
 ```bash
-@multiInjectImported(CatNameToken) = ["Toulouse", "Tomas O'Malley", "Duchess", "Félix"]
+@multiInject(CatNameToken) = ["Toulouse", "Tomas O'Malley", "Duchess", "Félix"]
 ```
 
 #### Get the Container of a Module
@@ -521,7 +518,7 @@ bindProvider(provider: Provider): void
 ```
 
 ```typescript
-bindExportedProviderRef(exportedProviderRef: ExportedProviderRef): void
+copyBindings(container: ModuleContainer, serviceIdentifiers: interfaces.ServiceIndentifier[], constraint?: interfaces.ConstraintFunction): void
 ```
 
 ```typescript
@@ -675,7 +672,6 @@ import { CatNameToken } from "./CatNameToken";
     CatsService,
     {
       provide: CatNameToken,
-      multiple: true,
     },
   ],
 })

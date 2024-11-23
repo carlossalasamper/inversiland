@@ -1,6 +1,6 @@
 import { ModuleContainer, module } from "../../src";
 import ModuleMetadata from "../../src/types/ModuleMetadata";
-import { getModuleMetadata } from "../../src/utils/metadata/getModuleMetadata";
+import { getModuleMetadata } from "../../src/metadata/getModuleMetadata";
 
 @module({})
 class EmptyMetadataModule {}

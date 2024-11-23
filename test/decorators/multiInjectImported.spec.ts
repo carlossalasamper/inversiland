@@ -1,4 +1,4 @@
-import { injectable } from "inversify";
+import { injectable } from "@carlossalasamper/inversify";
 import {
   InversifySugar,
   getModuleContainer,
@@ -20,7 +20,6 @@ describe("@multiInjectImported", () => {
       exports: [
         {
           provide: TestService,
-          multiple: true,
         },
       ],
     })

@@ -1,8 +1,14 @@
-import { interfaces } from "inversify";
+import { interfaces } from "@carlossalasamper/inversify";
+import { NewableModule } from "./Module";
+
+export interface ExportedProviderRef<T = unknown> {
+  module: NewableModule;
+  provide: interfaces.ServiceIdentifier<T>;
+  deep?: boolean;
+}
 
 export interface DetailedExportedProvider<T = unknown> {
   provide: interfaces.ServiceIdentifier<T>;
-  multiple?: boolean;
   deep?: boolean;
   prototype?: never;
 }

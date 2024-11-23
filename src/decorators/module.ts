@@ -1,7 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { ModuleContainer } from "../classes";
 import { Newable } from "../types";
 import ModuleMetadata, { ModuleMetadataArgs } from "../types/ModuleMetadata";
+import { WithIsGlobal } from "../types/Provider";
+import defineMetadata from "../metadata/defineMetadata";
+import ModuleContainer from "../modules/ModuleContainer";
 
 export default function module({
   imports = [],
@@ -10,10 +11,10 @@ export default function module({
 }: ModuleMetadataArgs) {
   return (target: Newable) => {
     const providers = allProviders.filter(
-      (provider: any) => !provider.isGlobal
+      (provider) => !(<WithIsGlobal>provider).isGlobal
     );
     const globalProviders = allProviders.filter(
-      (provider: any) => !!provider.isGlobal
+      (provider) => !!(<WithIsGlobal>provider).isGlobal
     );
     const metadata: ModuleMetadata = {
       id: new Date().getTime(),
@@ -28,7 +29,7 @@ export default function module({
 
     for (const key in metadata) {
       if (metadata.hasOwnProperty(key)) {
-        Reflect.defineMetadata(
+        defineMetadata(
           key,
           metadata[key as keyof ModuleMetadata],
           target.prototype

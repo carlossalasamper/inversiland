@@ -1,14 +1,14 @@
-import { interfaces, multiInject, tagged } from "inversify";
-import { DecoratorTarget } from "inversify/lib/annotation/decorator_utils";
-import { PROVIDED_TAG } from "../utils/constants";
+import { interfaces, multiInject, tagged } from "@carlossalasamper/inversify";
+import { PROVIDED_TAG } from "../constants";
+import { DecoratorTarget } from "@carlossalasamper/inversify/lib/annotation/decorator_utils";
 
-export default function multiInjectProvided<T = unknown>(
+export default function multiInjectProvided(
   serviceIdentifier: interfaces.ServiceIdentifier
 ) {
   return (
     target: DecoratorTarget,
     targetKey?: string | symbol,
-    indexOrPropertyDescriptor?: number | TypedPropertyDescriptor<T>
+    indexOrPropertyDescriptor?: number | PropertyDescriptor
   ) => {
     multiInject(serviceIdentifier)(
       target,
