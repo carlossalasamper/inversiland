@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { interfaces } from "@carlossalasamper/inversify";
-import { Newable } from ".";
+import {
+  AsyncFactory,
+  AsyncFactoryWrapper,
+  Factory,
+  FactoryWrapper,
+  Newable,
+} from ".";
 
 interface WithProvide {
   /**
@@ -62,14 +68,14 @@ export interface ValueProvider<T = any>
 /**
  * @description Interface defining a *Factory* type provider. The scope of a factory provider is always singleton.
  */
-export interface FactoryProvider<T = any>
+export interface FactoryProvider<T = any, FactoryType extends Factory = Factory>
   extends WithProvide,
     WithIsGlobal,
     WithHandlers<T> {
   /**
    * @description Factory function to be injected.
    */
-  useFactory: (context: interfaces.Context) => (...args: any[]) => T;
+  useFactory: FactoryWrapper<FactoryType>;
   useValue?: never;
   useClass?: never;
 }
@@ -78,16 +84,16 @@ export interface FactoryProvider<T = any>
  * @description Interface defining a *AsyncFactory* type provider. The scope of a async factory provider is always singleton.
  * AsyncFactory is an alias of the Inversify Provider.
  */
-export interface AsyncFactoryProvider<T = any>
-  extends WithProvide,
+export interface AsyncFactoryProvider<
+  T = any,
+  AsyncFactoryType extends AsyncFactory = AsyncFactory
+> extends WithProvide,
     WithIsGlobal,
     WithHandlers<T> {
   /**
    * @description Factory function to be injected.
    */
-  useAsyncFactory: (
-    context: interfaces.Context
-  ) => (...args: any[]) => Promise<T>;
+  useAsyncFactory: AsyncFactoryWrapper<AsyncFactoryType>;
   useValue?: never;
   useClass?: never;
 }

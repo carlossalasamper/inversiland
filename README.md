@@ -27,7 +27,7 @@
     - [ModuleContainer](#modulecontainer)
     - [Dynamic Modules](#dynamic-modules)
   - [Injection](#injection)
-    - [Provider Injection](#provider-injection)
+    - [Local Provider Injection](#local-provider-injection)
     - [Imported Provider Injection](#imported-provider-injection)
 - [Testing](#testing)
 - [Support the Project](#support-the-project)
@@ -122,7 +122,7 @@ container.bind("DATABASE_URI").toConstantValue(process.env.DATABASE_URI);
 export container;
 ```
 
-> 😵 The result is a brittle dependency system that we can break just by changing the order of the imported files. And we have to handle all the containers manually.
+> The result is a brittle dependency system that we can break just by changing the order of the imported files. And we have to handle all the containers manually.
 
 **Inversify Sugar** is a framework built on top of Inversify with a clear objective: to offer an API on par with the most cutting-edge hierarchical dependency systems.
 
