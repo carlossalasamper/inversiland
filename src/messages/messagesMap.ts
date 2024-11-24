@@ -11,12 +11,11 @@ const messagesMap = {
 
     return `[provider] Resolving ${serviceIdentifierName} in container ${containerId}.`;
   },
-  moduleProvidersBinded: (moduleName: string) =>
-    `[@module] ${moduleName} providers binded.`,
+  moduleBound: (moduleName: string) => `[@module] ${moduleName} bound.`,
   notAModuleImported: (importedItemName: string) =>
     `importModule() was called with a class that is not a module: ${importedItemName}. Skipping...`,
-  notAModuleUnbinded: (unbindedItemName: string) =>
-    `unbindModule() was called with a class that is not a module: ${unbindedItemName}. Skipping...`,
+  notAModuleUnbound: (unboundItemName: string) =>
+    `unbindModule() was called with a class that is not a module: ${unboundItemName}. Skipping...`,
   notBoundProviderExported: (
     moduleName: string,
     provide: interfaces.ServiceIdentifier

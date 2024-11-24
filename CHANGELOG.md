@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `getAll(serviceIdentifier: interfaces.ServiceIdentifier)` method to `ModuleContainer` to get all providers.
 - Added `isBound(serviceIdentifier: interfaces.ServiceIdentifier)` method to `ModuleContainer` to check if a provider is bound.
 - Added `copyBindings` method to `ModuleContainer` to copy a subset of bindings from another container, filtering by metadata and applying a new constraint. This method is used to import dependencies from a container to another without having to merge all the bindings.
+- Added `ExistingProvider` provider type to create an alias of a bound service in a module.
 
 ### Changed
 

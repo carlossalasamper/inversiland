@@ -34,9 +34,8 @@ export default function createExportedProviderRef(
 
   const metadata = getModuleMetadata(newableModule);
   hasProvider = detailedExportedProvider.deep
-    ? metadata.container.isProvided(detailedExportedProvider.provide) ||
-      metadata.container.isImported(detailedExportedProvider.provide)
-    : metadata.container.isProvided(detailedExportedProvider.provide);
+    ? metadata.container.isCurrentBound(detailedExportedProvider.provide)
+    : metadata.container.isCurrentProvided(detailedExportedProvider.provide);
 
   if (hasProvider) {
     exportedProviderRef = {

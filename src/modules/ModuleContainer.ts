@@ -20,12 +20,32 @@ export default class ModuleContainer {
     return this.container.isBound(serviceIdentifier);
   }
 
+  isCurrentBound(serviceIdentifier: interfaces.ServiceIdentifier) {
+    return this.container.isCurrentBound(serviceIdentifier);
+  }
+
   isProvided(serviceIdentifier: interfaces.ServiceIdentifier) {
     return this.container.isBoundTagged(serviceIdentifier, PROVIDED_TAG, true);
   }
 
+  isCurrentProvided(serviceIdentifier: interfaces.ServiceIdentifier) {
+    return this.container.isCurrentBoundTagged(
+      serviceIdentifier,
+      PROVIDED_TAG,
+      true
+    );
+  }
+
   isImported(serviceIdentifier: interfaces.ServiceIdentifier) {
     return this.container.isBoundTagged(serviceIdentifier, IMPORTED_TAG, true);
+  }
+
+  isCurrentImported(serviceIdentifier: interfaces.ServiceIdentifier) {
+    return this.container.isCurrentBoundTagged(
+      serviceIdentifier,
+      IMPORTED_TAG,
+      true
+    );
   }
 
   bindProvider(provider: Provider) {

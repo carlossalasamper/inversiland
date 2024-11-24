@@ -1,4 +1,9 @@
-import { getModuleContainer, InversifySugar, module } from "../../src";
+import {
+  getModuleContainer,
+  injectable,
+  InversifySugar,
+  module,
+} from "../../src";
 import importModule from "../../src/importing/importModule";
 
 describe("ModuleContainer", () => {
@@ -62,6 +67,88 @@ describe("ModuleContainer", () => {
     const container = getModuleContainer(AppModule);
 
     expect(container.isBound("test2")).toBe(false);
+  });
+
+  it("isCurrentBound() should return true only if the service is bound to the current container", () => {
+    @injectable()
+    class Shuriken {}
+
+    @injectable()
+    class Katana {}
+
+    @module({
+      providers: [{ useClass: Shuriken, isGlobal: true }],
+    })
+    class ShurikenModule {}
+
+    @module({
+      imports: [ShurikenModule],
+      providers: [Katana],
+    })
+    class KatanaModule {}
+
+    importModule(KatanaModule);
+
+    const container = getModuleContainer(KatanaModule);
+
+    expect(container.isBound(Shuriken)).toBe(true);
+    expect(container.isCurrentBound(Shuriken)).toBe(false);
+    expect(container.isCurrentBound(Katana)).toBe(true);
+  });
+
+  it("isCurrentProvided() should return true only if the service is provided by the current container.", () => {
+    @injectable()
+    class Shuriken {}
+
+    @injectable()
+    class Katana {}
+
+    @module({
+      providers: [{ useClass: Shuriken, isGlobal: true }],
+    })
+    class ShurikenModule {}
+
+    @module({
+      imports: [ShurikenModule],
+      providers: [Katana],
+    })
+    class KatanaModule {}
+
+    importModule(KatanaModule);
+
+    const container = getModuleContainer(KatanaModule);
+
+    expect(container.isProvided(Shuriken)).toBe(true);
+    expect(container.isCurrentProvided(Shuriken)).toBe(false);
+    expect(container.isCurrentProvided(Katana)).toBe(true);
+  });
+
+  it("isCurrentImported() should return true only if the service is imported by the current container.", () => {
+    @injectable()
+    class Shuriken {}
+
+    @injectable()
+    class Katana {}
+
+    @module({
+      providers: [Shuriken],
+      exports: [Shuriken],
+    })
+    class ShurikenModule {}
+
+    @module({
+      imports: [ShurikenModule],
+      providers: [Katana],
+    })
+    class KatanaModule {}
+
+    importModule(KatanaModule);
+
+    const katanaContainer = getModuleContainer(KatanaModule);
+
+    expect(katanaContainer.isImported(Shuriken)).toBe(true);
+    expect(katanaContainer.isCurrentImported(Shuriken)).toBe(true);
+    expect(katanaContainer.isCurrentImported(Katana)).toBe(false);
   });
 
   it("isProvided() should return true if the service is provided.", () => {

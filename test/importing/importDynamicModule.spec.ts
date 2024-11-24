@@ -1,4 +1,9 @@
-import { InversifySugar, getModuleContainer, module } from "../../src";
+import {
+  InversifySugar,
+  getModuleContainer,
+  injectable,
+  module,
+} from "../../src";
 import { DynamicModule } from "../../src/types/Module";
 import importDynamicModule from "../../src/importing/importDynamicModule";
 import importModule from "../../src/importing/importModule";
@@ -8,23 +13,79 @@ describe("importDynamicModule", () => {
     await InversifySugar.reset();
   });
 
-  it("Should import a dynamic module.", () => {
+  it("Should import an empty dynamic module.", () => {
     @module({})
     class Module {}
 
     const dynamicModule: DynamicModule = {
       module: Module,
-      providers: [
-        {
-          provide: "test",
-          useValue: "test",
-        },
-      ],
     };
 
-    importDynamicModule(dynamicModule);
+    expect(() => importDynamicModule(dynamicModule)).not.toThrow();
+  });
 
-    expect(getModuleContainer(Module).isBound("test")).toBe(true);
+  it("Should import a dynamic module with imports.", () => {
+    const CatNameToken = Symbol("CatName");
+
+    @injectable()
+    class Logger {
+      log(message: string) {
+        console.log(message);
+      }
+    }
+
+    @module({
+      providers: [Logger],
+      exports: [Logger],
+    })
+    class CommonModule {}
+
+    @module({})
+    class CatsModule {
+      static forRoot(moreCatNames: string[]): DynamicModule {
+        return {
+          module: CatsModule,
+          imports: [CommonModule],
+          providers: [
+            ...moreCatNames.map((catName) => ({
+              provide: CatNameToken,
+              useValue: catName,
+            })),
+          ],
+        };
+      }
+    }
+
+    importDynamicModule(
+      CatsModule.forRoot(["Toulouse", "Tomas O'Malley", "Duchess"])
+    );
+
+    expect(getModuleContainer(CatsModule).isBound(Logger));
+  });
+
+  it("Should import a dynamic module with providers.", () => {
+    const CatNameToken = Symbol("CatName");
+
+    @module({})
+    class CatsModule {
+      static forRoot(catNames: string[]): DynamicModule {
+        return {
+          module: CatsModule,
+          providers: [
+            ...catNames.map((catName) => ({
+              provide: CatNameToken,
+              useValue: catName,
+            })),
+          ],
+        };
+      }
+    }
+
+    importDynamicModule(
+      CatsModule.forRoot(["Toulouse", "Tomas O'Malley", "Duchess"])
+    );
+
+    expect(getModuleContainer(CatsModule).getAll(CatNameToken)).toHaveLength(3);
   });
 
   it("Should import a dynamic module with exports.", () => {

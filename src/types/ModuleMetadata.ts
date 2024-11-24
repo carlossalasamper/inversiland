@@ -28,7 +28,7 @@ export interface ModuleMetadataArgs {
 export default interface ModuleMetadata {
   id: number;
   isModule: true;
-  isBinded: boolean;
+  isBound: boolean;
   container: ModuleContainer;
   imports: Module[];
   providers: Provider[];

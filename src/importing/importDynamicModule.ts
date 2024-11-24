@@ -1,25 +1,28 @@
 import { ExportedProviderRef } from "../types/ExportedProvider";
 import { DynamicModule } from "../types/Module";
-import { WithIsGlobal } from "../types/Provider";
+import Provider, { WithIsGlobal } from "../types/Provider";
 import bindProviderToContainer from "../binding/bindProviderToContainer";
 import createExportedProviderRef from "../exporting/createExportedProviderRef";
 import { getModuleMetadata } from "../metadata/getModuleMetadata";
 import InversifySugar from "../inversifySugar/InversifySugar";
+import bindImportsToModule from "./bindImportsToModule";
 
 export default function importDynamicModule(
   dynamicModule: DynamicModule
 ): ExportedProviderRef[] {
-  const providers = dynamicModule.providers.filter(
+  const metadata = getModuleMetadata(dynamicModule.module);
+  const imports = dynamicModule.imports || [];
+  const exports = dynamicModule.exports || [];
+  const allProviders: Provider[] = dynamicModule.providers || [];
+  const providers = allProviders.filter(
     (provider) => !(<WithIsGlobal>provider).isGlobal
   );
-  const globalProviders = dynamicModule.providers.filter(
+  const globalProviders = allProviders.filter(
     (provider) => !!(<WithIsGlobal>provider).isGlobal
   );
-  const exports = dynamicModule.exports || [];
-  const metadata = getModuleMetadata(dynamicModule.module);
   const exportedProviderRefs: ExportedProviderRef[] = [];
 
-  // TODO: bindImportsToModule(dynamicModule.module, dynamicModule.imports);
+  bindImportsToModule(dynamicModule.module, imports);
 
   for (const provider of globalProviders) {
     bindProviderToContainer(provider, InversifySugar.globalContainer);

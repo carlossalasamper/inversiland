@@ -88,11 +88,11 @@ describe("unbindModule", () => {
     await unbindModule(ImportsModule);
 
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      messagesMap.notAModuleUnbinded(NotAModule.name)
+      messagesMap.notAModuleUnbound(NotAModule.name)
     );
   });
 
-  it("Should mark the module as unbinded.", async () => {
+  it("Should mark the module as unbound.", async () => {
     @module({})
     class TestModule {}
 
@@ -100,6 +100,6 @@ describe("unbindModule", () => {
 
     await unbindModule(TestModule);
 
-    expect(getModuleMetadata(TestModule).isBinded).toBe(false);
+    expect(getModuleMetadata(TestModule).isBound).toBe(false);
   });
 });

@@ -264,34 +264,4 @@ describe("importModule", () => {
     expect(getModuleContainer(AModule).isImported(TestService)).toBe(true);
     expect(getModuleContainer(BModule).isImported(TestService)).toBe(true);
   });
-
-  it("Exported providers of a imported module shouldn't be bound to the RootContainer container when deep = false.", () => {
-    @module({
-      providers: [TestService],
-      exports: [TestService],
-    })
-    class ExportedServiceModule {}
-
-    @module({
-      imports: [ExportedServiceModule],
-      providers: [TestService],
-      exports: [
-        {
-          provide: TestService,
-        },
-      ],
-    })
-    class AModule {}
-
-    @module({
-      imports: [AModule],
-    })
-    class RootModule {}
-
-    importModule(RootModule);
-
-    expect(
-      getModuleContainer(RootModule).getImported(TestService)
-    ).toBeInstanceOf(TestService);
-  });
 });

@@ -34,21 +34,21 @@ describe("InversifySugar", () => {
     );
   });
 
-  it("InversifySugar.onModuleBinded should be called once per binded module.", () => {
-    const onModuleBinded = jest.fn();
-    const inversifySugarOnModuleBinded = jest.spyOn(
+  it("InversifySugar.onModuleBound should be called once per bound module.", () => {
+    const onModuleBound = jest.fn();
+    const inversifySugarOnModuleBound = jest.spyOn(
       InversifySugar,
-      "onModuleBinded"
+      "onModuleBound"
     );
 
     InversifySugar.options.debug = true;
-    InversifySugar.setOnModuleBinded(onModuleBinded);
+    InversifySugar.setOnModuleBound(onModuleBound);
     InversifySugar.run(AppModule);
 
-    expect(inversifySugarOnModuleBinded).toHaveBeenCalledTimes(
+    expect(inversifySugarOnModuleBound).toHaveBeenCalledTimes(
       importedModules.length
     );
-    expect(onModuleBinded).toHaveBeenCalledTimes(importedModules.length);
+    expect(onModuleBound).toHaveBeenCalledTimes(importedModules.length);
   });
 
   it("Should print a message for each imported module.", () => {
@@ -59,7 +59,7 @@ describe("InversifySugar", () => {
 
     for (const importedModule of importedModules) {
       expect(consoleLogMock).toHaveBeenCalledWith(
-        messagesMap.moduleProvidersBinded(importedModule.name)
+        messagesMap.moduleBound(importedModule.name)
       );
     }
   });

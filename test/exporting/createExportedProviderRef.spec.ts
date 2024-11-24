@@ -76,4 +76,57 @@ describe("createExportedProviderRef", () => {
       messagesMap.notBoundProviderExported(Module.name, TestService)
     );
   });
+
+  it("Should create a ExportedProviderRef of a imported provider when deep = true.", () => {
+    @injectable()
+    class TestService {}
+
+    @module({
+      providers: [TestService],
+      exports: [TestService],
+    })
+    class ModuleA {}
+
+    @module({
+      imports: [ModuleA],
+      exports: [
+        {
+          provide: TestService,
+          deep: true,
+        },
+      ],
+    })
+    class ModuleB {}
+
+    const exportedProviderRefs = importModule(ModuleB);
+
+    expect(exportedProviderRefs.length).toBe(1);
+    expect(exportedProviderRefs[0].provide).toBe(TestService);
+  });
+
+  it("Shouldn't create a ExportedProviderRef of a global provider even if deep = true.", () => {
+    @injectable()
+    class TestService {}
+
+    @module({
+      providers: [{ useClass: TestService, isGlobal: true }],
+      exports: [],
+    })
+    class ModuleA {}
+
+    @module({
+      imports: [ModuleA],
+      exports: [
+        {
+          provide: TestService,
+          deep: true,
+        },
+      ],
+    })
+    class ModuleB {}
+
+    expect(() => importModule(ModuleB)).toThrowError(
+      messagesMap.notBoundProviderExported(ModuleB.name, TestService)
+    );
+  });
 });

@@ -4,6 +4,7 @@ import isNewable from "../validation/isNewable";
 import bindScope from "./bindScope";
 import isClassProvider from "../validation/isClassProvider";
 import {
+  ExistingProvider,
   AsyncFactoryProvider,
   ClassProvider,
   FactoryProvider,
@@ -15,6 +16,7 @@ import isFactoryProvider from "../validation/isFactoryProvider";
 import isValueProvider from "../validation/isValueProvider";
 import inversifySugarOptions from "../inversifySugar/inversifySugarOptions";
 import providedConstraint from "../constraints/providedConstraint";
+import isExistingProvider from "../validation/isExistingProvider";
 
 export default function bindProviderToContainer(
   provider: Provider,
@@ -79,5 +81,11 @@ export default function bindProviderToContainer(
 
     asyncFactoryProvider.onDeactivation &&
       bindingOnSyntax.onDeactivation(asyncFactoryProvider.onDeactivation);
+  } else if (isExistingProvider(provider)) {
+    const existingProvider = provider as ExistingProvider;
+
+    container
+      .bind(existingProvider.provide)
+      .toService(existingProvider.useExisting);
   }
 }

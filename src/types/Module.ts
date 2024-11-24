@@ -1,13 +1,10 @@
-import ExportedProvider from "./ExportedProvider";
+import { ModuleMetadataArgs } from "./ModuleMetadata";
 import Newable from "./Newable";
-import Provider from "./Provider";
 
 export type NewableModule = Newable;
 
-export interface DynamicModule {
+export interface DynamicModule extends ModuleMetadataArgs {
   module: Newable;
-  providers: Provider[];
-  exports?: ExportedProvider[];
 }
 
 type Module = NewableModule | DynamicModule;

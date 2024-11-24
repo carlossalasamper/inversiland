@@ -11,7 +11,7 @@ describe("@module", () => {
 
     expect(metadata).toMatchObject<Omit<ModuleMetadata, "id" | "container">>({
       isModule: true,
-      isBinded: false,
+      isBound: false,
       imports: [],
       providers: [],
       globalProviders: [],

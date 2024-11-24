@@ -11,7 +11,7 @@ interface WithProvide {
 
 export interface WithIsGlobal {
   /**
-   * @description Flag that indicates if the provider is binded to the global container.
+   * @description Flag that indicates if the provider is bound to the global container.
    */
   isGlobal?: boolean;
 }
@@ -92,11 +92,19 @@ export interface AsyncFactoryProvider<T = any>
   useClass?: never;
 }
 
+/**
+ * @description Interface defining an *Existing* type provider.
+ */
+export interface ExistingProvider<T = any> extends WithProvide, WithIsGlobal {
+  useExisting: interfaces.ServiceIdentifier<T>;
+}
+
 type Provider<T = any> =
   | NewableProvider<T>
   | ClassProvider<T>
   | ValueProvider<T>
   | FactoryProvider<T>
-  | AsyncFactoryProvider<T>;
+  | AsyncFactoryProvider<T>
+  | ExistingProvider<T>;
 
 export default Provider;

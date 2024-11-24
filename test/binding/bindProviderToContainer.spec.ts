@@ -160,4 +160,27 @@ describe("bindProviderToContainer", () => {
 
     expect(provider.onDeactivation).toBeCalledTimes(1);
   });
+
+  it("Should bind a ExistingProvider to a container.", () => {
+    const container = new Container();
+
+    bindProviderToContainer(
+      {
+        provide: TestClassToken,
+        useClass: TestClass,
+      },
+      container
+    );
+    bindProviderToContainer(
+      {
+        provide: "TestServiceAlias",
+        useExisting: TestClassToken,
+      },
+      container
+    );
+
+    expect(
+      container.getTagged("TestServiceAlias", PROVIDED_TAG, true)
+    ).toBeInstanceOf(TestClass);
+  });
 });

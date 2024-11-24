@@ -19,7 +19,7 @@ export default function module({
     const metadata: ModuleMetadata = {
       id: new Date().getTime(),
       isModule: true,
-      isBinded: false,
+      isBound: false,
       container: new ModuleContainer(),
       imports,
       providers,

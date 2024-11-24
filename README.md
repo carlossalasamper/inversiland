@@ -25,6 +25,7 @@
     - [Exports](#exports)
     - [Get the Container of a Module](#get-the-container-of-a-module)
     - [ModuleContainer](#modulecontainer)
+    - [Dynamic Modules](#dynamic-modules)
   - [Injection](#injection)
     - [Provider Injection](#provider-injection)
     - [Imported Provider Injection](#imported-provider-injection)
@@ -274,7 +275,7 @@ The list of imported modules that export the providers which are required in thi
 export class AppModule {}
 ```
 
-You can also use the `forRoot` pattern to generate dynamic modules in the air and inject a configuration into the container.
+You can also use the `forRoot` pattern to generate [dynamic modules](#dynamic-modules) in the air and inject a configuration into the container.
 
 The following example illustrates how we could inject a [Mongoose](https://mongoosejs.com/) database connection asynchronously from the options we pass as a parameter to the static `forRoot` method.
 
@@ -342,6 +343,20 @@ You can define a provider in different ways depending on the desired instantiati
         (context) =>
         (...args) =>
           "New name",
+    },
+    {
+      provide: Symbol(),
+      useAsyncFactory: () => async () => {
+        if (!mongoose.connection || mongoose.connection.readyState === 0) {
+          await mongoose.connect(uri, options);
+        }
+
+        return mongoose.connection;
+      },
+    },
+    {
+      provide: "CATS_SERVICE_ALIAS",
+      useExisting: CatsServiceToken,
     },
   ],
 })
@@ -549,15 +564,83 @@ getAllImported<T = unknown>(serviceIdentifier: interfaces.ServiceIdentifier<T>):
 unbindAll(): void
 ```
 
+#### Dynamic Modules
+
+It's time to talk more in depth about dynamic modules.
+
+Unlike static modules, dynamic modules allow us to pass configuration when importing them to modify their behavior depending on the scenario.
+
+A common way to use them is through the static methods `forRoot`, `forFeature`, `forChild` or `register` of a regular module.
+
+```typescript
+@injectable()
+export class CatsService {
+  constructor(@multiInject(CatNameToken) private readonly catNames: string[]) {}
+
+  public showCats() {
+    console.log(this.catNames.join(","));
+  }
+}
+
+const CatNameToken = Symbol.for("CatName");
+
+@module({})
+export class CatsModule {
+  static forRoot(catNames: string[]): DynamicModule {
+    return {
+      module: CatsModule,
+      providers: [
+        CatsService,
+        ...catNames.map((catName) => ({
+          provide: CatNameToken,
+          useValue: catName,
+        })),
+      ],
+    };
+  }
+}
+
+@module({
+  imports: [CatsModule.forRoot(["Toulouse", "Tomas O'Malley", "Duchess"])],
+})
+export class AppModule {}
+```
+
+This functionality is highly inspired by the dynamic modules used by [Angular](https://v17.angular.io/guide/singleton-services#the-forroot-pattern) and [NestJS](https://docs.nestjs.com/fundamentals/dynamic-modules). Check their documentation if you want to compare their similarities.
+
 ### Injection
 
-When injecting the dependencies, either as a parameter in the constructor of a class, or as a property of the class, we have to use 2 sets of decorators that we have prepared.
+In the same way as we do in InversifyJS, to inject dependencies into a class we will use the `@inject` and `@multiInject` decorators over constructor parameters or class properties.
 
-You will have to use one or the other depending on how the dependency has been registered in the module.
+```typescript
+// Constructor injection
 
-> ⚠️ Splitting into different decorators for dependency injection adds extra complexity to the code, compared to Angular or NestJS injection systems. This is why the injection API may change in the future.
->
-> In any case, this solution is not a whim, since to organize the content of the container of each module, the [tagged bindings](https://github.com/inversify/InversifyJS/blob/master/wiki/tagged_bindings.md) feature of Inversify is used.
+import { inject, multiInject } from "inversify-sugar";
+import { Logger } from "./Logger";
+import { CatNameToken } from "./CatNameToken";
+
+@injectable()
+class CatsService {
+  constructor(
+    @inject(Logger) private readonly logger: Logger,
+    @multiInject(CatNameToken) private readonly catNames: string[]
+  ) {}
+}
+```
+
+```typescript
+// Property injection
+
+import { inject, multiInject } from "inversify-sugar";
+import { Logger } from "./Logger";
+import { CatNameToken } from "./CatNameToken";
+
+@injectable()
+class CatsService {
+  @inject(Logger) private readonly logger: Logger;
+  @multiInject(CatNameToken) private readonly catNames: string[];
+}
+```
 
 #### Local Provider Injection
 

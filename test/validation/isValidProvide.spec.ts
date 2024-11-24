@@ -11,6 +11,12 @@ describe("isValidProvide", () => {
     expect(isValidProvide(Symbol())).toBe(true);
   });
 
+  it("Should return true if value is a class.", () => {
+    class TestClass {}
+
+    expect(isValidProvide(TestClass)).toBe(true);
+  });
+
   it("Should return false if value is not a string or symbol.", () => {
     expect(isValidProvide(undefined)).toBe(false);
     expect(isValidProvide(null)).toBe(false);
