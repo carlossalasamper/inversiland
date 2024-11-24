@@ -61,7 +61,11 @@ function importChildModule(Module: NewableModule): ExportedProviderRef[] {
     bindImportsToModule(Module, metadata.imports);
 
     for (const provider of metadata.globalProviders) {
-      bindProviderToContainer(provider, InversifySugar.globalContainer);
+      bindProviderToContainer(
+        provider,
+        InversifySugar.globalContainer,
+        metadata.container.innerContainer
+      );
     }
 
     for (const provider of metadata.providers) {

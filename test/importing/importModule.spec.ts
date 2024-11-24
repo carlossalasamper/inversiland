@@ -3,15 +3,15 @@ import getModuleContainer from "../../src/modules/getModuleContainer";
 import importModule from "../../src/importing/importModule";
 import messagesMap from "../../src/messages/messagesMap";
 
-@injectable()
-class TestService {}
-
 describe("importModule", () => {
   beforeEach(async () => {
     await InversifySugar.reset();
   });
 
   it("Should import a module that is importing another module.", () => {
+    @injectable()
+    class TestService {}
+
     @module({
       providers: [TestService],
     })
@@ -30,6 +30,9 @@ describe("importModule", () => {
   });
 
   it("Should import a module with providers.", () => {
+    @injectable()
+    class TestService {}
+
     @module({
       providers: [TestService],
     })
@@ -41,6 +44,9 @@ describe("importModule", () => {
   });
 
   it("Should import a module where a provider depends on another provider.", () => {
+    @injectable()
+    class TestService {}
+
     @injectable()
     class TestService2 {
       constructor(
@@ -65,6 +71,9 @@ describe("importModule", () => {
   });
 
   it("Should import a module with exports and access exported provider.", () => {
+    @injectable()
+    class TestService {}
+
     @module({
       providers: [TestService],
       exports: [TestService],
@@ -133,6 +142,49 @@ describe("importModule", () => {
     importModule(RootModule, true);
 
     expect(InversifySugar.globalContainer.isBound(GlobalService)).toBe(true);
+  });
+
+  it("Should resolve dependencies of global providers.", () => {
+    @injectable()
+    class AService {}
+
+    @injectable()
+    class BService {
+      constructor(@inject(AService) public readonly aService: AService) {}
+    }
+
+    @injectable()
+    class GlobalService {
+      constructor(
+        @inject(AService) public readonly aService: AService,
+        @inject(BService) public readonly bService: BService
+      ) {}
+    }
+
+    @module({
+      providers: [
+        AService,
+        BService,
+        {
+          useClass: GlobalService,
+          isGlobal: true,
+        },
+      ],
+    })
+    class GlobalModule {}
+
+    @module({
+      imports: [GlobalModule],
+    })
+    class RootModule {}
+
+    importModule(RootModule, true);
+
+    const globalService = InversifySugar.globalContainer.get(GlobalService);
+
+    expect(globalService).toBeInstanceOf(GlobalService);
+    expect(globalService.aService).toBeInstanceOf(AService);
+    expect(globalService.bService).toBeInstanceOf(BService);
   });
 
   it("Should resolve dependencies of exported providers.", () => {
@@ -238,6 +290,9 @@ describe("importModule", () => {
   });
 
   it("Exported providers of a module should be bound to every module that imports it.", () => {
+    @injectable()
+    class TestService {}
+
     @module({
       providers: [TestService],
       exports: [TestService],

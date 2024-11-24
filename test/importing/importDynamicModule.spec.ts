@@ -1,6 +1,7 @@
 import {
   InversifySugar,
   getModuleContainer,
+  inject,
   injectable,
   module,
 } from "../../src";
@@ -132,5 +133,46 @@ describe("importDynamicModule", () => {
 
     expect(getModuleContainer(Module).isBound("test")).toBe(true);
     expect(InversifySugar.globalContainer.isBound("test")).toBe(true);
+  });
+
+  it("Should resolve dependencies of global providers.", () => {
+    @injectable()
+    class AService {}
+
+    @injectable()
+    class BService {
+      constructor(@inject(AService) public readonly aService: AService) {}
+    }
+
+    @injectable()
+    class GlobalService {
+      constructor(
+        @inject(AService) public readonly aService: AService,
+        @inject(BService) public readonly bService: BService
+      ) {}
+    }
+
+    @module({})
+    class GlobalModule {}
+
+    const dynamicModule: DynamicModule = {
+      module: GlobalModule,
+      providers: [
+        AService,
+        BService,
+        {
+          useClass: GlobalService,
+          isGlobal: true,
+        },
+      ],
+    };
+
+    importDynamicModule(dynamicModule);
+
+    const globalService = InversifySugar.globalContainer.get(GlobalService);
+
+    expect(globalService).toBeInstanceOf(GlobalService);
+    expect(globalService.aService).toBeInstanceOf(AService);
+    expect(globalService.bService).toBeInstanceOf(BService);
   });
 });

@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added `innerContainer` property to `ModuleContainer` to access the Inversify container directly.
 - Added `@inject` decorator to use by default for injecting dependencies. It makes the library usage easier.
 - Added `@multiInject` decorator to use by default for injecting arrays of dependencies. It makes the library usage easier.
 - Added `@multiInjectImported` decorator to make the API symmetrical.

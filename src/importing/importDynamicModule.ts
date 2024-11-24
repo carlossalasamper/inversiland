@@ -24,8 +24,12 @@ export default function importDynamicModule(
 
   bindImportsToModule(dynamicModule.module, imports);
 
-  for (const provider of globalProviders) {
-    bindProviderToContainer(provider, InversifySugar.globalContainer);
+  for (const globalProvider of globalProviders) {
+    bindProviderToContainer(
+      globalProvider,
+      InversifySugar.globalContainer,
+      metadata.container.innerContainer
+    );
   }
 
   for (const provider of providers) {

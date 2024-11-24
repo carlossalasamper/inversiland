@@ -517,6 +517,10 @@ The container returned by the `getModuleContainer()` function is a wrapper of th
 #### ModuleContainer
 
 ```typescript
+get innerContainer(): Container
+```
+
+```typescript
 isBound(serviceIdentifier: interfaces.ServiceIdentifier<T>): boolean
 ```
 

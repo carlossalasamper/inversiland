@@ -16,6 +16,10 @@ export default class ModuleContainer {
       this.container.applyMiddleware(debugMiddleware);
   }
 
+  get innerContainer() {
+    return this.container;
+  }
+
   isBound(serviceIdentifier: interfaces.ServiceIdentifier) {
     return this.container.isBound(serviceIdentifier);
   }
