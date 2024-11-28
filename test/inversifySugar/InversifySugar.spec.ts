@@ -1,5 +1,6 @@
 import { Newable, InversifySugar, module } from "../../src";
 import messagesMap from "../../src/messages/messagesMap";
+import { getModuleMetadata } from "../../src/metadata/getModuleMetadata";
 
 @module({})
 class ModuleA {}
@@ -58,10 +59,26 @@ describe("InversifySugar", () => {
     InversifySugar.run(AppModule);
 
     for (const importedModule of importedModules) {
+      const metadata = getModuleMetadata(importedModule);
+
       expect(consoleLogMock).toHaveBeenCalledWith(
-        messagesMap.moduleBound(importedModule.name)
+        messagesMap.moduleBound(
+          importedModule.name,
+          metadata.container.innerContainer.id
+        )
       );
     }
+  });
+
+  it("Should print a message when global providers are bound.", () => {
+    const consoleLogMock = jest.spyOn(console, "log").mockImplementation();
+
+    InversifySugar.options.debug = true;
+    InversifySugar.run(AppModule);
+
+    expect(consoleLogMock).toHaveBeenCalledWith(
+      messagesMap.globalProvidersBound(InversifySugar.globalContainer.id)
+    );
   });
 
   it("Should reset InversifySugar even if its not running.", () => {

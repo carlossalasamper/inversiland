@@ -175,4 +175,33 @@ describe("importDynamicModule", () => {
     expect(globalService.aService).toBeInstanceOf(AService);
     expect(globalService.bService).toBeInstanceOf(BService);
   });
+
+  it("Should register both static and dynamic providers.", () => {
+    @injectable()
+    class AService {}
+
+    @injectable()
+    class BService {}
+
+    @injectable()
+    class CService {}
+
+    @module({
+      providers: [AService, CService],
+    })
+    class Module {}
+
+    const dynamicModule: DynamicModule = {
+      module: Module,
+      providers: [BService, CService],
+    };
+
+    importDynamicModule(dynamicModule);
+
+    const container = getModuleContainer(Module);
+
+    expect(container.isBound(AService)).toBe(true);
+    expect(container.isBound(BService)).toBe(true);
+    expect(container.getAll(CService)).toHaveLength(2);
+  });
 });

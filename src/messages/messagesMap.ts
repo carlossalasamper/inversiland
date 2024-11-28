@@ -9,9 +9,12 @@ const messagesMap = {
   ) => {
     const serviceIdentifierName = getServiceIdentifierName(serviceIdentifier);
 
-    return `[provider] Resolving ${serviceIdentifierName} in container ${containerId}.`;
+    return `[Provider] Resolving ${serviceIdentifierName} in container ${containerId}.`;
   },
-  moduleBound: (moduleName: string) => `[@module] ${moduleName} bound.`,
+  globalProvidersBound: (containerId: number) =>
+    `[Global] Global providers bound in container ${containerId}.`,
+  moduleBound: (moduleName: string, containerId: number) =>
+    `[@module] ${moduleName} bound in container ${containerId}.`,
   notAModuleImported: (importedItemName: string) =>
     `importModule() was called with a class that is not a module: ${importedItemName}. Skipping...`,
   notAModuleUnbound: (unboundItemName: string) =>

@@ -47,9 +47,9 @@ function importRootModule(Module: NewableModule) {
       bindProviderToContainer(provider, InversifySugar.globalContainer);
     }
 
-    InversifySugar.onModuleBound(metadata.container, metadata, Module);
-
     defineMetadata(MODULE_IS_BOUND_KEY, true, Module.prototype);
+
+    InversifySugar.onModuleBound(Module);
   }
 }
 
@@ -60,9 +60,9 @@ function importChildModule(Module: NewableModule): ExportedProviderRef[] {
   if (!metadata.isBound) {
     bindImportsToModule(Module, metadata.imports);
 
-    for (const provider of metadata.globalProviders) {
+    for (const globalProvider of metadata.globalProviders) {
       bindProviderToContainer(
-        provider,
+        globalProvider,
         InversifySugar.globalContainer,
         metadata.container.innerContainer
       );
@@ -72,9 +72,9 @@ function importChildModule(Module: NewableModule): ExportedProviderRef[] {
       metadata.container.bindProvider(provider);
     }
 
-    InversifySugar.onModuleBound(metadata.container, metadata, Module);
-
     defineMetadata(MODULE_IS_BOUND_KEY, true, Module.prototype);
+
+    InversifySugar.onModuleBound(Module);
   }
 
   for (const exportedProvider of metadata.exports) {

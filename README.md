@@ -26,6 +26,8 @@
     - [Get the Container of a Module](#get-the-container-of-a-module)
     - [ModuleContainer](#modulecontainer)
     - [Dynamic Modules](#dynamic-modules)
+      - [Combining Static and Dynamic Providers](#combining-static-and-dynamic-providers)
+      - [Read More About Dynamic Modules](#read-more-about-dynamic-modules)
   - [Injection](#injection)
     - [Local Provider Injection](#local-provider-injection)
     - [Imported Provider Injection](#imported-provider-injection)
@@ -582,7 +584,7 @@ export class CatsService {
   constructor(@multiInject(CatNameToken) private readonly catNames: string[]) {}
 
   public showCats() {
-    console.log(this.catNames.join(","));
+    console.log(this.catNames.join(", "));
   }
 }
 
@@ -610,7 +612,57 @@ export class CatsModule {
 export class AppModule {}
 ```
 
-This functionality is highly inspired by the dynamic modules used by [Angular](https://v17.angular.io/guide/singleton-services#the-forroot-pattern) and [NestJS](https://docs.nestjs.com/fundamentals/dynamic-modules). Check their documentation if you want to compare their similarities.
+```typescript
+catsService.showCats(); // Toulouse, Tomas O'Malley, Duchess
+```
+
+##### Combining Static and Dynamic Providers
+
+When using dynamic modules in your application, you should be aware that providers specified in the `@module` decorator metadata will be combined with those you specify dynamically.
+
+```typescript
+@injectable()
+export class CatsService {
+  constructor(@multiInject(CatNameToken) private readonly catNames: string[]) {}
+
+  public showCats() {
+    console.log(this.catNames.join(", "));
+  }
+}
+
+const CatNameToken = Symbol.for("CatName");
+
+@module({
+  providers: ["Toulouse", "Tomas O'Malley", "Duchess"],
+})
+export class CatsModule {
+  static forRoot(catNames: string[]): DynamicModule {
+    return {
+      module: CatsModule,
+      providers: [
+        CatsService,
+        ...catNames.map((catName) => ({
+          provide: CatNameToken,
+          useValue: catName,
+        })),
+      ],
+    };
+  }
+}
+
+@module({
+  imports: [CatsModule.forRoot(["Félix"])],
+})
+export class AppModule {}
+```
+
+```typescript
+catsService.showCats(); // Toulouse, Tomas O'Malley, Duchess, Félix
+```
+
+##### Read More About Dynamic Modules
+
+This feature is highly inspired by the dynamic modules used by [Angular](https://v17.angular.io/guide/singleton-services#the-forroot-pattern) and [NestJS](https://docs.nestjs.com/fundamentals/dynamic-modules). Check their documentation if you want to compare their similarities.
 
 ### Injection
 

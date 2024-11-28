@@ -6,6 +6,7 @@ import createExportedProviderRef from "../exporting/createExportedProviderRef";
 import { getModuleMetadata } from "../metadata/getModuleMetadata";
 import InversifySugar from "../inversifySugar/InversifySugar";
 import bindImportsToModule from "./bindImportsToModule";
+import importModule from "./importModule";
 
 export default function importDynamicModule(
   dynamicModule: DynamicModule
@@ -21,6 +22,8 @@ export default function importDynamicModule(
     (provider) => !!(<WithIsGlobal>provider).isGlobal
   );
   const exportedProviderRefs: ExportedProviderRef[] = [];
+
+  importModule(dynamicModule.module);
 
   bindImportsToModule(dynamicModule.module, imports);
 

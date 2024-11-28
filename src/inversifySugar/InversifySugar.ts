@@ -1,4 +1,3 @@
-import { Newable } from "../types";
 import ModuleMetadata from "../types/ModuleMetadata";
 import InversifySugarState from "../types/InversifySugarState";
 import { Container } from "@carlossalasamper/inversify";
@@ -9,8 +8,8 @@ import { debugMiddleware } from "../middlewares";
 import messagesMap from "../messages/messagesMap";
 import importModule from "../importing/importModule";
 import unbindModule from "../binding/unbindModule";
-import ModuleContainer from "../modules/ModuleContainer";
 import { NewableModule } from "../types/Module";
+import { getModuleMetadata } from "../metadata/getModuleMetadata";
 
 /**
  * @description InversifySugar is a utility class that helps you to bootstrap inversify and configure it.
@@ -40,6 +39,10 @@ export default class InversifySugar {
     InversifySugar.state.rootModule = AppModule;
 
     importModule(AppModule, true);
+
+    console.log(
+      messagesMap.globalProvidersBound(InversifySugar.globalContainer.id)
+    );
   }
 
   /**
@@ -60,25 +63,22 @@ export default class InversifySugar {
     Object.assign(InversifySugar.options, defaultInversifySugarOptions);
   }
 
-  static onModuleBound(
-    container: ModuleContainer,
-    metadata: ModuleMetadata,
-    Module: NewableModule
-  ) {
-    inversifySugarOptions.onModuleBound?.(container, metadata, Module);
+  static onModuleBound(Module: NewableModule) {
+    const metadata = getModuleMetadata(Module);
+
+    inversifySugarOptions.onModuleBound?.(metadata);
 
     if (inversifySugarOptions.debug) {
-      console.log(messagesMap.moduleBound(Module.name));
+      console.log(
+        messagesMap.moduleBound(
+          Module.name,
+          metadata.container.innerContainer.id
+        )
+      );
     }
   }
 
-  static setOnModuleBound(
-    value: (
-      container: ModuleContainer,
-      metadata: ModuleMetadata,
-      Module: Newable
-    ) => void
-  ) {
+  static setOnModuleBound(value: (metadata: ModuleMetadata) => void) {
     inversifySugarOptions.onModuleBound = value;
   }
 }
