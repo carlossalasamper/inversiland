@@ -6,7 +6,7 @@
 <p align="center">
   <img alt="Inversiland banner" src="https://raw.githubusercontent.com/carlossalasamper/inversiland/master/assets/images/inversiland-banner.png" style="max-width: 900px; width: 100%;" />
 </p>
-<p align="center" style="margin-top: 10px;">🧁 <a href="https://inversify.io/">InversifyJS</a> framework to build hierarchical dependency systems with an elegant API.</p>
+<p align="center" style="margin-top: 10px;"> 🎡 <a href="https://inversify.io/">InversifyJS</a> framework to build hierarchical dependency systems with an elegant API.</p>
 
 ## Table of Contents
 
@@ -41,7 +41,7 @@
 
 ## Introduction
 
-Inversiland is a framework built on top of a [custom fork of Inversify](./packages/inversify) that adds a set of decorators, types and functions to create _the TypeScript dependency system you've always dreamed of_.
+Inversiland is a framework built on top of a [custom fork of Inversify](./packages/inversify) that adds a set of decorators, types and functions to create **the TypeScript dependency system you've always dreamed of**.
 
 Your projects will move to the next level regardless of:
 
