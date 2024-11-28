@@ -1,43 +1,55 @@
-<a href="https://www.npmjs.com/package/inversify-sugar" target="_blank"><img src="https://img.shields.io/npm/v/inversify-sugar.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/package/inversify-sugar" target="_blank"><img src="https://img.shields.io/npm/l/inversify-sugar.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/package/inversiland" target="_blank"><img src="https://img.shields.io/npm/v/inversiland.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/package/inversiland" target="_blank"><img src="https://img.shields.io/npm/l/inversiland.svg" alt="Package License" /></a>
 
-# Inversify Sugar
+# Inversiland
 
 <p align="center">
-  <img alt="Inversify Sugar banner" src="https://raw.githubusercontent.com/carlossalasamper/inversify-sugar/master/assets/images/inversify-sugar-banner.png" style="max-width: 900px; width: 100%;" />
+  <img alt="Inversiland banner" src="https://raw.githubusercontent.com/carlossalasamper/inversiland/master/assets/images/inversiland-banner.png" style="max-width: 900px; width: 100%;" />
 </p>
 <p align="center" style="margin-top: 10px;">🧁 <a href="https://inversify.io/">InversifyJS</a> framework to build hierarchical dependency systems with an elegant API.</p>
 
 ## Table of Contents
 
 - [Introduction](#introduction)
+- [Why Inversiland](#why-inversiland)
   - [Other Dependency Systems](#other-dependency-systems)
-  - [Inversify API Disadvantages](#inversify-api-disadvantages)
+  - [Inversify API Weaknesses](#inversify-api-weaknesses)
 - [Changelog](#changelog)
 - [Getting Started](#getting-started)
   - [1. Installation](#1-installation)
   - [2. Define a Scoped Module](#2-define-a-scoped-module)
   - [3. Entrypoint](#3-entrypoint)
 - [Documentation](#documentation)
-  - [Modules](#modules)
-    - [Imports](#imports)
-    - [Providers](#providers)
-    - [Exports](#exports)
-    - [Get the Container of a Module](#get-the-container-of-a-module)
-    - [ModuleContainer](#modulecontainer)
-    - [Dynamic Modules](#dynamic-modules)
-      - [Combining Static and Dynamic Providers](#combining-static-and-dynamic-providers)
-      - [Read More About Dynamic Modules](#read-more-about-dynamic-modules)
-  - [Injection](#injection)
-    - [Local Provider Injection](#local-provider-injection)
-    - [Imported Provider Injection](#imported-provider-injection)
+- [Modules](#modules)
+  - [Imports](#imports)
+  - [Providers](#providers)
+  - [Exports](#exports)
+  - [Get the Container of a Module](#get-the-container-of-a-module)
+  - [ModuleContainer](#modulecontainer)
+  - [Dynamic Modules](#dynamic-modules)
+    - [Combining Static and Dynamic Providers](#combining-static-and-dynamic-providers)
+    - [Read More about Dynamic Modules](#read-more-about-dynamic-modules)
+- [Injection](#injection)
+  - [Local Provider Injection](#local-provider-injection)
+  - [Imported Provider Injection](#imported-provider-injection)
+- [Advanced Usage](#advanced-usage)
+  - [Creating Modules at Runtime](#creating-modules-at-runtime)
+  - [Submodules and Facades](#submodules-and-facades)
 - [Testing](#testing)
 - [Support the Project](#support-the-project)
 - [License](#license)
 
 ## Introduction
 
-Inversify Sugar is a set of decorators, types and functions built on top of a [custom fork of Inversify](https://github.com/carlossalasamper/InversifyJS) and offers an API to handle TypeScript applications with multiple dependency containers and relationships between them.
+Inversiland is a framework built on top of a [custom fork of Inversify](./packages/inversify) that adds a set of decorators, types and functions to create _the TypeScript dependency system you've always dreamed of_.
+
+Your projects will move to the next level regardless of:
+
+- The framework or library you are using.
+- Whether it is a client-side or server-side application.
+- The JavaScript engine the app is running on.
+
+## Why Inversiland
 
 Let me illustrate with a comparison.
 
@@ -90,7 +102,7 @@ import { CatsModule } from "./cats/cats.module";
 export class AppModule {}
 ```
 
-### Inversify API Disadvantages
+### Inversify API Weaknesses
 
 Why can't we Inversify users organize our dependencies in such an elegant way?
 
@@ -126,7 +138,7 @@ export container;
 
 > The result is a brittle dependency system that we can break just by changing the order of the imported files. And we have to handle all the containers manually.
 
-**Inversify Sugar** is a framework built on top of Inversify with a clear objective: to offer an API on par with the most cutting-edge hierarchical dependency systems.
+**Inversiland** is a framework built on top of Inversify with a clear objective: to offer an API on par with the most cutting-edge hierarchical dependency systems.
 
 Once you try it you will no longer be able to live without it.
 
@@ -136,26 +148,29 @@ See the [list of changes](CHANGELOG.md) introduced in each release.
 
 ## Getting Started
 
-Follow this small step-by-step guide to start using Inversify Sugar in your project.
+Follow this small step-by-step guide to start using Inversiland in your project.
 
 ### 1. Installation
 
-Add the `inversify-sugar` package to your project.
-
-Using yarn:
+Add the `inversiland` package to your project.
 
 ```bash
-yarn inversify-sugar
+#pnpm
+pnpm add inversiland
 ```
-
-Or using npm:
 
 ```bash
-npm install inversify-sugar
+# yarn
+yarn add inversiland
 ```
 
-- The `inversify` package is already included within `inversify-sugar` to expose only what is necessary.
-- Inversify Sugar installs and imports the `reflect-metadata` package under the hood, so we don't have to worry about adding any extra steps.
+```bash
+# npm
+npm install inversiland
+```
+
+- The `inversify` package is already included within `inversiland` to expose only what is necessary.
+- Inversiland installs and imports the `reflect-metadata` package under the hood, so we don't have to worry about adding any extra steps.
 
 ⚠️ **Important!** InversifyJS requires TypeScript >= 4.4 and the `experimentalDecorators`, `emitDecoratorMetadata` compilation options in your `tsconfig.json` file.
 
@@ -175,7 +190,7 @@ All dependencies defined in the `providers` field of this module are only visibl
 We can understand each module more or less as a compartmentalized container of Inversify. We will explain this later.
 
 ```typescript
-import { module } from "inversify-sugar";
+import { module } from "inversiland";
 import { CatsController } from "./CatsController";
 import { CatsService } from "./CatsService";
 
@@ -190,7 +205,7 @@ export class CatsModule {}
 Define a root module, `AppModule`, for your application and import the previously defined CatsModule.
 
 ```typescript
-import { module } from "inversify-sugar";
+import { module } from "inversiland";
 import { CatsModule } from "./cats/CatsModule";
 
 @module({
@@ -202,7 +217,7 @@ export class AppModule {}
 Choose the newly defined `AppModule` as the entry point of the dependency system.
 
 ```typescript
-import { InversifySugar } from "inversify-sugar";
+import { InversifySugar } from "inversiland";
 import { AppModule } from "./AppModule";
 
 // Configure the InversifySugar instance
@@ -219,18 +234,18 @@ You can now start injecting your dependencies where you need them.
 
 ## Documentation
 
-Let's not forget that Inversify Sugar works on top of Inversify, so to understand what's going on behind the scenes, we'll be referencing [the original Inversify documentation](https://inversify.io/) throughout this guide.
+Don't forget that Inversiland works on top of Inversify, so to understand what's going on behind the scenes it is possible that we'll be referencing [the Inversify custom package documentation](https://raw.githubusercontent.com/carlossalasamper/inversiland/master/packages/inversify/README.md) throughout this guide.
 
 Below you will find a detailed explanation of each of the concepts that this library handles together with different use examples and its public API.
 
-### Modules
+## Modules
 
 A module is a class annotated with a `@module()` decorator. The `@module()` decorator provides metadata that is used to organize the dependency system.
 
 Each application has at least one module, a root module. The root module is normally called `AppModule` and is the starting point used to build the dependencies tree. While very small applications may theoretically have just the root module, for most applications, the resulting architecture will employ multiple modules, each encapsulating a closely related set of capabilities.
 
 ```typescript
-import { module } from "inversify-sugar";
+import { module } from "inversiland";
 import CatsModule from "./cats/CatsModule";
 import DogsModule from "./dogs/DogsModule";
 import BirdsModule from "./birds/BirdsModule";
@@ -248,7 +263,7 @@ The relationship between modules would be as follows:
 </br>
 
 <div align="center">
-<img src="./assets/images/inversify-sugar-modules.png" style="max-width: 900px; width: 100%;">
+<img src="./assets/images/inversiland-modules.png" style="max-width: 900px; width: 100%;">
 </div>
 
 </br>
@@ -256,7 +271,7 @@ The relationship between modules would be as follows:
 Once `AppModule` is defined, we will only have to call the `InversifySugar.run` method specifying the root module:
 
 ```typescript
-import { InversifySugar } from "inversify-sugar";
+import { InversifySugar } from "inversiland";
 import { AppModule } from "./AppModule";
 
 InversifySugar.run(AppModule);
@@ -266,7 +281,7 @@ The module decorator accepts an object argument with the `imports`, `providers` 
 
 Next we will explain what each of these properties is for.
 
-#### Imports
+### Imports
 
 The list of imported modules that export the providers which are required in this module.
 
@@ -321,7 +336,7 @@ Now we just need to import the dynamic module into the `AppModule` to globally p
 export class AppModule {}
 ```
 
-#### Providers
+### Providers
 
 The providers that will be instantiated when the module is registered. These providers may be shared at least across this module.
 
@@ -369,7 +384,7 @@ You can also add the `onActivation` and `onDeactivation` handlers to providers t
 
 > ⚠️ Remember that the `onDeactivation` handler will throw an error if we try to define it in a provider that does not have singleton scope.
 
-#### Exports
+### Exports
 
 The subset of providers that will be e available in other modules which import this module. You can use either a `ExportedProvider` object or just its token (provide value).
 
@@ -468,7 +483,7 @@ export class MoreCatsModule {}
 @multiInject(CatNameToken) = ["Toulouse", "Tomas O'Malley", "Duchess", "Félix"]
 ```
 
-#### Get the Container of a Module
+### Get the Container of a Module
 
 **Ideally we shouldn't be accessing module containers directly to get a service**. In either case, the `getModuleContainer` function allows you to get the container of a module in case you need to access it in an statement.
 
@@ -478,7 +493,7 @@ import {
   module,
   injectable,
   InversifySugar,
-} from "inversify-sugar";
+} from "inversiland";
 
 @injectable()
 class ProvidedService {}
@@ -516,7 +531,7 @@ const importedService = appModuleContainer.getImported(ImportedService);
 
 The container returned by the `getModuleContainer()` function is a wrapper of the Inversify's `Container` class that exposes only the necessary methods to access dependencies in both the providers section of the container and the container section of services imported by other modules.
 
-#### ModuleContainer
+### ModuleContainer
 
 ```typescript
 get innerContainer(): Container
@@ -527,11 +542,23 @@ isBound(serviceIdentifier: interfaces.ServiceIdentifier<T>): boolean
 ```
 
 ```typescript
+isCurrentBound(serviceIdentifier: interfaces.ServiceIdentifier<T>): boolean
+```
+
+```typescript
 isProvided(serviceIdentifier: interfaces.ServiceIdentifier<T>): boolean
 ```
 
 ```typescript
+isCurrentProvided(serviceIdentifier: interfaces.ServiceIdentifier<T>): boolean
+```
+
+```typescript
 isImported(serviceIdentifier: interfaces.ServiceIdentifier<T>): boolean
+```
+
+```typescript
+isCurrentImported(serviceIdentifier: interfaces.ServiceIdentifier<T>): boolean
 ```
 
 ```typescript
@@ -570,7 +597,7 @@ getAllImported<T = unknown>(serviceIdentifier: interfaces.ServiceIdentifier<T>):
 unbindAll(): void
 ```
 
-#### Dynamic Modules
+### Dynamic Modules
 
 It's time to talk more in depth about dynamic modules.
 
@@ -616,7 +643,7 @@ export class AppModule {}
 catsService.showCats(); // Toulouse, Tomas O'Malley, Duchess
 ```
 
-##### Combining Static and Dynamic Providers
+#### Combining Static and Dynamic Providers
 
 When using dynamic modules in your application, you should be aware that providers specified in the `@module` decorator metadata will be combined with those you specify dynamically.
 
@@ -660,18 +687,18 @@ export class AppModule {}
 catsService.showCats(); // Toulouse, Tomas O'Malley, Duchess, Félix
 ```
 
-##### Read More About Dynamic Modules
+#### Read More about Dynamic Modules
 
 This feature is highly inspired by the dynamic modules used by [Angular](https://v17.angular.io/guide/singleton-services#the-forroot-pattern) and [NestJS](https://docs.nestjs.com/fundamentals/dynamic-modules). Check their documentation if you want to compare their similarities.
 
-### Injection
+## Injection
 
 In the same way as we do in InversifyJS, to inject dependencies into a class we will use the `@inject` and `@multiInject` decorators over constructor parameters or class properties.
 
 ```typescript
 // Constructor injection
 
-import { inject, multiInject } from "inversify-sugar";
+import { inject, multiInject } from "inversiland";
 import { Logger } from "./Logger";
 import { CatNameToken } from "./CatNameToken";
 
@@ -687,7 +714,7 @@ class CatsService {
 ```typescript
 // Property injection
 
-import { inject, multiInject } from "inversify-sugar";
+import { inject, multiInject } from "inversiland";
 import { Logger } from "./Logger";
 import { CatNameToken } from "./CatNameToken";
 
@@ -698,7 +725,7 @@ class CatsService {
 }
 ```
 
-#### Local Provider Injection
+### Local Provider Injection
 
 We may only want to get the services provided locally in a module without those that have been imported from other modules with the same `ServiceIdentifier`.
 
@@ -711,7 +738,7 @@ In any case, it is almost never necessary to be so explicit about the origin of 
 ```typescript
 // cats/CatsService.ts
 
-import { injectable } from "inversify-sugar";
+import { injectable } from "inversiland";
 
 @injectable()
 export class CatsService {}
@@ -726,7 +753,7 @@ export const CatNameToken = Symbol("CatName");
 ```typescript
 // cats/CatsController.ts
 
-import { injectable, provided, allProvided } from "inversify-sugar";
+import { injectable, provided, allProvided } from "inversiland";
 import { CatsService } from "./CatsService";
 import { CatNameToken } from "./constants";
 
@@ -742,7 +769,7 @@ export class CatsController {
 ```typescript
 // cats/CatsModule.ts
 
-import { module } from "inversify-sugar";
+import { module } from "inversiland";
 import { CatsController } from "./CatsController";
 import { CatsService } from "./CatsService";
 import { CatNameToken } from "./CatNameToken";
@@ -768,7 +795,7 @@ import { CatNameToken } from "./CatNameToken";
 export class CatsModule {}
 ```
 
-#### Imported Provider Injection
+### Imported Provider Injection
 
 Similarly, if at any time you need to obtain a service imported from another module leaving out the services provided locally in the module you can use `@injectImported` and `@multiInjectImported` decorators.
 
@@ -777,7 +804,7 @@ Again, use `@inject` and `@multiInject` as a first option before using more spec
 ```typescript
 // cats/CatsService.ts
 
-import { injectable } from "inversify-sugar";
+import { injectable } from "inversiland";
 
 @injectable()
 export class CatsService {}
@@ -786,7 +813,7 @@ export class CatsService {}
 ```typescript
 // cats/CatsModule.ts
 
-import { module } from "inversify-sugar";
+import { module } from "inversiland";
 import { CatsController } from "./CatsController";
 import { CatsService } from "./CatsService";
 import { CatNameToken } from "./CatNameToken";
@@ -820,11 +847,7 @@ export class CatsModule {}
 ```typescript
 // AppController.ts
 
-import {
-  injectable,
-  injectImported,
-  multiInjectImported,
-} from "inversify-sugar";
+import { injectable, injectImported, multiInjectImported } from "inversiland";
 import { CatsService } from "./cats/CatsService";
 import { CatNameToken } from "./cats/CatNameToken";
 
@@ -840,7 +863,7 @@ export class AppController {
 ```typescript
 // AppModule.ts
 
-import { module } from "inversify-sugar";
+import { module } from "inversiland";
 import { CatsModule } from "./cats/CatsModule";
 
 @module({
@@ -849,9 +872,19 @@ import { CatsModule } from "./cats/CatsModule";
 export class AppModule {}
 ```
 
+## Advanced Usage
+
+### Creating Modules at Runtime
+
+// TODO
+
+### Submodules and Facades
+
+// TODO
+
 ## Testing
 
-The complexity of the memory state during the execution of Inversify Sugar, managing multiple Inversify containers under the hood, is too high to ensure that it is working correctly without writing unit tests of each of the functionalities separately.
+The complexity of the memory state during the execution of Inversiland, managing multiple Inversify containers under the hood, is too high to ensure that it is working correctly without writing unit tests of each of the functionalities separately.
 
 For this reason, a set of tests have been written that you can consult [here](./test).
 
@@ -880,6 +913,6 @@ So you can use it without worries. You are facing a completely armored dependenc
 
 ## License
 
-The Inversify Sugar source code is made available under the [MIT license](./LICENSE).
+The Inversiland source code is made available under the [MIT license](./LICENSE).
 
 Some of the dependencies are licensed differently, with the BSD license, for example.
