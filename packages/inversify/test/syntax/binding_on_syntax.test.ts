@@ -7,7 +7,7 @@ import { BindingOnSyntax } from '../../src/syntax/binding_on_syntax';
 
 describe('BindingOnSyntax', () => {
   it('Should set its own properties correctly', () => {
-    const ninjaIdentifier: string = 'Ninja';
+    const ninjaIdentifier = 'Ninja';
 
     const binding: Binding<unknown> = new Binding(
       ninjaIdentifier,
@@ -27,7 +27,7 @@ describe('BindingOnSyntax', () => {
   });
 
   it('Should be able to configure the activation handler of a binding', () => {
-    const ninjaIdentifier: string = 'Ninja';
+    const ninjaIdentifier = 'Ninja';
 
     const binding: Binding<unknown> = new Binding(
       ninjaIdentifier,

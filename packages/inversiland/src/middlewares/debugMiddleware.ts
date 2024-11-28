@@ -1,6 +1,7 @@
 import { interfaces } from "@carlossalasamper/inversify";
-import messagesMap from "../messages/messagesMap";
+
 import inversifySugarOptions from "../inversifySugar/inversifySugarOptions";
+import messagesMap from "../messages/messagesMap";
 
 function debugMiddleware(planAndResolve: interfaces.Next): interfaces.Next {
   return (args: interfaces.NextArgs) => {

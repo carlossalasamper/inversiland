@@ -323,27 +323,27 @@ describe('Bugs', () => {
 
     @injectable()
     class Dependency1 {
-      public name: string = 'Dependency1';
+      public name = 'Dependency1';
     }
 
     @injectable()
     class Dependency2 {
-      public name: string = 'Dependency1';
+      public name = 'Dependency1';
     }
 
     @injectable()
     class Dependency3 {
-      public name: string = 'Dependency1';
+      public name = 'Dependency1';
     }
 
     @injectable()
     class Dependency4 {
-      public name: string = 'Dependency1';
+      public name = 'Dependency1';
     }
 
     @injectable()
     class Dependency5 {
-      public name: string = 'Dependency1';
+      public name = 'Dependency1';
     }
 
     @injectable()
@@ -468,9 +468,9 @@ describe('Bugs', () => {
   });
 
   it('Should be able to get all the available bindings for a service identifier', () => {
-    const controllerId: string = 'SomeControllerID';
-    const tagA: string = 'A';
-    const tagB: string = 'B';
+    const controllerId = 'SomeControllerID';
+    const tagA = 'A';
+    const tagB = 'B';
 
     interface Controller {
       name: string;

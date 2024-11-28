@@ -1,6 +1,7 @@
-import bindScope from "../../src/binding/bindScope";
-import { InversifySugar } from "../../src";
 import { Container } from "@carlossalasamper/inversify";
+
+import { InversifySugar } from "../../src";
+import bindScope from "../../src/binding/bindScope";
 
 class ClassA {}
 

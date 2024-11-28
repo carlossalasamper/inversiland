@@ -49,7 +49,7 @@ describe('Lookup', () => {
 
   it('Should be able to link multiple values to a string key', () => {
     const lookup: Lookup<unknown> = new Lookup<unknown>();
-    const key: string = 'TEST_KEY';
+    const key = 'TEST_KEY';
     lookup.add(key, new ClonableValue<number>(1));
 
     lookup.add(key, new ClonableValue<number>(2));
@@ -123,10 +123,10 @@ describe('Lookup', () => {
   });
 
   it('Should be able to remove a binding by a condition', () => {
-    const moduleId1: number = 1;
-    const moduleId2: number = 2;
-    const warriorId: string = 'Warrior';
-    const weaponId: string = 'Weapon';
+    const moduleId1 = 1;
+    const moduleId2 = 2;
+    const warriorId = 'Warrior';
+    const weaponId = 'Weapon';
 
     const getLookup: () => Lookup<Binding<unknown>> = () => {
       class Ninja {}
@@ -213,8 +213,8 @@ describe('Lookup', () => {
   it('should be able to remove the intersection with another lookup', () => {
     const lookup: Lookup<unknown> = new Lookup<unknown>();
 
-    const serviceIdentifier1: string = 'service-identifier-1';
-    const serviceIdentifier2: string = 'service-identifier-2';
+    const serviceIdentifier1 = 'service-identifier-1';
+    const serviceIdentifier2 = 'service-identifier-2';
 
     const serviceIdentifier1Values: number[] = [11, 12, 13, 14];
 
@@ -234,7 +234,7 @@ describe('Lookup', () => {
       23, 24, 25, 26,
     ];
 
-    const serviceIdentifier3: string = 'service-identifier-3';
+    const serviceIdentifier3 = 'service-identifier-3';
 
     const lookupToIntersectServiceIdentifier3Values: number[] = [
       31, 32, 33, 34,

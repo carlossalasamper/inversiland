@@ -1,14 +1,15 @@
 import {
   inject,
   injectable,
-  optional,
   multiInject,
+  optional,
 } from "@carlossalasamper/inversify";
-import module from "./module";
-import injectProvided from "./injectProvided";
-import multiInjectProvided from "./multiInjectProvided";
+
 import injectImported from "./injectImported";
+import injectProvided from "./injectProvided";
+import module from "./module";
 import multiInjectImported from "./multiInjectImported";
+import multiInjectProvided from "./multiInjectProvided";
 
 export {
   module,

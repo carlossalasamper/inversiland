@@ -1,14 +1,14 @@
-import { Newable } from "../types";
+import bindProviderToContainer from "../binding/bindProviderToContainer";
+import { MODULE_IS_BOUND_KEY } from "../constants";
+import createExportedProviderRef from "../exporting/createExportedProviderRef";
 import InversifySugar from "../inversifySugar/InversifySugar";
 import messagesMap from "../messages/messagesMap";
-import bindImportsToModule from "./bindImportsToModule";
-import { MODULE_IS_BOUND_KEY } from "../constants";
-import bindProviderToContainer from "../binding/bindProviderToContainer";
-import { NewableModule } from "../types/Module";
-import { getModuleMetadata } from "../metadata/getModuleMetadata";
 import defineMetadata from "../metadata/defineMetadata";
+import { getModuleMetadata } from "../metadata/getModuleMetadata";
+import { Newable } from "../types";
 import { ExportedProviderRef } from "../types/ExportedProvider";
-import createExportedProviderRef from "../exporting/createExportedProviderRef";
+import { NewableModule } from "../types/Module";
+import bindImportsToModule from "./bindImportsToModule";
 
 /**
  * @description This function is used to import a module.

@@ -1,14 +1,14 @@
-import Newable from "./Newable";
-import Provider from "./Provider";
+import {
+  AsyncFactory,
+  AsyncFactoryWrapper,
+  Factory,
+  FactoryWrapper,
+} from "./factories";
 import InversifySugarOptions from "./InversifySugarOptions";
 import InversifySugarState from "./InversifySugarState";
-import { NewableModule, DynamicModule } from "./Module";
-import {
-  Factory,
-  AsyncFactory,
-  FactoryWrapper,
-  AsyncFactoryWrapper,
-} from "./factories";
+import { DynamicModule,NewableModule } from "./Module";
+import Newable from "./Newable";
+import Provider from "./Provider";
 
 export {
   Newable,

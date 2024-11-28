@@ -6,7 +6,7 @@ import { BindingInSyntax } from '../../src/syntax/binding_in_syntax';
 
 describe('BindingInSyntax', () => {
   it('Should set its own properties correctly', () => {
-    const ninjaIdentifier: string = 'Ninja';
+    const ninjaIdentifier = 'Ninja';
 
     const binding: Binding<unknown> = new Binding(
       ninjaIdentifier,
@@ -28,7 +28,7 @@ describe('BindingInSyntax', () => {
   });
 
   it('Should be able to configure the scope of a binding', () => {
-    const ninjaIdentifier: string = 'Ninja';
+    const ninjaIdentifier = 'Ninja';
 
     const binding: Binding<unknown> = new Binding<unknown>(
       ninjaIdentifier,

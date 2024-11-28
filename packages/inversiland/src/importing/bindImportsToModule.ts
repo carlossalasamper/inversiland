@@ -1,12 +1,12 @@
-import Module, { DynamicModule, NewableModule } from "../types/Module";
-import isNewable from "../validation/isNewable";
-import isDynamicModule from "../validation/isDynamicModule";
-import { getModuleMetadata } from "../metadata/getModuleMetadata";
-import importDynamicModule from "./importDynamicModule";
-import importedConstraint from "../constraints/importedConstraint";
 import { PROVIDED_TAG } from "../constants";
-import importModule from "./importModule";
+import importedConstraint from "../constraints/importedConstraint";
+import { getModuleMetadata } from "../metadata/getModuleMetadata";
 import { ExportedProviderRef } from "../types/ExportedProvider";
+import Module, { DynamicModule, NewableModule } from "../types/Module";
+import isDynamicModule from "../validation/isDynamicModule";
+import isNewable from "../validation/isNewable";
+import importDynamicModule from "./importDynamicModule";
+import importModule from "./importModule";
 
 /**
  * @description This function is used to bind the imports array to module.

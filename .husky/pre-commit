@@ -1,5 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-cd packages/inversify && npm run lint && npm run test && npm run build && cd ../..;
-cd packages/inversiland && yarn lint && yarn test && yarn build && cd ../..;
+yarn lint && yarn test && yarn build;

@@ -21,7 +21,7 @@ function listRegisteredBindingsForServiceIdentifier(
     serviceIdentifier: interfaces.ServiceIdentifier<T>,
   ) => interfaces.Binding<T>[],
 ): string {
-  let registeredBindingsList: string = '';
+  let registeredBindingsList = '';
   const registeredBindings: interfaces.Binding<unknown>[] = getBindings(
     container,
     serviceIdentifier,
@@ -32,7 +32,7 @@ function listRegisteredBindingsForServiceIdentifier(
 
     registeredBindings.forEach((binding: interfaces.Binding<unknown>) => {
       // Use 'Object as name of constant value injections'
-      let name: string = 'Object';
+      let name = 'Object';
 
       // Use function name if available
       if (binding.implementationType !== null) {
@@ -101,7 +101,7 @@ function listMetadataForTarget(
   target: interfaces.Target,
 ): string {
   if (target.isTagged() || target.isNamed()) {
-    let m: string = '';
+    let m = '';
 
     const namedTag: interfaces.Metadata<string | number | symbol> | null =
       target.getNamedTag();

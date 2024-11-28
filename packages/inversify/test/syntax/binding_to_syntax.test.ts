@@ -14,7 +14,7 @@ import { BindingToSyntax } from '../../src/syntax/binding_to_syntax';
 
 describe('BindingToSyntax', () => {
   it('Should set its own properties correctly', () => {
-    const ninjaIdentifier: string = 'Ninja';
+    const ninjaIdentifier = 'Ninja';
 
     const binding: Binding<unknown> = new Binding(
       ninjaIdentifier,
@@ -37,7 +37,7 @@ describe('BindingToSyntax', () => {
   it('Should be able to configure the type of a binding', () => {
     @injectable()
     class Ninja {}
-    const ninjaIdentifier: string = 'Ninja';
+    const ninjaIdentifier = 'Ninja';
 
     const binding: Binding<unknown> = new Binding(
       ninjaIdentifier,
@@ -123,7 +123,7 @@ describe('BindingToSyntax', () => {
   });
 
   it('Should prevent invalid function bindings', () => {
-    const ninjaIdentifier: string = 'Ninja';
+    const ninjaIdentifier = 'Ninja';
 
     const binding: Binding<unknown> = new Binding(
       ninjaIdentifier,

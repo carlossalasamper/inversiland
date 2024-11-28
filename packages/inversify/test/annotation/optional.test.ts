@@ -128,7 +128,7 @@ describe('@optional', () => {
       @inject('Shuriken') @optional() public shuriken: Shuriken = {
         name: 'DefaultShuriken',
       };
-      public name: string = 'Ninja';
+      public name = 'Ninja';
     }
 
     const container: Container = new Container();

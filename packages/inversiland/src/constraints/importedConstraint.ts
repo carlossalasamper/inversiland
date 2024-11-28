@@ -1,4 +1,5 @@
 import { interfaces } from "@carlossalasamper/inversify";
+
 import { IMPORTED_TAG } from "../constants";
 
 const importedConstraint: interfaces.ConstraintFunction = (request) => {

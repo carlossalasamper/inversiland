@@ -1,7 +1,7 @@
 import { interfaces } from "@carlossalasamper/inversify";
+
+import messagesMap from "../messages/messagesMap";
 import { Provider } from "../types";
-import isNewable from "../validation/isNewable";
-import isClassProvider from "../validation/isClassProvider";
 import {
   AsyncFactoryProvider,
   ClassProvider,
@@ -9,10 +9,11 @@ import {
   NewableProvider,
   ValueProvider,
 } from "../types/Provider";
-import isValueProvider from "../validation/isValueProvider";
-import isFactoryProvider from "../validation/isFactoryProvider";
 import isAsyncFactoryProvider from "../validation/isAsyncFactoryProvider";
-import messagesMap from "../messages/messagesMap";
+import isClassProvider from "../validation/isClassProvider";
+import isFactoryProvider from "../validation/isFactoryProvider";
+import isNewable from "../validation/isNewable";
+import isValueProvider from "../validation/isValueProvider";
 
 export default function getProviderServiceIdentifier(
   provider: Provider

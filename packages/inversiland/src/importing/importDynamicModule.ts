@@ -1,10 +1,10 @@
+import bindProviderToContainer from "../binding/bindProviderToContainer";
+import createExportedProviderRef from "../exporting/createExportedProviderRef";
+import InversifySugar from "../inversifySugar/InversifySugar";
+import { getModuleMetadata } from "../metadata/getModuleMetadata";
 import { ExportedProviderRef } from "../types/ExportedProvider";
 import { DynamicModule } from "../types/Module";
 import Provider, { WithIsGlobal } from "../types/Provider";
-import bindProviderToContainer from "../binding/bindProviderToContainer";
-import createExportedProviderRef from "../exporting/createExportedProviderRef";
-import { getModuleMetadata } from "../metadata/getModuleMetadata";
-import InversifySugar from "../inversifySugar/InversifySugar";
 import bindImportsToModule from "./bindImportsToModule";
 import importModule from "./importModule";
 

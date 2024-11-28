@@ -1,9 +1,10 @@
 import { Container, interfaces } from "@carlossalasamper/inversify";
-import { Provider } from "../types";
+
 import bindProviderToContainer from "../binding/bindProviderToContainer";
-import { debugMiddleware } from "../middlewares";
-import InversifySugar from "../inversifySugar/InversifySugar";
 import { IMPORTED_TAG, PROVIDED_TAG } from "../constants";
+import InversifySugar from "../inversifySugar/InversifySugar";
+import { debugMiddleware } from "../middlewares";
+import { Provider } from "../types";
 
 /**
  * @description Wrapper for inversify container to handle meaningful concern of provider.

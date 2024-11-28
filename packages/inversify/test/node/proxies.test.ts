@@ -5,8 +5,8 @@ import { Container, inject, injectable } from '../../src/inversify';
 
 describe('InversifyJS', () => {
   it('Should support the injection of proxied objects', () => {
-    const weaponId: string = 'Weapon';
-    const warriorId: string = 'Warrior';
+    const weaponId = 'Weapon';
+    const warriorId = 'Warrior';
 
     interface Weapon {
       use(): void;

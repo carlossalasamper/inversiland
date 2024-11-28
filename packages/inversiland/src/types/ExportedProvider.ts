@@ -1,4 +1,5 @@
 import { interfaces } from "@carlossalasamper/inversify";
+
 import { NewableModule } from "./Module";
 
 export interface ExportedProviderRef<T = unknown> {

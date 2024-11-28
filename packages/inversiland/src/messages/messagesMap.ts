@@ -1,4 +1,5 @@
 import { interfaces } from "@carlossalasamper/inversify";
+
 import getServiceIdentifierName from "./getServiceIdentifierName";
 
 const messagesMap = {

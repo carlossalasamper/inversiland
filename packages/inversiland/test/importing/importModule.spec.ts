@@ -1,7 +1,7 @@
-import { InversifySugar, module, inject, injectable } from "../../src";
-import getModuleContainer from "../../src/modules/getModuleContainer";
+import { inject, injectable,InversifySugar, module } from "../../src";
 import importModule from "../../src/importing/importModule";
 import messagesMap from "../../src/messages/messagesMap";
+import getModuleContainer from "../../src/modules/getModuleContainer";
 
 describe("importModule", () => {
   beforeEach(async () => {

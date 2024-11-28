@@ -1,11 +1,11 @@
-import ExportedProvider, {
-  ExportedProviderRef,
-} from "../types/ExportedProvider";
-import Module, { DynamicModule, NewableModule } from "../types/Module";
 import getDynamicModuleName from "../messages/getDynamicModuleName";
 import messagesMap from "../messages/messagesMap";
 import { getModuleMetadata } from "../metadata/getModuleMetadata";
 import castToDetailedExportedProvider from "../providers/castToDetailedExportedProvider";
+import ExportedProvider, {
+  ExportedProviderRef,
+} from "../types/ExportedProvider";
+import Module, { DynamicModule, NewableModule } from "../types/Module";
 import isDynamicModule from "../validation/isDynamicModule";
 import isNewable from "../validation/isNewable";
 

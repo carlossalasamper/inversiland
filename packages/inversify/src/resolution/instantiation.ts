@@ -172,7 +172,7 @@ function _throwIfHandlingDeactivation<T = unknown>(
   binding: interfaces.Binding<T>,
   constr: interfaces.Newable<T>,
 ): void {
-  const scopeErrorMessage: string = `Class cannot be instantiated in ${
+  const scopeErrorMessage = `Class cannot be instantiated in ${
     binding.scope === BindingScopeEnum.Request ? 'request' : 'transient'
   } scope.`;
   if (typeof binding.onDeactivation === 'function') {

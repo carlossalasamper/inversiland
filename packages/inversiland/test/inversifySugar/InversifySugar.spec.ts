@@ -1,4 +1,4 @@
-import { Newable, InversifySugar, module } from "../../src";
+import { InversifySugar, module,Newable } from "../../src";
 import messagesMap from "../../src/messages/messagesMap";
 import { getModuleMetadata } from "../../src/metadata/getModuleMetadata";
 

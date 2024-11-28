@@ -1,15 +1,16 @@
-import ModuleMetadata from "../types/ModuleMetadata";
-import InversifySugarState from "../types/InversifySugarState";
 import { Container } from "@carlossalasamper/inversify";
+
+import unbindModule from "../binding/unbindModule";
+import importModule from "../importing/importModule";
+import messagesMap from "../messages/messagesMap";
+import { getModuleMetadata } from "../metadata/getModuleMetadata";
+import { debugMiddleware } from "../middlewares";
+import InversifySugarState from "../types/InversifySugarState";
+import { NewableModule } from "../types/Module";
+import ModuleMetadata from "../types/ModuleMetadata";
 import inversifySugarOptions, {
   defaultInversifySugarOptions,
 } from "./inversifySugarOptions";
-import { debugMiddleware } from "../middlewares";
-import messagesMap from "../messages/messagesMap";
-import importModule from "../importing/importModule";
-import unbindModule from "../binding/unbindModule";
-import { NewableModule } from "../types/Module";
-import { getModuleMetadata } from "../metadata/getModuleMetadata";
 
 /**
  * @description InversifySugar is a utility class that helps you to bootstrap inversify and configure it.

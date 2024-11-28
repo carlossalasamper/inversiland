@@ -1,4 +1,5 @@
-import { inject, injectable, named, tagged } from '../../src/inversify';
+/* eslint-disable @typescript-eslint/no-empty-function */
+import { inject, injectable, named, tagged } from "../../src/inversify";
 
 export interface FooInterface {
   name: string;
@@ -19,7 +20,7 @@ export interface FooBarInterface {
 export class Foo implements FooInterface {
   public name: string;
   constructor() {
-    this.name = 'foo';
+    this.name = "foo";
   }
   public greet(): string {
     return this.name;
@@ -29,7 +30,7 @@ export class Foo implements FooInterface {
 export class Bar implements BarInterface {
   public name: string;
   constructor() {
-    this.name = 'bar';
+    this.name = "bar";
   }
   public greet(): string {
     return this.name;
@@ -41,8 +42,8 @@ export class FooBar implements FooBarInterface {
   public foo: FooInterface;
   public bar: BarInterface;
   constructor(
-    @inject('FooInterface') foo: FooInterface,
-    @inject('BarInterface') bar: BarInterface,
+    @inject("FooInterface") foo: FooInterface,
+    @inject("BarInterface") bar: BarInterface
   ) {
     this.foo = foo;
     this.bar = bar;
@@ -63,34 +64,31 @@ export class DecoratedWarriorWithoutInjections {}
 @injectable()
 export class Warrior {
   constructor(
-    @inject('Katana') _primary: Katana,
-    @inject('Shuriken') _secondary: Shuriken,
+    @inject("Katana") _primary: Katana,
+    @inject("Shuriken") _secondary: Shuriken
   ) {}
 }
 
 export class InvalidDecoratorUsageWarrior {
-  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
   constructor(_primary: unknown, _secondary: unknown) {}
 }
 
 export class MissingInjectionWarrior {
-  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
   constructor(_primary: unknown, _secondary: unknown) {}
 }
 
 @injectable()
 export class NamedWarrior {
   constructor(
-    @inject('Katana') @named('strong') _primary: unknown,
-    @inject('Shuriken') @named('weak') _secondary: unknown,
+    @inject("Katana") @named("strong") _primary: unknown,
+    @inject("Shuriken") @named("weak") _secondary: unknown
   ) {}
 }
 
 @injectable()
 export class TaggedWarrior {
   constructor(
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    @inject('Katana') @tagged('power', 5) _primary: unknown,
-    @inject('Shuriken') @tagged('power', 1) _secondary: unknown,
+    @inject("Katana") @tagged("power", 5) _primary: unknown,
+    @inject("Shuriken") @tagged("power", 1) _secondary: unknown
   ) {}
 }

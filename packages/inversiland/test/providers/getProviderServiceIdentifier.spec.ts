@@ -1,3 +1,4 @@
+import getProviderServiceIdentifier from "../../src/providers/getProviderServiceIdentifier";
 import {
   AsyncFactoryProvider,
   ClassProvider,
@@ -5,7 +6,6 @@ import {
   NewableProvider,
   ValueProvider,
 } from "../../src/types/Provider";
-import getProviderServiceIdentifier from "../../src/providers/getProviderServiceIdentifier";
 
 describe("getProviderServiceIdentifier", () => {
   it("Should get ServiceIdentifier of a NewableProvider.", () => {

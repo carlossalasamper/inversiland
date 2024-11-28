@@ -20,7 +20,7 @@ const jestUnitConfig: JestConfigWithTsJest = {
     "^.+\\.ts$": [
       "ts-jest",
       {
-        compiler: "ttypescript",
+        compiler: "ts-patch/compiler",
       },
     ],
   },

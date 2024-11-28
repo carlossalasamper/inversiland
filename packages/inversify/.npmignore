@@ -7,14 +7,9 @@
 .vscode
 **/*.js.map
 build
-CODE_OF_CONDUCT.md
-CONTRIBUTING.md
 coverage
 docs
-eslint.config.mjs
-ISSUE_TEMPLATE.md
 mocha.opts
-prettier.config.mjs
 PULL_REQUEST_TEMPLATE.md
 renovate.json
 scripts

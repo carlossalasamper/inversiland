@@ -1,22 +1,23 @@
 import { Container } from "@carlossalasamper/inversify";
+
+import providedConstraint from "../constraints/providedConstraint";
+import inversifySugarOptions from "../inversifySugar/inversifySugarOptions";
 import { Provider } from "../types";
-import isNewable from "../validation/isNewable";
-import bindScope from "./bindScope";
-import isClassProvider from "../validation/isClassProvider";
 import {
-  ExistingProvider,
   AsyncFactoryProvider,
   ClassProvider,
+  ExistingProvider,
   FactoryProvider,
   NewableProvider,
   ValueProvider,
 } from "../types/Provider";
 import isAsyncFactoryProvider from "../validation/isAsyncFactoryProvider";
-import isFactoryProvider from "../validation/isFactoryProvider";
-import isValueProvider from "../validation/isValueProvider";
-import inversifySugarOptions from "../inversifySugar/inversifySugarOptions";
-import providedConstraint from "../constraints/providedConstraint";
+import isClassProvider from "../validation/isClassProvider";
 import isExistingProvider from "../validation/isExistingProvider";
+import isFactoryProvider from "../validation/isFactoryProvider";
+import isNewable from "../validation/isNewable";
+import isValueProvider from "../validation/isValueProvider";
+import bindScope from "./bindScope";
 
 export default function bindProviderToContainer(
   provider: Provider,

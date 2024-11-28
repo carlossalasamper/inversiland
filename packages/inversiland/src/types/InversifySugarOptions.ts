@@ -1,4 +1,5 @@
 import { interfaces } from "@carlossalasamper/inversify";
+
 import ModuleMetadata from "./ModuleMetadata";
 
 export default interface InversifySugarOptions {

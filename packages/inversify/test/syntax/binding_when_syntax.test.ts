@@ -18,7 +18,7 @@ import { typeConstraint } from '../../src/syntax/constraint_helpers';
 
 describe('BindingWhenSyntax', () => {
   it('Should set its own properties correctly', () => {
-    const ninjaIdentifier: string = 'Ninja';
+    const ninjaIdentifier = 'Ninja';
 
     const binding: Binding<unknown> = new Binding(
       ninjaIdentifier,
@@ -38,7 +38,7 @@ describe('BindingWhenSyntax', () => {
   });
 
   it('Should be able to configure custom constraint of a binding', () => {
-    const ninjaIdentifier: string = 'Ninja';
+    const ninjaIdentifier = 'Ninja';
 
     const binding: Binding<unknown> = new Binding(
       ninjaIdentifier,
@@ -92,7 +92,7 @@ describe('BindingWhenSyntax', () => {
   });
 
   it('Should be able to constraint a binding to a named target', () => {
-    const ninjaIdentifier: string = 'Ninja';
+    const ninjaIdentifier = 'Ninja';
 
     const binding: Binding<unknown> = new Binding(
       ninjaIdentifier,
@@ -102,7 +102,7 @@ describe('BindingWhenSyntax', () => {
       binding,
     );
 
-    const named: string = 'primary';
+    const named = 'primary';
 
     bindingWhenSyntax.whenTargetNamed(named);
     expect(binding.constraint).not.to.eql(null);
@@ -155,7 +155,7 @@ describe('BindingWhenSyntax', () => {
   });
 
   it('Should be able to constraint a binding to a tagged target', () => {
-    const ninjaIdentifier: string = 'Ninja';
+    const ninjaIdentifier = 'Ninja';
 
     const binding: Binding<unknown> = new Binding(
       ninjaIdentifier,
@@ -698,7 +698,7 @@ describe('BindingWhenSyntax', () => {
     }
 
     class Katana implements Weapon {
-      public name: string = 'Katana';
+      public name = 'Katana';
       public material: Material;
       constructor(material: Material) {
         this.material = material;
@@ -706,7 +706,7 @@ describe('BindingWhenSyntax', () => {
     }
 
     class Shuriken implements Weapon {
-      public name: string = 'Shuriken';
+      public name = 'Shuriken';
       public material: Material;
       constructor(material: Material) {
         this.material = material;

@@ -1,9 +1,10 @@
 import { injectable } from "@carlossalasamper/inversify";
+
 import {
-  InversifySugar,
   getModuleContainer,
-  multiInjectImported,
+  InversifySugar,
   module,
+  multiInjectImported,
 } from "../../src";
 
 describe("@multiInjectImported", () => {

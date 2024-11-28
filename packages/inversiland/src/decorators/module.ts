@@ -1,8 +1,8 @@
+import defineMetadata from "../metadata/defineMetadata";
+import ModuleContainer from "../modules/ModuleContainer";
 import { Newable } from "../types";
 import ModuleMetadata, { ModuleMetadataArgs } from "../types/ModuleMetadata";
 import { WithIsGlobal } from "../types/Provider";
-import defineMetadata from "../metadata/defineMetadata";
-import ModuleContainer from "../modules/ModuleContainer";
 
 export default function module({
   imports = [],

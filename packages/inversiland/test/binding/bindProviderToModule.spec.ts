@@ -1,13 +1,14 @@
 import { injectable } from "@carlossalasamper/inversify";
-import {
-  ClassProvider,
-  NewableProvider,
-  FactoryProvider,
-  ValueProvider,
-  AsyncFactoryProvider,
-} from "../../src/types/Provider";
+
 import { getModuleContainer, module } from "../../src";
 import { bindProviderToModule } from "../../src/binding/bindProviderToModule";
+import {
+  AsyncFactoryProvider,
+  ClassProvider,
+  FactoryProvider,
+  NewableProvider,
+  ValueProvider,
+} from "../../src/types/Provider";
 
 const TestClassToken = Symbol();
 

@@ -157,7 +157,7 @@ function _validateActiveBindingCount(
       if (!target.isArray()) {
         const serviceIdentifierString: string =
           getServiceIdentifierAsString(serviceIdentifier);
-        let msg: string = `${ERROR_MSGS.AMBIGUOUS_MATCH(container.id)} ${serviceIdentifierString}`;
+        let msg = `${ERROR_MSGS.AMBIGUOUS_MATCH(container.id)} ${serviceIdentifierString}`;
         msg += listRegisteredBindingsForServiceIdentifier(
           container,
           serviceIdentifierString,
@@ -303,7 +303,7 @@ function plan(
   serviceIdentifier: interfaces.ServiceIdentifier,
   key?: string | number | symbol,
   value?: unknown,
-  avoidConstraints: boolean = false,
+  avoidConstraints = false,
 ): interfaces.Context {
   const context: Context = new Context(container);
   const target: interfaces.Target = _createTarget(

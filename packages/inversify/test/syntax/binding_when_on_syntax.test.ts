@@ -19,7 +19,7 @@ describe('BindingWhenOnSyntax', () => {
   });
 
   it('Should set its own properties correctly', () => {
-    const ninjaIdentifier: string = 'Ninja';
+    const ninjaIdentifier = 'Ninja';
 
     const binding: Binding<unknown> = new Binding(
       ninjaIdentifier,
@@ -46,7 +46,7 @@ describe('BindingWhenOnSyntax', () => {
     @injectable()
     class ZombieArmy {}
 
-    const ninjaIdentifier: string = 'Ninja';
+    const ninjaIdentifier = 'Ninja';
 
     const binding: Binding<unknown> = new Binding(
       ninjaIdentifier,
@@ -163,7 +163,7 @@ describe('BindingWhenOnSyntax', () => {
   });
 
   it('Should provide access to BindingOnSyntax methods', () => {
-    const ninjaIdentifier: string = 'Ninja';
+    const ninjaIdentifier = 'Ninja';
 
     const binding: Binding<unknown> = new Binding(
       ninjaIdentifier,

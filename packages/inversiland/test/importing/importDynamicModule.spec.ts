@@ -1,13 +1,13 @@
 import {
-  InversifySugar,
   getModuleContainer,
   inject,
   injectable,
+  InversifySugar,
   module,
 } from "../../src";
-import { DynamicModule } from "../../src/types/Module";
 import importDynamicModule from "../../src/importing/importDynamicModule";
 import importModule from "../../src/importing/importModule";
+import { DynamicModule } from "../../src/types/Module";
 
 describe("importDynamicModule", () => {
   beforeEach(async () => {

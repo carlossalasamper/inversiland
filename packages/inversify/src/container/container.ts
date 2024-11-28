@@ -359,7 +359,7 @@ class Container implements interfaces.Container {
     key: string | number | symbol,
     value: unknown,
   ): boolean {
-    let bound: boolean = false;
+    let bound = false;
 
     // verify if there are bindings available for serviceIdentifier on current binding dictionary
     if (this._bindingDictionary.hasKey(serviceIdentifier)) {
@@ -387,7 +387,7 @@ class Container implements interfaces.Container {
     key: string | number | symbol,
     value: unknown,
   ): boolean {
-    let bound: boolean = false;
+    let bound = false;
 
     // verify if there are bindings available for serviceIdentifier on current binding dictionary
     if (this._bindingDictionary.hasKey(serviceIdentifier)) {

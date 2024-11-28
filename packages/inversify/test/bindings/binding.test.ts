@@ -9,7 +9,7 @@ import * as Stubs from '../utils/stubs';
 
 describe('Binding', () => {
   it('Should set its own properties correctly', () => {
-    const fooIdentifier: string = 'FooInterface';
+    const fooIdentifier = 'FooInterface';
     const fooBinding: Binding<Stubs.FooInterface> =
       new Binding<Stubs.FooInterface>(
         fooIdentifier,

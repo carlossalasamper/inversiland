@@ -92,7 +92,7 @@ describe('Container', () => {
   it('Should be able to store bindings', () => {
     @injectable()
     class Ninja {}
-    const ninjaId: string = 'Ninja';
+    const ninjaId = 'Ninja';
 
     const container: Container = new Container();
     container.bind<Ninja>(ninjaId).to(Ninja);
@@ -113,7 +113,7 @@ describe('Container', () => {
   it('Should unbind a binding when requested', () => {
     @injectable()
     class Ninja {}
-    const ninjaId: string = 'Ninja';
+    const ninjaId = 'Ninja';
 
     const container: Container = new Container();
     container.bind<Ninja>(ninjaId).to(Ninja);
@@ -127,7 +127,7 @@ describe('Container', () => {
   });
 
   it('Should throw when cannot unbind', () => {
-    const serviceIdentifier: string = 'Ninja';
+    const serviceIdentifier = 'Ninja';
     const container: Container = new Container();
     const throwFunction: () => void = () => {
       container.unbind(serviceIdentifier);
@@ -138,7 +138,7 @@ describe('Container', () => {
   });
 
   it('Should throw when cannot unbind (async)', async () => {
-    const serviceIdentifier: string = 'Ninja';
+    const serviceIdentifier = 'Ninja';
     const container: Container = new Container();
 
     try {
@@ -158,8 +158,8 @@ describe('Container', () => {
     @injectable()
     class Samurai {}
 
-    const ninjaId: string = 'Ninja';
-    const samuraiId: string = 'Samurai';
+    const ninjaId = 'Ninja';
+    const samuraiId = 'Samurai';
 
     const container: Container = new Container();
     container.bind<Ninja>(ninjaId).to(Ninja);
@@ -183,8 +183,8 @@ describe('Container', () => {
     @injectable()
     class Samurai {}
 
-    const ninjaId: string = 'Ninja';
-    const samuraiId: string = 'Samurai';
+    const ninjaId = 'Ninja';
+    const samuraiId = 'Samurai';
 
     const container: Container = new Container();
     container.bind<Ninja>(ninjaId).to(Ninja);
@@ -204,7 +204,7 @@ describe('Container', () => {
   it('Should NOT be able to get unregistered services', () => {
     @injectable()
     class Ninja {}
-    const ninjaId: string = 'Ninja';
+    const ninjaId = 'Ninja';
 
     const container: Container = new Container();
     const throwFunction: () => void = () => {
@@ -225,7 +225,7 @@ describe('Container', () => {
     @injectable()
     class Samurai {}
 
-    const warriorId: string = 'Warrior';
+    const warriorId = 'Warrior';
 
     const container: Container = new Container();
     container.bind<Warrior>(warriorId).to(Ninja);
@@ -256,7 +256,7 @@ describe('Container', () => {
   it('Should NOT be able to getAll of an unregistered services', () => {
     @injectable()
     class Ninja {}
-    const ninjaId: string = 'Ninja';
+    const ninjaId = 'Ninja';
 
     const container: Container = new Container();
     const throwFunction: () => void = () => {
@@ -269,7 +269,7 @@ describe('Container', () => {
   });
 
   it('Should be able to get a string literal identifier as a string', () => {
-    const katana: string = 'Katana';
+    const katana = 'Katana';
     const katanaStr: string = getServiceIdentifierAsString(katana);
     expect(katanaStr).to.equal('Katana');
   });
@@ -328,7 +328,7 @@ describe('Container', () => {
   });
 
   it('Should maintain the activation state of a singleton when doing a snapshot of a container', () => {
-    let timesCalled: number = 0;
+    let timesCalled = 0;
 
     @injectable()
     class Ninja {
@@ -351,12 +351,12 @@ describe('Container', () => {
   });
 
   it('Should save and restore the container activations and deactivations when snapshot and restore', () => {
-    const sid: string = 'sid';
+    const sid = 'sid';
     const container: Container = new Container();
     container.bind<string>(sid).toConstantValue('Value');
 
-    let activated: boolean = false;
-    let deactivated: boolean = false;
+    let activated = false;
+    let deactivated = false;
 
     container.snapshot();
 
@@ -408,7 +408,7 @@ describe('Container', () => {
   });
 
   it('Should be able to check is there are bindings available for a given identifier', () => {
-    const warriorId: string = 'Warrior';
+    const warriorId = 'Warrior';
     const warriorSymbol: symbol = Symbol.for('Warrior');
 
     @injectable()
@@ -423,7 +423,7 @@ describe('Container', () => {
     expect(container.isBound(warriorId)).equal(true);
     expect(container.isBound(warriorSymbol)).equal(true);
 
-    const katanaId: string = 'Katana';
+    const katanaId = 'Katana';
     const katanaSymbol: symbol = Symbol.for('Katana');
 
     @injectable()
@@ -452,7 +452,7 @@ describe('Container', () => {
   });
 
   it('Should be able to get services from parent container', () => {
-    const weaponIdentifier: string = 'Weapon';
+    const weaponIdentifier = 'Weapon';
 
     @injectable()
     class Katana {}
@@ -470,7 +470,7 @@ describe('Container', () => {
   });
 
   it('Should be able to check if services are bound from parent container', () => {
-    const weaponIdentifier: string = 'Weapon';
+    const weaponIdentifier = 'Weapon';
 
     @injectable()
     class Katana {}
@@ -488,7 +488,7 @@ describe('Container', () => {
   });
 
   it('Should prioritize requested container to resolve a service identifier', () => {
-    const weaponIdentifier: string = 'Weapon';
+    const weaponIdentifier = 'Weapon';
 
     @injectable()
     class Katana {}
@@ -763,12 +763,12 @@ describe('Container', () => {
   it('Should be able to merge two containers', () => {
     @injectable()
     class Ninja {
-      public name: string = 'Ninja';
+      public name = 'Ninja';
     }
 
     @injectable()
     class Shuriken {
-      public name: string = 'Shuriken';
+      public name = 'Shuriken';
     }
 
     // eslint-disable-next-line @typescript-eslint/typedef
@@ -785,12 +785,12 @@ describe('Container', () => {
 
     @injectable()
     class Samurai {
-      public name: string = 'Samurai';
+      public name = 'Samurai';
     }
 
     @injectable()
     class Katana {
-      public name: string = 'Katana';
+      public name = 'Katana';
     }
 
     // eslint-disable-next-line @typescript-eslint/typedef
@@ -829,12 +829,12 @@ describe('Container', () => {
   it('Should be able to merge multiple containers', () => {
     @injectable()
     class Ninja {
-      public name: string = 'Ninja';
+      public name = 'Ninja';
     }
 
     @injectable()
     class Shuriken {
-      public name: string = 'Shuriken';
+      public name = 'Shuriken';
     }
 
     // eslint-disable-next-line @typescript-eslint/typedef
@@ -851,12 +851,12 @@ describe('Container', () => {
 
     @injectable()
     class Samurai {
-      public name: string = 'Samurai';
+      public name = 'Samurai';
     }
 
     @injectable()
     class Katana {
-      public name: string = 'Katana';
+      public name = 'Katana';
     }
 
     // eslint-disable-next-line @typescript-eslint/typedef
@@ -875,12 +875,12 @@ describe('Container', () => {
 
     @injectable()
     class Sheriff {
-      public name: string = 'Sheriff';
+      public name = 'Sheriff';
     }
 
     @injectable()
     class Revolver {
-      public name: string = 'Revolver';
+      public name = 'Revolver';
     }
 
     // eslint-disable-next-line @typescript-eslint/typedef
@@ -966,9 +966,9 @@ describe('Container', () => {
   });
 
   it('Should be able check if a named binding is bound', () => {
-    const zero: string = 'Zero';
-    const invalidDivisor: string = 'InvalidDivisor';
-    const validDivisor: string = 'ValidDivisor';
+    const zero = 'Zero';
+    const invalidDivisor = 'InvalidDivisor';
+    const validDivisor = 'ValidDivisor';
     const container: Container = new Container();
 
     expect(container.isBound(zero)).to.equal(false);
@@ -993,9 +993,9 @@ describe('Container', () => {
   });
 
   it('Should be able to check if a named binding is bound from parent container', () => {
-    const zero: string = 'Zero';
-    const invalidDivisor: string = 'InvalidDivisor';
-    const validDivisor: string = 'ValidDivisor';
+    const zero = 'Zero';
+    const invalidDivisor = 'InvalidDivisor';
+    const validDivisor = 'ValidDivisor';
     const container: Container = new Container();
     const childContainer: Container = container.createChild();
     const secondChildContainer: Container = childContainer.createChild();
@@ -1024,8 +1024,8 @@ describe('Container', () => {
   });
 
   it('Should be able to get a tagged binding', () => {
-    const zero: string = 'Zero';
-    const isValidDivisor: string = 'IsValidDivisor';
+    const zero = 'Zero';
+    const isValidDivisor = 'IsValidDivisor';
     const container: Container = new Container();
 
     container
@@ -1043,8 +1043,8 @@ describe('Container', () => {
   });
 
   it('Should be able to get a tagged binding from parent container', () => {
-    const zero: string = 'Zero';
-    const isValidDivisor: string = 'IsValidDivisor';
+    const zero = 'Zero';
+    const isValidDivisor = 'IsValidDivisor';
     const container: Container = new Container();
     const childContainer: Container = container.createChild();
     const secondChildContainer: Container = childContainer.createChild();
@@ -1066,8 +1066,8 @@ describe('Container', () => {
   });
 
   it('Should be able check if a tagged binding is bound', () => {
-    const zero: string = 'Zero';
-    const isValidDivisor: string = 'IsValidDivisor';
+    const zero = 'Zero';
+    const isValidDivisor = 'IsValidDivisor';
     const container: Container = new Container();
 
     expect(container.isBound(zero)).to.equal(false);
@@ -1092,8 +1092,8 @@ describe('Container', () => {
   });
 
   it('Should be able to check if a tagged binding is bound from parent container', () => {
-    const zero: string = 'Zero';
-    const isValidDivisor: string = 'IsValidDivisor';
+    const zero = 'Zero';
+    const isValidDivisor = 'IsValidDivisor';
     const container: Container = new Container();
     const childContainer: Container = container.createChild();
     const secondChildContainer: Container = childContainer.createChild();
@@ -1274,8 +1274,8 @@ describe('Container', () => {
   });
 
   it('Should be able to get a tagged binding (async)', async () => {
-    const zero: string = 'Zero';
-    const isValidDivisor: string = 'IsValidDivisor';
+    const zero = 'Zero';
+    const isValidDivisor = 'IsValidDivisor';
     const container: Container = new Container();
 
     container
@@ -1299,13 +1299,13 @@ describe('Container', () => {
   });
 
   it('should be able to get all the services binded (async)', async () => {
-    const serviceIdentifier: string = 'service-identifier';
+    const serviceIdentifier = 'service-identifier';
 
     const container: Container = new Container();
 
-    const firstValueBinded: string = 'value-one';
-    const secondValueBinded: string = 'value-two';
-    const thirdValueBinded: string = 'value-three';
+    const firstValueBinded = 'value-one';
+    const secondValueBinded = 'value-two';
+    const thirdValueBinded = 'value-three';
 
     container.bind(serviceIdentifier).toConstantValue(firstValueBinded);
     container.bind(serviceIdentifier).toConstantValue(secondValueBinded);
@@ -1407,8 +1407,8 @@ describe('Container', () => {
   it('Should be able to copy a subset of bindings from a container to another.', () => {
     const container: Container = new Container();
     const container2: Container = new Container();
-    const weaponServiceIdentifier: symbol = Symbol('Weapon');
-    const armorServiceIdentifier: symbol = Symbol('Armor');
+    const weaponServiceIdentifier = Symbol('Weapon');
+    const armorServiceIdentifier = Symbol('Armor');
 
     @injectable()
     class Shuriken {}
@@ -1435,8 +1435,8 @@ describe('Container', () => {
   it('Should be able to copy a subset of bindings from a container to another filtering by metadata.', () => {
     const container: Container = new Container();
     const container2: Container = new Container();
-    const shurikenTag: symbol = Symbol('shuriken');
-    const katanaTag: symbol = Symbol('katana');
+    const shurikenTag = Symbol('shuriken');
+    const katanaTag = Symbol('katana');
 
     @injectable()
     class Shuriken {}
@@ -1461,9 +1461,9 @@ describe('Container', () => {
   it('Should be able to copy a subset of bindings from a container to another and change their constraint.', () => {
     const container: Container = new Container();
     const container2: Container = new Container();
-    const weaponServiceIdentifier: symbol = Symbol('Weapon');
-    const armorServiceIdentifier: symbol = Symbol('Armor');
-    const ninjaEquipmentTag: symbol = Symbol('NinjaEquipment');
+    const weaponServiceIdentifier = Symbol('Weapon');
+    const armorServiceIdentifier = Symbol('Armor');
+    const ninjaEquipmentTag = Symbol('NinjaEquipment');
 
     @injectable()
     class Shuriken {}
@@ -1497,7 +1497,7 @@ describe('Container', () => {
   it('Should share singleton instances a binding and its copied binding.', () => {
     const container: Container = new Container();
     const container2: Container = new Container();
-    const tag: symbol = Symbol('tag');
+    const tag = Symbol('tag');
 
     @injectable()
     class Shuriken {
@@ -1522,8 +1522,8 @@ describe('Container', () => {
     @injectable()
     class Ninja {}
 
-    const villageTag: symbol = Symbol('village');
-    const leafVillage: string = 'Leaf Village';
+    const villageTag = Symbol('village');
+    const leafVillage = 'Leaf Village';
     const containerParent: Container = new Container();
     const containerChild: Container = new Container();
 
@@ -1552,7 +1552,7 @@ describe('Container', () => {
     @injectable()
     class Ninja {}
 
-    const ninjaName: string = 'Naruto';
+    const ninjaName = 'Naruto';
     const containerParent: Container = new Container();
     const containerChild: Container = new Container();
 

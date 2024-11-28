@@ -1,8 +1,9 @@
 import { injectable } from "@carlossalasamper/inversify";
+
 import { DynamicModule, InversifySugar, module } from "../../src";
-import importModule from "../../src/importing/importModule";
 import createExportedProviderRef from "../../src/exporting/createExportedProviderRef";
 import importDynamicModule from "../../src/importing/importDynamicModule";
+import importModule from "../../src/importing/importModule";
 import messagesMap from "../../src/messages/messagesMap";
 import Module from "../../src/types/Module";
 

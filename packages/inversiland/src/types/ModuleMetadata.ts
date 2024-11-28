@@ -1,7 +1,7 @@
-import Provider from "./Provider";
+import ModuleContainer from "../modules/ModuleContainer";
 import ExportedProvider from "./ExportedProvider";
 import Module from "./Module";
-import ModuleContainer from "../modules/ModuleContainer";
+import Provider from "./Provider";
 
 /**
  * @description Interface defining the property object that describes the module.

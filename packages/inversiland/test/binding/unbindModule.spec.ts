@@ -1,7 +1,8 @@
 import { injectable } from "@carlossalasamper/inversify";
-import { InversifySugar, getModuleContainer, module } from "../../src";
-import importModule from "../../src/importing/importModule";
+
+import { getModuleContainer, InversifySugar, module } from "../../src";
 import unbindModule from "../../src/binding/unbindModule";
+import importModule from "../../src/importing/importModule";
 import messagesMap from "../../src/messages/messagesMap";
 import { getModuleMetadata } from "../../src/metadata/getModuleMetadata";
 

@@ -1,4 +1,5 @@
 import { keys } from "ts-transformer-keys";
+
 import ModuleMetadata from "./types/ModuleMetadata";
 
 export const IS_MODULE_KEY: keyof ModuleMetadata = "isModule";

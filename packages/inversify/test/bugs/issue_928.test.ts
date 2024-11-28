@@ -11,15 +11,15 @@ describe('Issue 928', () => {
     // some dependencies
     @injectable()
     class DepA {
-      public a: number = 1;
+      public a = 1;
     }
     @injectable()
     class DepB {
-      public b: number = 1;
+      public b = 1;
     }
     @injectable()
     class DepC {
-      public c: number = 1;
+      public c = 1;
     }
 
     @injectable()

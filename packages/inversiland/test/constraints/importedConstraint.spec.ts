@@ -1,6 +1,7 @@
 import { Container, createMockRequest } from "@carlossalasamper/inversify";
-import importedConstraint from "../../src/constraints/importedConstraint";
+
 import { IMPORTED_TAG } from "../../src/constants";
+import importedConstraint from "../../src/constraints/importedConstraint";
 
 describe("importedConstraint", () => {
   it("Should return true when the request is tagged as imported.", () => {

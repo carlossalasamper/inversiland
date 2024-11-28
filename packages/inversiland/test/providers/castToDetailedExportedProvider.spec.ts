@@ -1,8 +1,8 @@
+import castToDetailedExportedProvider from "../../src/providers/castToDetailedExportedProvider";
 import {
   DetailedExportedProvider,
   TokenExportedProvider,
 } from "../../src/types/ExportedProvider";
-import castToDetailedExportedProvider from "../../src/providers/castToDetailedExportedProvider";
 
 describe("castToDetailedExportedProvider", () => {
   it("Should cast a DetailedExportedProvider to a DetailedExportedProvider.", () => {

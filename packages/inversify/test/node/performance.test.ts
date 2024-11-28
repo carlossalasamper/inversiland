@@ -13,7 +13,7 @@ describe('Performance', () => {
       register: -1,
     };
 
-    for (let i: number = 0; i < times; i++) {
+    for (let i = 0; i < times; i++) {
       const start: number = performance.now();
       result.container
         .bind(`SOME_ID_${i.toString()}`)
@@ -38,7 +38,7 @@ describe('Performance', () => {
 
     const items: number[] = [];
 
-    for (let i: number = 0; i < times; i++) {
+    for (let i = 0; i < times; i++) {
       const start: number = performance.now();
       container.get(`SOME_ID_${times.toString()}`);
       const end: number = performance.now();

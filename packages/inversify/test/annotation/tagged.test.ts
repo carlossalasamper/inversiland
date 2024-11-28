@@ -3,21 +3,21 @@ declare function __decorate(
   decorators: ClassDecorator[],
   target: NewableFunction,
   key?: string | symbol,
-  descriptor?: PropertyDescriptor | undefined,
+  descriptor?: PropertyDescriptor | undefined
 ): void;
 // eslint-disable-next-line @typescript-eslint/naming-convention
 declare function __param(
   paramIndex: number,
-  decorator: ParameterDecorator,
+  decorator: ParameterDecorator
 ): ClassDecorator;
 
-import { expect } from 'chai';
+import { expect } from "chai";
 
-import { decorate } from '../../src/annotation/decorator_utils';
-import { tagged } from '../../src/annotation/tagged';
-import * as ERRORS_MSGS from '../../src/constants/error_msgs';
-import * as METADATA_KEY from '../../src/constants/metadata_keys';
-import { interfaces } from '../../src/interfaces/interfaces';
+import { decorate } from "../../src/annotation/decorator_utils";
+import { tagged } from "../../src/annotation/tagged";
+import * as ERRORS_MSGS from "../../src/constants/error_msgs";
+import * as METADATA_KEY from "../../src/constants/metadata_keys";
+import { interfaces } from "../../src/interfaces/interfaces";
 
 type Weapon = unknown;
 
@@ -26,9 +26,9 @@ class TaggedWarrior {
   private readonly _secondaryWeapon: Weapon;
 
   constructor(
-    @tagged('power', 1) primary: Weapon,
+    @tagged("power", 1) primary: Weapon,
 
-    @tagged('power', 2) secondary: Weapon,
+    @tagged("power", 2) secondary: Weapon
   ) {
     this._primaryWeapon = primary;
     this._secondaryWeapon = secondary;
@@ -46,9 +46,9 @@ class DoubleTaggedWarrior {
   private readonly _secondaryWeapon: Weapon;
 
   constructor(
-    @tagged('power', 1) @tagged('distance', 1) primary: Weapon,
+    @tagged("power", 1) @tagged("distance", 1) primary: Weapon,
 
-    @tagged('power', 2) @tagged('distance', 5) secondary: Weapon,
+    @tagged("power", 2) @tagged("distance", 5) secondary: Weapon
   ) {
     this._primaryWeapon = primary;
     this._secondaryWeapon = secondary;
@@ -70,7 +70,9 @@ class InvalidDecoratorUsageWarrior {
     this._secondaryWeapon = secondary;
   }
 
-  public test(_a: string) {}
+  public test(_a: string) {
+    return _a;
+  }
 
   public debug() {
     return {
@@ -80,43 +82,43 @@ class InvalidDecoratorUsageWarrior {
   }
 }
 
-describe('@Tagged', () => {
-  it('Should generate metadata for tagged parameters', () => {
+describe("@Tagged", () => {
+  it("Should generate metadata for tagged parameters", () => {
     const metadataKey: string = METADATA_KEY.TAGGED;
     const paramsMetadata: interfaces.MetadataMap = Reflect.getMetadata(
       metadataKey,
-      TaggedWarrior,
+      TaggedWarrior
     ) as interfaces.MetadataMap;
 
-    expect(paramsMetadata).to.be.an('object');
+    expect(paramsMetadata).to.be.an("object");
 
     // assert metadata for first argument
-    expect(paramsMetadata['0']).to.be.instanceof(Array);
+    expect(paramsMetadata["0"]).to.be.instanceof(Array);
 
     const zeroIndexedMetadata: interfaces.Metadata[] = paramsMetadata[
-      '0'
+      "0"
     ] as interfaces.Metadata[];
 
     const zeroIndexedFirstMetadata: interfaces.Metadata =
       zeroIndexedMetadata[0] as interfaces.Metadata;
 
-    expect(zeroIndexedFirstMetadata.key).to.be.eql('power');
+    expect(zeroIndexedFirstMetadata.key).to.be.eql("power");
     expect(zeroIndexedFirstMetadata.value).to.be.eql(1);
 
     // argument at index 0 should only have one tag
     expect(zeroIndexedMetadata[1]).to.eq(undefined);
 
     // assert metadata for second argument
-    expect(paramsMetadata['1']).to.be.instanceof(Array);
+    expect(paramsMetadata["1"]).to.be.instanceof(Array);
 
     const oneIndexedMetadata: interfaces.Metadata[] = paramsMetadata[
-      '1'
+      "1"
     ] as interfaces.Metadata[];
 
     const oneIndexedFirstMetadata: interfaces.Metadata =
       oneIndexedMetadata[0] as interfaces.Metadata;
 
-    expect(oneIndexedFirstMetadata.key).to.be.eql('power');
+    expect(oneIndexedFirstMetadata.key).to.be.eql("power");
 
     expect(oneIndexedFirstMetadata.value).to.be.eql(2);
 
@@ -124,54 +126,54 @@ describe('@Tagged', () => {
     expect(oneIndexedMetadata[1]).to.eq(undefined);
 
     // no more metadata should be available
-    expect(paramsMetadata['2']).to.eq(undefined);
+    expect(paramsMetadata["2"]).to.eq(undefined);
   });
 
-  it('Should generate metadata for tagged properties', () => {
+  it("Should generate metadata for tagged properties", () => {
     class Warrior {
-      @tagged('throwable', false)
+      @tagged("throwable", false)
       public weapon!: Weapon;
     }
 
     const metadataKey: string = METADATA_KEY.TAGGED_PROP;
     const metadata: interfaces.MetadataMap = Reflect.getMetadata(
       metadataKey,
-      Warrior,
+      Warrior
     ) as interfaces.MetadataMap;
 
     const weaponMetadata: interfaces.Metadata[] = metadata[
-      'weapon'
+      "weapon"
     ] as interfaces.Metadata[];
 
     const weaponFirstMetadata: interfaces.Metadata =
       weaponMetadata[0] as interfaces.Metadata;
 
-    expect(weaponFirstMetadata.key).to.be.eql('throwable');
+    expect(weaponFirstMetadata.key).to.be.eql("throwable");
     expect(weaponFirstMetadata.value).to.be.eql(false);
     expect(weaponMetadata[1]).to.eq(undefined);
   });
 
-  it('Should generate metadata for parameters tagged multiple times', () => {
+  it("Should generate metadata for parameters tagged multiple times", () => {
     const metadataKey: string = METADATA_KEY.TAGGED;
     const paramsMetadata: interfaces.MetadataMap = Reflect.getMetadata(
       metadataKey,
-      DoubleTaggedWarrior,
+      DoubleTaggedWarrior
     ) as interfaces.MetadataMap;
 
-    expect(paramsMetadata).to.be.an('object');
+    expect(paramsMetadata).to.be.an("object");
 
     // assert metadata for argument at index 0
-    expect(paramsMetadata['0']).to.be.instanceof(Array);
+    expect(paramsMetadata["0"]).to.be.instanceof(Array);
 
     const zeroIndexedMetadata: interfaces.Metadata[] = paramsMetadata[
-      '0'
+      "0"
     ] as interfaces.Metadata[];
 
     const zeroIndexedFirstMetadata: interfaces.Metadata =
       zeroIndexedMetadata[0] as interfaces.Metadata;
 
     // assert argument at index 0 first tag
-    expect(zeroIndexedFirstMetadata.key).to.be.eql('distance');
+    expect(zeroIndexedFirstMetadata.key).to.be.eql("distance");
     expect(zeroIndexedFirstMetadata.value).to.be.eql(1);
 
     // assert argument at index 0 second tag
@@ -179,21 +181,21 @@ describe('@Tagged', () => {
     const zeroIndexedSecondMetadata: interfaces.Metadata =
       zeroIndexedMetadata[1] as interfaces.Metadata;
 
-    expect(zeroIndexedSecondMetadata.key).to.be.eql('power');
+    expect(zeroIndexedSecondMetadata.key).to.be.eql("power");
     expect(zeroIndexedSecondMetadata.value).to.be.eql(1);
 
     // assert metadata for argument at index 1
-    expect(paramsMetadata['1']).to.be.instanceof(Array);
+    expect(paramsMetadata["1"]).to.be.instanceof(Array);
 
     const oneIndexedMetadata: interfaces.Metadata[] = paramsMetadata[
-      '1'
+      "1"
     ] as interfaces.Metadata[];
 
     const oneIndexedFirstMetadata: interfaces.Metadata =
       oneIndexedMetadata[0] as interfaces.Metadata;
 
     // assert argument at index 1 first tag
-    expect(oneIndexedFirstMetadata.key).to.be.eql('distance');
+    expect(oneIndexedFirstMetadata.key).to.be.eql("distance");
 
     expect(oneIndexedFirstMetadata.value).to.be.eql(5);
 
@@ -202,16 +204,16 @@ describe('@Tagged', () => {
     const oneIndexedSecondMetadata: interfaces.Metadata =
       oneIndexedMetadata[1] as interfaces.Metadata;
 
-    expect(oneIndexedSecondMetadata.key).to.be.eql('power');
+    expect(oneIndexedSecondMetadata.key).to.be.eql("power");
 
     expect(oneIndexedSecondMetadata.value).to.be.eql(2);
 
     // no more metadata (argument at index > 1)
-    expect(paramsMetadata['2']).to.eq(undefined);
+    expect(paramsMetadata["2"]).to.eq(undefined);
   });
 
-  it('Should throw when applied multiple times', () => {
-    const metadataKey: string = 'a';
+  it("Should throw when applied multiple times", () => {
+    const metadataKey = "a";
 
     const useDecoratorMoreThanOnce: () => void = function () {
       __decorate(
@@ -220,24 +222,24 @@ describe('@Tagged', () => {
 
           __param(0, tagged(metadataKey, 2)),
         ],
-        InvalidDecoratorUsageWarrior,
+        InvalidDecoratorUsageWarrior
       );
     };
 
-    const msg: string = `${ERRORS_MSGS.DUPLICATED_METADATA} ${metadataKey}`;
+    const msg = `${ERRORS_MSGS.DUPLICATED_METADATA} ${metadataKey}`;
     expect(useDecoratorMoreThanOnce).to.throw(msg);
   });
 
-  it('Should throw when not applied to a constructor', () => {
+  it("Should throw when not applied to a constructor", () => {
     const useDecoratorOnMethodThatIsNotConstructor: () => void = function () {
       __decorate(
-        [__param(0, tagged('a', 1))],
+        [__param(0, tagged("a", 1))],
         InvalidDecoratorUsageWarrior.prototype as unknown as NewableFunction,
-        'test',
+        "test",
         Object.getOwnPropertyDescriptor(
           InvalidDecoratorUsageWarrior.prototype,
-          'test',
-        ),
+          "test"
+        )
       );
     };
 
@@ -245,7 +247,7 @@ describe('@Tagged', () => {
     expect(useDecoratorOnMethodThatIsNotConstructor).to.throw(msg);
   });
 
-  it('Should be usable in VanillaJS applications', () => {
+  it("Should be usable in VanillaJS applications", () => {
     type Katana = unknown;
     type Shuriken = unknown;
 
@@ -253,48 +255,50 @@ describe('@Tagged', () => {
       (function () {
         return function taggedVanillaJsWarrior(
           _primary: Katana,
-          _secondary: Shuriken,
-        ) {};
+          _secondary: Shuriken
+        ) {
+          return;
+        };
       })();
 
-    decorate(tagged('power', 1), vanillaJsWarrior, 0);
+    decorate(tagged("power", 1), vanillaJsWarrior, 0);
 
-    decorate(tagged('power', 2), vanillaJsWarrior, 1);
+    decorate(tagged("power", 2), vanillaJsWarrior, 1);
 
     const metadataKey: string = METADATA_KEY.TAGGED;
     const paramsMetadata: interfaces.MetadataMap = Reflect.getMetadata(
       metadataKey,
-      vanillaJsWarrior,
+      vanillaJsWarrior
     ) as interfaces.MetadataMap;
-    expect(paramsMetadata).to.be.an('object');
+    expect(paramsMetadata).to.be.an("object");
 
     // assert metadata for first argument
-    expect(paramsMetadata['0']).to.be.instanceof(Array);
+    expect(paramsMetadata["0"]).to.be.instanceof(Array);
 
     const zeroIndexedMetadata: interfaces.Metadata[] = paramsMetadata[
-      '0'
+      "0"
     ] as interfaces.Metadata[];
 
     const zeroIndexedFirstMetadata: interfaces.Metadata =
       zeroIndexedMetadata[0] as interfaces.Metadata;
 
-    expect(zeroIndexedFirstMetadata.key).to.be.eql('power');
+    expect(zeroIndexedFirstMetadata.key).to.be.eql("power");
     expect(zeroIndexedFirstMetadata.value).to.be.eql(1);
 
     // argument at index 0 should only have one tag
     expect(zeroIndexedMetadata[1]).to.eq(undefined);
 
     // assert metadata for second argument
-    expect(paramsMetadata['1']).to.be.instanceof(Array);
+    expect(paramsMetadata["1"]).to.be.instanceof(Array);
 
     const oneIndexedMetadata: interfaces.Metadata[] = paramsMetadata[
-      '1'
+      "1"
     ] as interfaces.Metadata[];
 
     const oneIndexedFirstMetadata: interfaces.Metadata =
       oneIndexedMetadata[0] as interfaces.Metadata;
 
-    expect(oneIndexedFirstMetadata.key).to.be.eql('power');
+    expect(oneIndexedFirstMetadata.key).to.be.eql("power");
 
     expect(oneIndexedFirstMetadata.value).to.be.eql(2);
 
@@ -302,6 +306,6 @@ describe('@Tagged', () => {
     expect(oneIndexedMetadata[1]).to.eq(undefined);
 
     // no more metadata should be available
-    expect(paramsMetadata['2']).to.eq(undefined);
+    expect(paramsMetadata["2"]).to.eq(undefined);
   });
 });

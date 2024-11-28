@@ -1,8 +1,9 @@
 import { injectable } from "@carlossalasamper/inversify";
+
 import {
-  InversifySugar,
   getModuleContainer,
   injectImported,
+  InversifySugar,
   module,
 } from "../../src";
 

@@ -8,10 +8,10 @@ describe('ModuleActivationStore', () => {
     const moduleActivationStore: ModuleActivationStore =
       new ModuleActivationStore();
 
-    const moduleId1: number = 1;
-    const moduleId2: number = 2;
-    const serviceIdentifier1: string = 'some-service-1';
-    const serviceIdentifier2: string = 'some-service-2';
+    const moduleId1 = 1;
+    const moduleId2 = 2;
+    const serviceIdentifier1 = 'some-service-1';
+    const serviceIdentifier2 = 'some-service-2';
 
     const onActivation1: interfaces.BindingActivation<unknown> = (
       _c: interfaces.Context,
@@ -118,10 +118,10 @@ describe('ModuleActivationStore', () => {
     const moduleActivationStore: ModuleActivationStore =
       new ModuleActivationStore();
 
-    const moduleId1: number = 1;
-    const moduleId2: number = 2;
-    const serviceIdentifier1: string = 'some-service-1';
-    const serviceIdentifier2: string = 'some-service-2';
+    const moduleId1 = 1;
+    const moduleId2 = 2;
+    const serviceIdentifier1 = 'some-service-1';
+    const serviceIdentifier2 = 'some-service-2';
 
     const onActivation1: interfaces.BindingActivation<unknown> = (
       _c: interfaces.Context,
@@ -197,7 +197,7 @@ describe('ModuleActivationStore', () => {
     const clone: interfaces.ModuleActivationStore =
       moduleActivationStore.clone();
 
-    //change original
+    // change original
     const onActivation4: interfaces.BindingActivation<unknown> = (
       _c: interfaces.Context,
       a: unknown,

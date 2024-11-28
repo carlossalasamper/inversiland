@@ -1,7 +1,8 @@
 import { Container, injectable } from "@carlossalasamper/inversify";
+
 import { debugMiddleware } from "../../src";
-import messagesMap from "../../src/messages/messagesMap";
 import inversifySugarOptions from "../../src/inversifySugar/inversifySugarOptions";
+import messagesMap from "../../src/messages/messagesMap";
 
 describe("debugMiddleware", () => {
   it("Should log the correct message.", () => {

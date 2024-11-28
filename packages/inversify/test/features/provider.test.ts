@@ -1,16 +1,16 @@
-import { expect } from 'chai';
+import { expect } from "chai";
 
-import { Container, injectable, interfaces } from '../../src/inversify';
+import { Container, injectable, interfaces } from "../../src/inversify";
 
-describe('Provider', () => {
-  it('Should support complex asynchronous initialization processes', (done: Mocha.Done) => {
+describe("Provider", () => {
+  it("Should support complex asynchronous initialization processes", (done: Mocha.Done) => {
     @injectable()
     class Ninja {
       public level: number;
       public rank: string;
       constructor() {
         this.level = 0;
-        this.rank = 'Ninja';
+        this.rank = "Ninja";
       }
       public async train(): Promise<number> {
         return new Promise<number>(
@@ -19,7 +19,7 @@ describe('Provider', () => {
               this.level += 10;
               resolve(this.level);
             }, 10);
-          },
+          }
         );
       }
     }
@@ -28,7 +28,7 @@ describe('Provider', () => {
     class NinjaMaster {
       public rank: string;
       constructor() {
-        this.rank = 'NinjaMaster';
+        this.rank = "NinjaMaster";
       }
     }
 
@@ -36,35 +36,34 @@ describe('Provider', () => {
 
     const container: Container = new Container();
 
-    container.bind<Ninja>('Ninja').to(Ninja).inSingletonScope();
-    container.bind<NinjaMasterProvider>('Provider<NinjaMaster>').toProvider(
+    container.bind<Ninja>("Ninja").to(Ninja).inSingletonScope();
+    container.bind<NinjaMasterProvider>("Provider<NinjaMaster>").toProvider(
       (context: interfaces.Context) => async () =>
         new Promise<NinjaMaster>(
           (
             resolve: (value: NinjaMaster | PromiseLike<NinjaMaster>) => void,
-            reject: (reason?: unknown) => void,
+            reject: (reason?: unknown) => void
           ) => {
-            const ninja: Ninja = context.container.get<Ninja>('Ninja');
+            const ninja: Ninja = context.container.get<Ninja>("Ninja");
 
             void ninja.train().then((level: number) => {
               if (level >= 20) {
                 resolve(new NinjaMaster());
               } else {
-                // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
-                reject('Not enough training');
+                reject(new Error("Not enough training"));
               }
             });
-          },
-        ),
+          }
+        )
     );
 
     const ninjaMasterProvider: NinjaMasterProvider =
-      container.get<NinjaMasterProvider>('Provider<NinjaMaster>');
+      container.get<NinjaMasterProvider>("Provider<NinjaMaster>");
 
     // helper
     async function valueOrDefault<T>(
       provider: () => Promise<T>,
-      defaultValue: T,
+      defaultValue: T
     ) {
       return new Promise<T>((resolve: (value: T | PromiseLike<T>) => void) => {
         provider()
@@ -78,20 +77,20 @@ describe('Provider', () => {
     }
 
     void valueOrDefault(ninjaMasterProvider, {
-      rank: 'DefaultNinjaMaster',
+      rank: "DefaultNinjaMaster",
     }).then((ninjaMaster: NinjaMaster) => {
-      expect(ninjaMaster.rank).to.eql('DefaultNinjaMaster');
+      expect(ninjaMaster.rank).to.eql("DefaultNinjaMaster");
     });
 
     void valueOrDefault(ninjaMasterProvider, {
-      rank: 'DefaultNinjaMaster',
+      rank: "DefaultNinjaMaster",
     }).then((ninjaMaster: NinjaMaster) => {
-      expect(ninjaMaster.rank).to.eql('NinjaMaster');
+      expect(ninjaMaster.rank).to.eql("NinjaMaster");
       done();
     });
   });
 
-  it('Should support custom arguments', (done: Mocha.Done) => {
+  it("Should support custom arguments", (done: Mocha.Done) => {
     const container: Container = new Container();
 
     interface Sword {
@@ -107,33 +106,33 @@ describe('Provider', () => {
 
     type SwordProvider = (material: string, damage: number) => Promise<Sword>;
 
-    container.bind<Sword>('Sword').to(Katana);
+    container.bind<Sword>("Sword").to(Katana);
 
-    container.bind<SwordProvider>('SwordProvider').toProvider<Sword>(
+    container.bind<SwordProvider>("SwordProvider").toProvider<Sword>(
       (context: interfaces.Context) =>
         async (material: string, damage: number) =>
           new Promise<Sword>(
             (resolve: (value: Sword | PromiseLike<Sword>) => void) => {
               setTimeout(() => {
-                const katana: Sword = context.container.get<Sword>('Sword');
+                const katana: Sword = context.container.get<Sword>("Sword");
                 katana.material = material;
                 katana.damage = damage;
                 resolve(katana);
               }, 10);
-            },
-          ),
+            }
+          )
     );
 
     const katanaProvider: SwordProvider =
-      container.get<SwordProvider>('SwordProvider');
+      container.get<SwordProvider>("SwordProvider");
 
-    void katanaProvider('gold', 100).then((powerfulGoldKatana: Sword) => {
-      expect(powerfulGoldKatana.material).to.eql('gold');
+    void katanaProvider("gold", 100).then((powerfulGoldKatana: Sword) => {
+      expect(powerfulGoldKatana.material).to.eql("gold");
 
       expect(powerfulGoldKatana.damage).to.eql(100);
 
-      void katanaProvider('gold', 10).then((notSoPowerfulGoldKatana: Sword) => {
-        expect(notSoPowerfulGoldKatana.material).to.eql('gold');
+      void katanaProvider("gold", 10).then((notSoPowerfulGoldKatana: Sword) => {
+        expect(notSoPowerfulGoldKatana.material).to.eql("gold");
 
         expect(notSoPowerfulGoldKatana.damage).to.eql(10);
         done();
@@ -141,7 +140,7 @@ describe('Provider', () => {
     });
   });
 
-  it('Should support partial application of custom arguments', (done: Mocha.Done) => {
+  it("Should support partial application of custom arguments", (done: Mocha.Done) => {
     const container: Container = new Container();
 
     interface Sword {
@@ -156,42 +155,42 @@ describe('Provider', () => {
     }
 
     type SwordProvider = (
-      material: string,
+      material: string
     ) => (damage: number) => Promise<Sword>;
 
-    container.bind<Sword>('Sword').to(Katana);
+    container.bind<Sword>("Sword").to(Katana);
 
-    container.bind<SwordProvider>('SwordProvider').toProvider<Sword>(
+    container.bind<SwordProvider>("SwordProvider").toProvider<Sword>(
       (context: interfaces.Context) =>
         (material: string) =>
         async (damage: number) =>
           new Promise<Sword>((resolve: (value: Sword) => void) => {
             setTimeout(() => {
-              const katana: Sword = context.container.get('Sword');
+              const katana: Sword = context.container.get("Sword");
               katana.material = material;
               katana.damage = damage;
               resolve(katana);
             }, 10);
-          }),
+          })
     );
 
-    const katanaProvider: SwordProvider = container.get('SwordProvider');
+    const katanaProvider: SwordProvider = container.get("SwordProvider");
     const goldKatanaProvider: (damage: number) => Promise<Sword> =
-      katanaProvider('gold');
+      katanaProvider("gold");
 
     void goldKatanaProvider(100).then((powerfulGoldKatana: Sword) => {
-      expect(powerfulGoldKatana.material).to.eql('gold');
+      expect(powerfulGoldKatana.material).to.eql("gold");
       expect(powerfulGoldKatana.damage).to.eql(100);
 
       void goldKatanaProvider(10).then((notSoPowerfulGoldKatana: Sword) => {
-        expect(notSoPowerfulGoldKatana.material).to.eql('gold');
+        expect(notSoPowerfulGoldKatana.material).to.eql("gold");
         expect(notSoPowerfulGoldKatana.damage).to.eql(10);
         done();
       });
     });
   });
 
-  it('Should support the declaration of singletons', (done: Mocha.Done) => {
+  it("Should support the declaration of singletons", (done: Mocha.Done) => {
     const container: Container = new Container();
 
     interface Warrior {
@@ -208,20 +207,20 @@ describe('Provider', () => {
 
     type WarriorProvider = (level: number) => Promise<Warrior>;
 
-    container.bind<Warrior>('Warrior').to(Ninja).inSingletonScope(); // Value is singleton!
+    container.bind<Warrior>("Warrior").to(Ninja).inSingletonScope(); // Value is singleton!
 
-    container.bind<WarriorProvider>('WarriorProvider').toProvider<Warrior>(
+    container.bind<WarriorProvider>("WarriorProvider").toProvider<Warrior>(
       (context: interfaces.Context) => async (increaseLevel: number) =>
         new Promise<Warrior>((resolve: (value: Warrior) => void) => {
           setTimeout(() => {
-            const warrior: Warrior = context.container.get<Warrior>('Warrior');
+            const warrior: Warrior = context.container.get<Warrior>("Warrior");
             warrior.level += increaseLevel;
             resolve(warrior);
           }, 100);
-        }),
+        })
     );
 
-    const warriorProvider: WarriorProvider = container.get('WarriorProvider');
+    const warriorProvider: WarriorProvider = container.get("WarriorProvider");
 
     void warriorProvider(10).then((warrior: Warrior) => {
       expect(warrior.level).to.eql(10);

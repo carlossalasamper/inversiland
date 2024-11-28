@@ -1,6 +1,7 @@
 import { interfaces, multiInject, tagged } from "@carlossalasamper/inversify";
-import { PROVIDED_TAG } from "../constants";
 import { DecoratorTarget } from "@carlossalasamper/inversify/lib/annotation/decorator_utils";
+
+import { PROVIDED_TAG } from "../constants";
 
 export default function multiInjectProvided(
   serviceIdentifier: interfaces.ServiceIdentifier

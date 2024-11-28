@@ -1,10 +1,10 @@
+import messagesMap from "../messages/messagesMap";
 import ExportedProvider, {
   DetailedExportedProvider,
   TokenExportedProvider,
 } from "../types/ExportedProvider";
 import isDetailedExportedProvider from "../validation/isDetailedExportedProvider";
 import isTokenExportedProvider from "../validation/isTokenExportedProvider";
-import messagesMap from "../messages/messagesMap";
 
 export default function castToDetailedExportedProvider(
   exportedProvider: ExportedProvider

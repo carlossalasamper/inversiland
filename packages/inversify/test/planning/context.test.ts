@@ -11,7 +11,7 @@ describe('Context', () => {
   it('Should set its own properties correctly', () => {
     const container: Container = new Container();
     const context1: Context = new Context(container);
-    const invalid: null = null;
+    const invalid = null;
     const context2: Context = new Context(invalid as unknown as Container);
 
     expect(context1.container).not.to.eql(null);

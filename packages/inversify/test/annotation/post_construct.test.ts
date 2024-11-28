@@ -1,23 +1,23 @@
-import { expect } from 'chai';
+import { expect } from "chai";
 
-import { postConstruct } from '../../src/annotation/post_construct';
-import * as ERRORS_MSGS from '../../src/constants/error_msgs';
-import * as METADATA_KEY from '../../src/constants/metadata_keys';
-import { decorate } from '../../src/inversify';
-import { Metadata } from '../../src/planning/metadata';
+import { postConstruct } from "../../src/annotation/post_construct";
+import * as ERRORS_MSGS from "../../src/constants/error_msgs";
+import * as METADATA_KEY from "../../src/constants/metadata_keys";
+import { decorate } from "../../src/inversify";
+import { Metadata } from "../../src/planning/metadata";
 
-describe('@postConstruct', () => {
-  it('Should generate metadata for the decorated method', () => {
+describe("@postConstruct", () => {
+  it("Should generate metadata for the decorated method", () => {
     class Katana {
       private useMessage!: string;
 
       @postConstruct()
       public testMethod() {
-        this.useMessage = 'Used Katana!';
+        this.useMessage = "Used Katana!";
       }
 
       public use() {
-        return 'Used Katana!';
+        return "Used Katana!";
       }
 
       public debug() {
@@ -27,13 +27,13 @@ describe('@postConstruct', () => {
 
     const metadata: Metadata = Reflect.getMetadata(
       METADATA_KEY.POST_CONSTRUCT,
-      Katana,
+      Katana
     ) as Metadata;
 
-    expect(metadata.value).to.be.equal('testMethod');
+    expect(metadata.value).to.be.equal("testMethod");
   });
 
-  it('Should throw when applied multiple times', () => {
+  it("Should throw when applied multiple times", () => {
     function setup() {
       class Katana {
         @postConstruct()
@@ -51,19 +51,21 @@ describe('@postConstruct', () => {
     expect(setup).to.throw(ERRORS_MSGS.MULTIPLE_POST_CONSTRUCT_METHODS);
   });
 
-  it('Should be usable in VanillaJS applications', () => {
-    const vanillaJsWarrior: () => void = function () {};
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    vanillaJsWarrior.prototype.testMethod = function () {};
+  it("Should be usable in VanillaJS applications", () => {
+    const vanillaJsWarrior: () => void = function () {
+      return;
+    };
+    vanillaJsWarrior.prototype.testMethod = function () {
+      return;
+    };
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    decorate(postConstruct(), vanillaJsWarrior.prototype, 'testMethod');
+    decorate(postConstruct(), vanillaJsWarrior.prototype, "testMethod");
 
     const metadata: Metadata = Reflect.getMetadata(
       METADATA_KEY.POST_CONSTRUCT,
-      vanillaJsWarrior,
+      vanillaJsWarrior
     ) as Metadata;
 
-    expect(metadata.value).to.be.equal('testMethod');
+    expect(metadata.value).to.be.equal("testMethod");
   });
 });

@@ -12,7 +12,7 @@ export class QueryableString implements interfaces.QueryableString {
   }
 
   public endsWith(searchString: string): boolean {
-    let reverseString: string = '';
+    let reverseString = '';
     const reverseSearchString: string = searchString
       .split('')
       .reverse()

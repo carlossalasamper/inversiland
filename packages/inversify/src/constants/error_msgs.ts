@@ -1,14 +1,14 @@
-export const DUPLICATED_INJECTABLE_DECORATOR: string =
+export const DUPLICATED_INJECTABLE_DECORATOR =
   'Cannot apply @injectable decorator multiple times.';
-export const DUPLICATED_METADATA: string =
+export const DUPLICATED_METADATA =
   'Metadata key was used more than once in a parameter:';
-export const NULL_ARGUMENT: string = 'NULL argument';
-export const KEY_NOT_FOUND: string = 'Key Not Found';
+export const NULL_ARGUMENT = 'NULL argument';
+export const KEY_NOT_FOUND = 'Key Not Found';
 export const AMBIGUOUS_MATCH: (containerId: number) => string = (
   containerId: number,
 ) =>
   `[Container ${containerId.toString()}] Ambiguous match found for serviceIdentifier:`;
-export const CANNOT_UNBIND: string = 'Could not unbind serviceIdentifier:';
+export const CANNOT_UNBIND = 'Could not unbind serviceIdentifier:';
 export const NOT_REGISTERED: (containerId: number) => string = (
   containerId: number,
 ) =>
@@ -22,13 +22,13 @@ export const UNDEFINED_INJECT_ANNOTATION: (name: string) => string = (
   `@inject called with undefined this could mean that the class ${name} has ` +
   'a circular dependency problem. You can use a LazyServiceIdentifer to ' +
   'overcome this limitation.';
-export const CIRCULAR_DEPENDENCY: string = 'Circular dependency found:';
-export const INVALID_BINDING_TYPE: string = 'Invalid binding type:';
-export const NO_MORE_SNAPSHOTS_AVAILABLE: string =
+export const CIRCULAR_DEPENDENCY = 'Circular dependency found:';
+export const INVALID_BINDING_TYPE = 'Invalid binding type:';
+export const NO_MORE_SNAPSHOTS_AVAILABLE =
   'No snapshot available to restore.';
-export const INVALID_MIDDLEWARE_RETURN: string =
+export const INVALID_MIDDLEWARE_RETURN =
   'Invalid return type in middleware. Middleware must return!';
-export const INVALID_FUNCTION_BINDING: string =
+export const INVALID_FUNCTION_BINDING =
   'Value provided to function binding must be a function!';
 export const LAZY_IN_SYNC: (key: unknown) => string = (key: unknown) =>
   `You are attempting to construct ${keyToString(key)} in a synchronous way ` +
@@ -62,11 +62,11 @@ export const CONTAINER_OPTIONS_INVALID_AUTO_BIND_INJECTABLE: string =
 export const CONTAINER_OPTIONS_INVALID_SKIP_BASE_CHECK: string =
   'Invalid Container option. Skip base check must ' + 'be a boolean';
 
-export const MULTIPLE_PRE_DESTROY_METHODS: string =
+export const MULTIPLE_PRE_DESTROY_METHODS =
   'Cannot apply @preDestroy decorator multiple times in the same class';
-export const MULTIPLE_POST_CONSTRUCT_METHODS: string =
+export const MULTIPLE_POST_CONSTRUCT_METHODS =
   'Cannot apply @postConstruct decorator multiple times in the same class';
-export const ASYNC_UNBIND_REQUIRED: string =
+export const ASYNC_UNBIND_REQUIRED =
   'Attempting to unbind dependency with asynchronous destruction (@preDestroy or onDeactivation)';
 export const POST_CONSTRUCT_ERROR: (
   clazz: string,
@@ -91,7 +91,7 @@ export const CIRCULAR_DEPENDENCY_IN_FACTORY: (
   `It looks like there is a circular dependency in one of the '${factoryType}' bindings. Please investigate bindings with ` +
   `service identifier '${serviceIdentifier}'.`;
 
-export const STACK_OVERFLOW: string = 'Maximum call stack size exceeded';
+export const STACK_OVERFLOW = 'Maximum call stack size exceeded';
 
 function keyToString(key: unknown): string {
   if (typeof key === 'function') {

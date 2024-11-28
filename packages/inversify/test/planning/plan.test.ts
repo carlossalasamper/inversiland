@@ -11,7 +11,7 @@ describe('Plan', () => {
   it('Should set its own properties correctly', () => {
     const container: Container = new Container();
     const context: Context = new Context(container);
-    const runtimeId: string = 'Something';
+    const runtimeId = 'Something';
 
     const request: Request = new Request(
       runtimeId,
