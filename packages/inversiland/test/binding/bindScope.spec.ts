@@ -1,6 +1,6 @@
-import { Container } from "@carlossalasamper/inversify";
+import { Container } from "@inversiland/inversify";
 
-import { InversifySugar } from "../../src";
+import { Inversiland } from "../../src";
 import bindScope from "../../src/binding/bindScope";
 
 class ClassA {}
@@ -9,7 +9,7 @@ describe("bindScope", () => {
   const container = new Container();
 
   beforeEach(() => {
-    InversifySugar.reset();
+    Inversiland.reset();
     container?.unbindAll();
   });
 

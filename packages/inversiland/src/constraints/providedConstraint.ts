@@ -1,4 +1,4 @@
-import { interfaces } from "@carlossalasamper/inversify";
+import { interfaces } from "@inversiland/inversify";
 
 import { PROVIDED_TAG } from "../constants";
 

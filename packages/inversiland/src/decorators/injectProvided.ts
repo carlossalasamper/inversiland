@@ -1,5 +1,5 @@
-import { inject, interfaces, tagged } from "@carlossalasamper/inversify";
-import { DecoratorTarget } from "@carlossalasamper/inversify/lib/annotation/decorator_utils";
+import { inject, interfaces, tagged } from "@inversiland/inversify";
+import { DecoratorTarget } from "@inversiland/inversify";
 
 import { PROVIDED_TAG } from "../constants";
 

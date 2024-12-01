@@ -1,4 +1,4 @@
-import { interfaces } from '../interfaces/interfaces';
+import { interfaces } from "../";
 
 class ContainerSnapshot implements interfaces.ContainerSnapshot {
   public bindings!: interfaces.Lookup<interfaces.Binding<unknown>>;
@@ -14,7 +14,7 @@ class ContainerSnapshot implements interfaces.ContainerSnapshot {
     middleware: interfaces.Next | null,
     activations: interfaces.Lookup<interfaces.BindingActivation<unknown>>,
     deactivations: interfaces.Lookup<interfaces.BindingDeactivation<unknown>>,
-    moduleActivationStore: interfaces.ModuleActivationStore,
+    moduleActivationStore: interfaces.ModuleActivationStore
   ) {
     const snapshot: ContainerSnapshot = new ContainerSnapshot();
     snapshot.bindings = bindings;

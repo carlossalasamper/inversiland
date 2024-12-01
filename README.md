@@ -217,15 +217,15 @@ export class AppModule {}
 Choose the newly defined `AppModule` as the entry point of the dependency system.
 
 ```typescript
-import { InversifySugar } from "inversiland";
+import { Inversiland } from "inversiland";
 import { AppModule } from "./AppModule";
 
-// Configure the InversifySugar instance
-InversifySugar.options.debug = process.env.NODE_ENV === "development";
-InversifySugar.options.defaultScope = "Singleton";
+// Configure the Inversiland instance
+Inversiland.options.debug = process.env.NODE_ENV === "development";
+Inversiland.options.defaultScope = "Singleton";
 
 // Entrypoint
-InversifySugar.run(AppModule);
+Inversiland.run(AppModule);
 ```
 
 And that's it!
@@ -268,13 +268,13 @@ The relationship between modules would be as follows:
 
 </br>
 
-Once `AppModule` is defined, we will only have to call the `InversifySugar.run` method specifying the root module:
+Once `AppModule` is defined, we will only have to call the `Inversiland.run` method specifying the root module:
 
 ```typescript
-import { InversifySugar } from "inversiland";
+import { Inversiland } from "inversiland";
 import { AppModule } from "./AppModule";
 
-InversifySugar.run(AppModule);
+Inversiland.run(AppModule);
 ```
 
 The module decorator accepts an object argument with the `imports`, `providers` and `exports` properties.
@@ -492,7 +492,7 @@ import {
   getModuleContainer,
   module,
   injectable,
-  InversifySugar,
+  Inversiland,
 } from "inversiland";
 
 @injectable()
@@ -512,7 +512,7 @@ class AModule {}
 })
 class AppModule {}
 
-InversifySugar.run(AppModule);
+Inversiland.run(AppModule);
 
 // Accessing the container of a module
 const appModuleContainer = getModuleContainer(AppModule);

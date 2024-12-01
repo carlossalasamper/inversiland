@@ -1,15 +1,10 @@
-import { BindingScopeEnum, BindingTypeEnum } from '../constants/literal_types';
-import { interfaces } from '../interfaces/interfaces';
-import { id } from '../utils/id';
+import { interfaces } from "../";
+import { BindingTypeEnum } from "../constants/literal_types";
+import { id } from "../utils/id";
 
 class Binding<TActivated> implements interfaces.Binding<TActivated> {
   public id: number;
-  public moduleId!: interfaces.ContainerModuleBase['id'];
-
-  // Determines weather the bindings has been already activated
-  // The activation action takes place when an instance is resolved
-  // If the scope is singleton it only happens once
-  public activated: boolean;
+  public moduleId!: interfaces.ContainerModuleBase["id"];
 
   // A runtime identifier because at runtime we don't have interfaces
   public serviceIdentifier: interfaces.ServiceIdentifier<TActivated>;
@@ -17,8 +12,8 @@ class Binding<TActivated> implements interfaces.Binding<TActivated> {
   // constructor from binding to or toConstructor
   public implementationType: interfaces.Newable<TActivated> | TActivated | null;
 
-  // Cache used to allow singleton scope and BindingType.ConstantValue bindings
-  public cache: TActivated | Promise<TActivated> | null;
+  // Binding state grouped in an object you can share with other bindings
+  public state: interfaces.BindingState<TActivated>;
 
   // Cache used to allow BindingType.DynamicValue bindings
   public dynamicValue: interfaces.DynamicValue<TActivated> | null;
@@ -49,31 +44,32 @@ class Binding<TActivated> implements interfaces.Binding<TActivated> {
 
   constructor(
     serviceIdentifier: interfaces.ServiceIdentifier<TActivated>,
-    scope: interfaces.BindingScope,
+    scope: interfaces.BindingScope
   ) {
     this.id = id();
-    this.activated = false;
     this.serviceIdentifier = serviceIdentifier;
     this.scope = scope;
     this.type = BindingTypeEnum.Invalid;
     this.constraint = (_request: interfaces.Request | null) => true;
     this.implementationType = null;
-    this.cache = null;
     this.factory = null;
     this.provider = null;
     this.onActivation = null;
     this.onDeactivation = null;
     this.dynamicValue = null;
     this.container = null;
+    this.state = {
+      activated: false,
+      cache: null,
+    };
   }
 
   public clone(): interfaces.Binding<TActivated> {
     const clone: Binding<TActivated> = new Binding(
       this.serviceIdentifier,
-      this.scope,
+      this.scope
     );
-    clone.activated =
-      clone.scope === BindingScopeEnum.Singleton ? this.activated : false;
+
     clone.implementationType = this.implementationType;
     clone.dynamicValue = this.dynamicValue;
     clone.scope = this.scope;
@@ -83,8 +79,9 @@ class Binding<TActivated> implements interfaces.Binding<TActivated> {
     clone.constraint = this.constraint;
     clone.onActivation = this.onActivation;
     clone.onDeactivation = this.onDeactivation;
-    clone.cache = this.cache;
+    clone.state = this.state;
     clone.container = this.container;
+
     return clone;
   }
 }

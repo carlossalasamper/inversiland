@@ -1,10 +1,10 @@
-import * as ERROR_MSGS from '../constants/error_msgs';
-import * as METADATA_KEY from '../constants/metadata_keys';
-import { interfaces } from '../interfaces/interfaces';
-import { getFirstArrayDuplicate } from '../utils/js';
+import { interfaces } from "../";
+import * as ERROR_MSGS from "../constants/error_msgs";
+import * as METADATA_KEY from "../constants/metadata_keys";
+import { getFirstArrayDuplicate } from "../utils/js";
 
 function targetIsConstructorFunction<T = object>(
-  target: DecoratorTarget<T>,
+  target: DecoratorTarget<T>
 ): target is ConstructorFunction<T> {
   return (target as Partial<ConstructorFunction<T>>).prototype !== undefined;
 }
@@ -25,7 +25,7 @@ export type DecoratorTarget<T = unknown> =
   | Prototype<T>;
 
 function _throwIfMethodParameter(
-  parameterName: string | symbol | undefined,
+  parameterName: string | symbol | undefined
 ): void {
   if (parameterName !== undefined) {
     throw new Error(ERROR_MSGS.INVALID_DECORATOR_OPERATION);
@@ -36,21 +36,21 @@ function tagParameter(
   annotationTarget: DecoratorTarget,
   parameterName: string | symbol | undefined,
   parameterIndex: number,
-  metadata: interfaces.MetadataOrMetadataArray,
+  metadata: interfaces.MetadataOrMetadataArray
 ) {
   _throwIfMethodParameter(parameterName);
   _tagParameterOrProperty(
     METADATA_KEY.TAGGED,
     annotationTarget as ConstructorFunction,
     parameterIndex.toString(),
-    metadata,
+    metadata
   );
 }
 
 function tagProperty(
   annotationTarget: DecoratorTarget,
   propertyName: string | symbol,
-  metadata: interfaces.MetadataOrMetadataArray,
+  metadata: interfaces.MetadataOrMetadataArray
 ) {
   if (targetIsConstructorFunction(annotationTarget)) {
     throw new Error(ERROR_MSGS.INVALID_DECORATOR_OPERATION);
@@ -59,23 +59,23 @@ function tagProperty(
     METADATA_KEY.TAGGED_PROP,
     annotationTarget.constructor,
     propertyName,
-    metadata,
+    metadata
   );
 }
 
 function _ensureNoMetadataKeyDuplicates(
-  metadata: interfaces.MetadataOrMetadataArray,
+  metadata: interfaces.MetadataOrMetadataArray
 ): interfaces.Metadata[] {
   let metadatas: interfaces.Metadata[] = [];
   if (Array.isArray(metadata)) {
     metadatas = metadata;
     const duplicate: string | number | symbol | undefined =
       getFirstArrayDuplicate(
-        metadatas.map((md: interfaces.Metadata) => md.key),
+        metadatas.map((md: interfaces.Metadata) => md.key)
       );
     if (duplicate !== undefined) {
       throw new Error(
-        `${ERROR_MSGS.DUPLICATED_METADATA} ${duplicate.toString()}`,
+        `${ERROR_MSGS.DUPLICATED_METADATA} ${duplicate.toString()}`
       );
     }
   } else {
@@ -88,7 +88,7 @@ function _tagParameterOrProperty(
   metadataKey: string,
   annotationTarget: NewableFunction,
   key: string | symbol,
-  metadata: interfaces.MetadataOrMetadataArray,
+  metadata: interfaces.MetadataOrMetadataArray
 ) {
   const metadatas: interfaces.Metadata[] =
     _ensureNoMetadataKeyDuplicates(metadata);
@@ -101,7 +101,7 @@ function _tagParameterOrProperty(
   if (Reflect.hasOwnMetadata(metadataKey, annotationTarget)) {
     paramsOrPropertiesMetadata = Reflect.getMetadata(
       metadataKey,
-      annotationTarget,
+      annotationTarget
     ) as interfaces.MetadataMap;
   }
 
@@ -114,7 +114,7 @@ function _tagParameterOrProperty(
     for (const m of paramOrPropertyMetadata) {
       if (metadatas.some((md: interfaces.Metadata) => md.key === m.key)) {
         throw new Error(
-          `${ERROR_MSGS.DUPLICATED_METADATA} ${m.key.toString()}`,
+          `${ERROR_MSGS.DUPLICATED_METADATA} ${m.key.toString()}`
         );
       }
     }
@@ -126,7 +126,7 @@ function _tagParameterOrProperty(
   Reflect.defineMetadata(
     metadataKey,
     paramsOrPropertiesMetadata,
-    annotationTarget,
+    annotationTarget
   );
 }
 
@@ -134,9 +134,9 @@ function createTaggedDecorator(metadata: interfaces.MetadataOrMetadataArray) {
   return <T>(
     target: DecoratorTarget,
     targetKey?: string | symbol,
-    indexOrPropertyDescriptor?: number | TypedPropertyDescriptor<T>,
+    indexOrPropertyDescriptor?: number | TypedPropertyDescriptor<T>
   ) => {
-    if (typeof indexOrPropertyDescriptor === 'number') {
+    if (typeof indexOrPropertyDescriptor === "number") {
       tagParameter(target, targetKey, indexOrPropertyDescriptor, metadata);
     } else {
       tagProperty(target, targetKey as string | symbol, metadata);
@@ -146,7 +146,7 @@ function createTaggedDecorator(metadata: interfaces.MetadataOrMetadataArray) {
 
 function _decorate(
   decorators: (DecoratorTarget | ParameterDecorator | MethodDecorator)[],
-  target: object | NewableFunction,
+  target: object | NewableFunction
 ): void {
   Reflect.decorate(decorators as ClassDecorator[], target as NewableFunction);
 }
@@ -165,18 +165,18 @@ function _param(paramIndex: number, decorator: ParameterDecorator) {
 function decorate(
   decorator: DecoratorTarget | ParameterDecorator | MethodDecorator,
   target: object,
-  parameterIndexOrProperty?: number | string,
+  parameterIndexOrProperty?: number | string
 ): void {
-  if (typeof parameterIndexOrProperty === 'number') {
+  if (typeof parameterIndexOrProperty === "number") {
     _decorate(
       [_param(parameterIndexOrProperty, decorator as ParameterDecorator)],
-      target,
+      target
     );
-  } else if (typeof parameterIndexOrProperty === 'string') {
+  } else if (typeof parameterIndexOrProperty === "string") {
     Reflect.decorate(
       [decorator as MethodDecorator],
       target,
-      parameterIndexOrProperty,
+      parameterIndexOrProperty
     );
   } else {
     _decorate([decorator], target);

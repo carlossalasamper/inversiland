@@ -1,6 +1,6 @@
 import bindProviderToContainer from "../binding/bindProviderToContainer";
 import createExportedProviderRef from "../exporting/createExportedProviderRef";
-import InversifySugar from "../inversifySugar/InversifySugar";
+import Inversiland from "../inversiland/Inversiland";
 import { getModuleMetadata } from "../metadata/getModuleMetadata";
 import { ExportedProviderRef } from "../types/ExportedProvider";
 import { DynamicModule } from "../types/Module";
@@ -30,7 +30,7 @@ export default function importDynamicModule(
   for (const globalProvider of globalProviders) {
     bindProviderToContainer(
       globalProvider,
-      InversifySugar.globalContainer,
+      Inversiland.globalContainer,
       metadata.container.innerContainer
     );
   }

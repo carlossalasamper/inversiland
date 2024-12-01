@@ -1,4 +1,4 @@
-import { Container, createMockRequest } from "@carlossalasamper/inversify";
+import { Container, createMockRequest } from "@inversiland/inversify";
 
 import { IMPORTED_TAG } from "../../src/constants";
 import importedConstraint from "../../src/constraints/importedConstraint";

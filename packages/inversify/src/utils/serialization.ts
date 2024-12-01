@@ -1,12 +1,12 @@
-import * as ERROR_MSGS from '../constants/error_msgs';
-import { interfaces } from '../interfaces/interfaces';
+import { interfaces } from "..";
+import * as ERROR_MSGS from "../constants/error_msgs";
 
 function getServiceIdentifierAsString(
-  serviceIdentifier: interfaces.ServiceIdentifier,
+  serviceIdentifier: interfaces.ServiceIdentifier
 ): string {
-  if (typeof serviceIdentifier === 'function') {
+  if (typeof serviceIdentifier === "function") {
     return serviceIdentifier.name;
-  } else if (typeof serviceIdentifier === 'symbol') {
+  } else if (typeof serviceIdentifier === "symbol") {
     return serviceIdentifier.toString();
   } else {
     return serviceIdentifier;
@@ -18,26 +18,26 @@ function listRegisteredBindingsForServiceIdentifier(
   serviceIdentifier: string,
   getBindings: <T>(
     container: interfaces.Container,
-    serviceIdentifier: interfaces.ServiceIdentifier<T>,
-  ) => interfaces.Binding<T>[],
+    serviceIdentifier: interfaces.ServiceIdentifier<T>
+  ) => interfaces.Binding<T>[]
 ): string {
-  let registeredBindingsList = '';
+  let registeredBindingsList = "";
   const registeredBindings: interfaces.Binding<unknown>[] = getBindings(
     container,
-    serviceIdentifier,
+    serviceIdentifier
   );
 
   if (registeredBindings.length !== 0) {
-    registeredBindingsList = '\nRegistered bindings:';
+    registeredBindingsList = "\nRegistered bindings:";
 
     registeredBindings.forEach((binding: interfaces.Binding<unknown>) => {
       // Use 'Object as name of constant value injections'
-      let name = 'Object';
+      let name = "Object";
 
       // Use function name if available
       if (binding.implementationType !== null) {
         name = getFunctionName(
-          binding.implementationType as { name: string | null },
+          binding.implementationType as { name: string | null }
         );
       }
 
@@ -55,7 +55,7 @@ function listRegisteredBindingsForServiceIdentifier(
 
 function alreadyDependencyChain(
   request: interfaces.Request,
-  serviceIdentifier: interfaces.ServiceIdentifier,
+  serviceIdentifier: interfaces.ServiceIdentifier
 ): boolean {
   if (request.parentRequest === null) {
     return false;
@@ -69,10 +69,10 @@ function alreadyDependencyChain(
 function dependencyChainToString(request: interfaces.Request) {
   function _createStringArr(
     req: interfaces.Request,
-    result: string[] = [],
+    result: string[] = []
   ): string[] {
     const serviceIdentifier: string = getServiceIdentifierAsString(
-      req.serviceIdentifier,
+      req.serviceIdentifier
     );
     result.push(serviceIdentifier);
     if (req.parentRequest !== null) {
@@ -82,7 +82,7 @@ function dependencyChainToString(request: interfaces.Request) {
   }
 
   const stringArr: string[] = _createStringArr(request);
-  return stringArr.reverse().join(' --> ');
+  return stringArr.reverse().join(" --> ");
 }
 
 function circularDependencyToException(request: interfaces.Request) {
@@ -98,10 +98,10 @@ function circularDependencyToException(request: interfaces.Request) {
 
 function listMetadataForTarget(
   serviceIdentifierString: string,
-  target: interfaces.Target,
+  target: interfaces.Target
 ): string {
   if (target.isTagged() || target.isNamed()) {
-    let m = '';
+    let m = "";
 
     const namedTag: interfaces.Metadata<string | number | symbol> | null =
       target.getNamedTag();
@@ -109,12 +109,12 @@ function listMetadataForTarget(
       target.getCustomTags();
 
     if (namedTag !== null) {
-      m += stringifyMetadata(namedTag) + '\n';
+      m += stringifyMetadata(namedTag) + "\n";
     }
 
     if (otherTags !== null) {
       otherTags.forEach((tag: interfaces.Metadata) => {
-        m += stringifyMetadata(tag) + '\n';
+        m += stringifyMetadata(tag) + "\n";
       });
     }
 
@@ -125,7 +125,7 @@ function listMetadataForTarget(
 }
 
 function getFunctionName(func: { name: string | null | undefined }): string {
-  if (func.name != null && func.name !== '') {
+  if (func.name != null && func.name !== "") {
     return func.name;
   } else {
     // eslint-disable-next-line @typescript-eslint/no-base-to-string
@@ -143,7 +143,9 @@ function getSymbolDescription(symbol: symbol) {
 }
 
 function stringifyMetadata(metadata: interfaces.Metadata): string {
-  return `{"key":"${metadata.key.toString()}","value":"${(metadata.value as string).toString()}"}`;
+  return `{"key":"${metadata.key.toString()}","value":"${(
+    metadata.value as string
+  ).toString()}"}`;
 }
 
 export {

@@ -1,4 +1,4 @@
-import { injectable } from "@carlossalasamper/inversify";
+import { injectable } from "@inversiland/inversify";
 
 import { getModuleContainer, module } from "../../src";
 import { bindProviderToModule } from "../../src/binding/bindProviderToModule";

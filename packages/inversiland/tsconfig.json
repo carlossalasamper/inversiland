@@ -1,22 +1,27 @@
 {
   "compilerOptions": {
+    "outDir": "./dist",
     "strict": true,
-    "lib": ["es6"],
     "target": "es6",
     "module": "CommonJS",
-    "outDir": "./dist",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
+    "noEmit": true,
+    "declaration": false,
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "declaration": true,
-    "plugins": [{ "transform": "ts-transformer-keys/transformer" }]
+    "paths": {
+      "@inversiland/inversify": ["./packages/inversify/src"],
+      "@inversiland/inversify/*": ["./packages/inversify/src/*"],
+      "@inversiland/inversiland": ["./packages/inversiland/src"],
+      "@inversiland/inversiland/*": ["./packages/inversiland/src/*"]
+    }
   },
-  "include": ["**/*.ts"]
+  "include": ["src/**/*.ts", "test/**/*.ts"]
 }

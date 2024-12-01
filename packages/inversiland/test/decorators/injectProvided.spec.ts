@@ -1,15 +1,15 @@
-import { injectable } from "@carlossalasamper/inversify";
+import { injectable } from "@inversiland/inversify";
 
 import {
   getModuleContainer,
   injectProvided,
-  InversifySugar,
+  Inversiland,
   module,
 } from "../../src";
 
 describe("@injectProvided", () => {
   afterAll(() => {
-    InversifySugar.reset();
+    Inversiland.reset();
   });
 
   it("Should resolve a module provider injected into another provider", () => {
@@ -28,7 +28,7 @@ describe("@injectProvided", () => {
     })
     class AppModule {}
 
-    InversifySugar.run(AppModule);
+    Inversiland.run(AppModule);
 
     const appModuleContainer = getModuleContainer(AppModule);
 

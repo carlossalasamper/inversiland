@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { interfaces } from "@carlossalasamper/inversify";
-import { keys } from "ts-transformer-keys";
 
-export const scopeKeys = keys<interfaces.BindingScopeEnum>();
+import { SCOPE_KEYS } from "../constants";
 
 const isValidScope = (data: any) => {
-  return scopeKeys.includes(data);
+  return SCOPE_KEYS.includes(data);
 };
 
 export default isValidScope;

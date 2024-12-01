@@ -1,13 +1,13 @@
-import * as ERROR_MSGS from '../constants/error_msgs';
-import { BindingTypeEnum } from '../constants/literal_types';
-import type { interfaces } from '../interfaces/interfaces';
-import { FactoryType } from './factory_type';
-import { getServiceIdentifierAsString } from './serialization';
+import { interfaces } from "..";
+import * as ERROR_MSGS from "../constants/error_msgs";
+import { BindingTypeEnum } from "../constants/literal_types";
+import { FactoryType } from "./factory_type";
+import { getServiceIdentifierAsString } from "./serialization";
 
 export const multiBindToService: (
-  container: interfaces.Container,
+  container: interfaces.Container
 ) => (
-  service: interfaces.ServiceIdentifier,
+  service: interfaces.ServiceIdentifier
 ) => (...types: interfaces.ServiceIdentifier[]) => void =
   (container: interfaces.Container) =>
   (service: interfaces.ServiceIdentifier) =>
@@ -18,7 +18,7 @@ export const multiBindToService: (
   };
 
 export const ensureFullyBound: <T = unknown>(
-  binding: interfaces.Binding<T>,
+  binding: interfaces.Binding<T>
 ) => void = <T = unknown>(binding: interfaces.Binding<T>): void => {
   let boundValue: unknown = null;
 
@@ -26,7 +26,7 @@ export const ensureFullyBound: <T = unknown>(
   switch (binding.type) {
     case BindingTypeEnum.ConstantValue:
     case BindingTypeEnum.Function:
-      boundValue = binding.cache;
+      boundValue = binding.state.cache;
       break;
     case BindingTypeEnum.Constructor:
     case BindingTypeEnum.Instance:
@@ -46,18 +46,18 @@ export const ensureFullyBound: <T = unknown>(
     // The user probably created a binding but didn't finish it
     // e.g. container.bind<T>('Something'); missing BindingToSyntax
     const serviceIdentifierAsString: string = getServiceIdentifierAsString(
-      binding.serviceIdentifier,
+      binding.serviceIdentifier
     );
     throw new Error(
-      `${ERROR_MSGS.INVALID_BINDING_TYPE} ${serviceIdentifierAsString}`,
+      `${ERROR_MSGS.INVALID_BINDING_TYPE} ${serviceIdentifierAsString}`
     );
   }
 };
 
 export const getFactoryDetails: <T = unknown>(
-  binding: interfaces.Binding<T>,
+  binding: interfaces.Binding<T>
 ) => interfaces.FactoryDetails = <T = unknown>(
-  binding: interfaces.Binding<T>,
+  binding: interfaces.Binding<T>
 ): interfaces.FactoryDetails => {
   switch (binding.type) {
     case BindingTypeEnum.Factory:

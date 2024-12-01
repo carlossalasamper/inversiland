@@ -6,7 +6,7 @@
 <p align="center">
   <img alt="Inversiland banner" src="https://raw.githubusercontent.com/carlossalasamper/inversiland/master/assets/images/inversiland-banner.png" style="max-width: 900px; width: 100%;" />
 </p>
-<p align="center" style="margin-top: 10px;">🧁 <a href="https://inversify.io/">InversifyJS</a> framework to build hierarchical dependency systems with an elegant API.</p>
+<p align="center" style="margin-top: 10px;"> 🎡 <a href="https://inversify.io/">InversifyJS</a> framework to build hierarchical dependency systems with an elegant API.</p>
 
 ## Table of Contents
 
@@ -42,7 +42,7 @@
 
 ## Introduction
 
-Inversiland is a framework built on top of a [custom fork of Inversify](./packages/inversify) that adds a set of decorators, types and functions to create _the TypeScript dependency system you've always dreamed of_.
+Inversiland is a framework built on top of a [custom fork of Inversify](./packages/inversify) that adds a set of decorators, types and functions to create **the TypeScript dependency system you've always dreamed of**.
 
 Your projects will move to the next level regardless of:
 
@@ -218,15 +218,15 @@ export class AppModule {}
 Choose the newly defined `AppModule` as the entry point of the dependency system.
 
 ```typescript
-import { InversifySugar } from "inversiland";
+import { Inversiland } from "inversiland";
 import { AppModule } from "./AppModule";
 
-// Configure the InversifySugar instance
-InversifySugar.options.debug = process.env.NODE_ENV === "development";
-InversifySugar.options.defaultScope = "Singleton";
+// Configure the Inversiland instance
+Inversiland.options.debug = process.env.NODE_ENV === "development";
+Inversiland.options.defaultScope = "Singleton";
 
 // Entrypoint
-InversifySugar.run(AppModule);
+Inversiland.run(AppModule);
 ```
 
 And that's it!
@@ -269,13 +269,13 @@ The relationship between modules would be as follows:
 
 </br>
 
-Once `AppModule` is defined, we will only have to call the `InversifySugar.run` method specifying the root module:
+Once `AppModule` is defined, we will only have to call the `Inversiland.run` method specifying the root module:
 
 ```typescript
-import { InversifySugar } from "inversiland";
+import { Inversiland } from "inversiland";
 import { AppModule } from "./AppModule";
 
-InversifySugar.run(AppModule);
+Inversiland.run(AppModule);
 ```
 
 The module decorator accepts an object argument with the `imports`, `providers` and `exports` properties.
@@ -493,7 +493,7 @@ import {
   getModuleContainer,
   module,
   injectable,
-  InversifySugar,
+  Inversiland,
 } from "inversiland";
 
 @injectable()
@@ -513,7 +513,7 @@ class AModule {}
 })
 class AppModule {}
 
-InversifySugar.run(AppModule);
+Inversiland.run(AppModule);
 
 // Accessing the container of a module
 const appModuleContainer = getModuleContainer(AppModule);

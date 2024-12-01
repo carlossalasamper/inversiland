@@ -1,29 +1,26 @@
-import * as ERROR_MSGS from '../constants/error_msgs';
-import { BindingTypeEnum } from '../constants/literal_types';
-import { interfaces } from '../interfaces/interfaces';
-import { getBindingDictionary } from '../planning/planner';
-import { saveToScope, tryGetFromScope } from '../scope/scope';
-import { isPromise } from '../utils/async';
-import { ensureFullyBound, getFactoryDetails } from '../utils/binding_utils';
-import { tryAndThrowErrorIfStackOverflow } from '../utils/exceptions';
-import { resolveInstance } from './instantiation';
+import { interfaces } from "..";
+import * as ERROR_MSGS from "../constants/error_msgs";
+import { BindingTypeEnum } from "../constants/literal_types";
+import { getBindingDictionary } from "../planning/planner";
+import { saveToScope, tryGetFromScope } from "../scope/scope";
+import { isPromise } from "../utils/async";
+import { ensureFullyBound, getFactoryDetails } from "../utils/binding_utils";
+import { tryAndThrowErrorIfStackOverflow } from "../utils/exceptions";
+import { resolveInstance } from "./instantiation";
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const _resolveRequest: <T>(
-  requestScope: interfaces.RequestScope,
+  requestScope: interfaces.RequestScope
 ) => (
-  request: interfaces.Request,
+  request: interfaces.Request
 ) => undefined | T | Promise<T> | (T | Promise<T>)[] =
   <T>(requestScope: interfaces.RequestScope) =>
   (
-    request: interfaces.Request,
+    request: interfaces.Request
   ): undefined | T | Promise<T> | (T | Promise<T>)[] => {
     request.parentContext.setCurrentRequest(request);
 
     const bindings: interfaces.Binding[] = request.bindings;
     const childRequests: interfaces.Request[] = request.childRequests;
-
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/strict-boolean-expressions
     const targetIsAnArray: boolean = request.target && request.target.isArray();
 
     const targetParentIsNotAnArray: boolean =
@@ -33,7 +30,7 @@ const _resolveRequest: <T>(
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/strict-boolean-expressions
       !request.target ||
       !request.parentRequest.target.matchesArray(
-        request.target.serviceIdentifier,
+        request.target.serviceIdentifier
       );
 
     if (targetIsAnArray && targetParentIsNotAnArray) {
@@ -43,7 +40,7 @@ const _resolveRequest: <T>(
           const resolveRequest: (request: interfaces.Request) => unknown =
             _resolveRequest(requestScope);
           return resolveRequest(childRequest) as T | Promise<T>;
-        },
+        }
       );
     } else {
       if (request.target.isOptional() && bindings.length === 0) {
@@ -55,44 +52,42 @@ const _resolveRequest: <T>(
       return _resolveBinding<T>(
         requestScope,
         request,
-        binding as interfaces.Binding as interfaces.Binding<T>,
+        binding as interfaces.Binding as interfaces.Binding<T>
       );
     }
   };
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const _resolveFactoryFromBinding: <T>(
   binding: interfaces.Binding<T>,
-  context: interfaces.Context,
+  context: interfaces.Context
 ) => T | Promise<T> = <T>(
   binding: interfaces.Binding<T>,
-  context: interfaces.Context,
+  context: interfaces.Context
 ): T | Promise<T> => {
   const factoryDetails: interfaces.FactoryDetails = getFactoryDetails(binding);
   return tryAndThrowErrorIfStackOverflow(
     (): T | Promise<T> =>
       (factoryDetails.factory as interfaces.FactoryTypeFunction<T>).bind(
-        binding,
+        binding
       )(context),
     () =>
       new Error(
         ERROR_MSGS.CIRCULAR_DEPENDENCY_IN_FACTORY(
           factoryDetails.factoryType,
-          context.currentRequest.serviceIdentifier.toString(),
-        ),
-      ),
+          context.currentRequest.serviceIdentifier.toString()
+        )
+      )
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const _getResolvedFromBinding: <T = unknown>(
   requestScope: interfaces.RequestScope,
   request: interfaces.Request,
-  binding: interfaces.Binding<T>,
+  binding: interfaces.Binding<T>
 ) => T | Promise<T> = <T = unknown>(
   requestScope: interfaces.RequestScope,
   request: interfaces.Request,
-  binding: interfaces.Binding<T>,
+  binding: interfaces.Binding<T>
 ): T | Promise<T> => {
   let result: T | Promise<T> | undefined;
   const childRequests: interfaces.Request[] = request.childRequests;
@@ -102,7 +97,7 @@ const _getResolvedFromBinding: <T = unknown>(
   switch (binding.type) {
     case BindingTypeEnum.ConstantValue:
     case BindingTypeEnum.Function:
-      result = binding.cache as T | Promise<T>;
+      result = binding.state.cache as T | Promise<T>;
       break;
     case BindingTypeEnum.Constructor:
       result = binding.implementationType as T;
@@ -112,7 +107,7 @@ const _getResolvedFromBinding: <T = unknown>(
         binding,
         binding.implementationType as interfaces.Newable<T>,
         childRequests,
-        _resolveRequest<T>(requestScope),
+        _resolveRequest<T>(requestScope)
       );
       break;
     default:
@@ -122,15 +117,14 @@ const _getResolvedFromBinding: <T = unknown>(
   return result;
 };
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const _resolveInScope: <T>(
   requestScope: interfaces.RequestScope,
   binding: interfaces.Binding<T>,
-  resolveFromBinding: () => T | Promise<T>,
+  resolveFromBinding: () => T | Promise<T>
 ) => T | Promise<T> = <T>(
   requestScope: interfaces.RequestScope,
   binding: interfaces.Binding<T>,
-  resolveFromBinding: () => T | Promise<T>,
+  resolveFromBinding: () => T | Promise<T>
 ): T | Promise<T> => {
   let result: T | Promise<T> | null = tryGetFromScope<T>(requestScope, binding);
   if (result !== null) {
@@ -141,25 +135,24 @@ const _resolveInScope: <T>(
   return result;
 };
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const _resolveBinding: <T>(
   requestScope: interfaces.RequestScope,
   request: interfaces.Request,
-  binding: interfaces.Binding<T>,
+  binding: interfaces.Binding<T>
 ) => T | Promise<T> = <T>(
   requestScope: interfaces.RequestScope,
   request: interfaces.Request,
-  binding: interfaces.Binding<T>,
+  binding: interfaces.Binding<T>
 ): T | Promise<T> => {
   return _resolveInScope<T>(requestScope, binding, (): T | Promise<T> => {
     let result: T | Promise<T> = _getResolvedFromBinding(
       requestScope,
       request,
-      binding,
+      binding
     );
     if (isPromise(result)) {
       result = result.then((resolved: T): T | Promise<T> =>
-        _onActivation(request, binding, resolved),
+        _onActivation(request, binding, resolved)
       );
     } else {
       result = _onActivation<T>(request, binding, result);
@@ -171,12 +164,12 @@ const _resolveBinding: <T>(
 function _onActivation<T>(
   request: interfaces.Request,
   binding: interfaces.Binding<T>,
-  resolved: T,
+  resolved: T
 ): T | Promise<T> {
   let result: T | Promise<T> = _bindingActivation(
     request.parentContext,
     binding,
-    resolved,
+    resolved
   );
 
   const containersIterator: Iterator<interfaces.Container> =
@@ -198,13 +191,13 @@ function _onActivation<T>(
       result = _activateContainerAsync<T>(
         activationsIterator as Iterator<interfaces.BindingActivation<T>>,
         context,
-        result,
+        result
       );
     } else {
       result = _activateContainer<T>(
         activationsIterator as Iterator<interfaces.BindingActivation<T>>,
         context,
-        result,
+        result
       );
     }
 
@@ -219,20 +212,19 @@ function _onActivation<T>(
   return result;
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const _bindingActivation: <T>(
   context: interfaces.Context,
   binding: interfaces.Binding<T>,
-  previousResult: T,
+  previousResult: T
 ) => T | Promise<T> = <T>(
   context: interfaces.Context,
   binding: interfaces.Binding<T>,
-  previousResult: T,
+  previousResult: T
 ): T | Promise<T> => {
   let result: T | Promise<T>;
 
   // use activation handler if available
-  if (typeof binding.onActivation === 'function') {
+  if (typeof binding.onActivation === "function") {
     result = binding.onActivation(context, previousResult);
   } else {
     result = previousResult;
@@ -241,15 +233,14 @@ const _bindingActivation: <T>(
   return result;
 };
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const _activateContainer: <T>(
   activationsIterator: Iterator<interfaces.BindingActivation<T>>,
   context: interfaces.Context,
-  result: T,
+  result: T
 ) => T | Promise<T> = <T>(
   activationsIterator: Iterator<interfaces.BindingActivation<T>>,
   context: interfaces.Context,
-  result: T,
+  result: T
 ): T | Promise<T> => {
   let activation: IteratorResult<interfaces.BindingActivation<T>> =
     activationsIterator.next();
@@ -267,15 +258,14 @@ const _activateContainer: <T>(
   return result;
 };
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const _activateContainerAsync: <T>(
   activationsIterator: Iterator<interfaces.BindingActivation<T>>,
   context: interfaces.Context,
-  resultPromise: Promise<T>,
+  resultPromise: Promise<T>
 ) => Promise<T> = async <T>(
   activationsIterator: Iterator<interfaces.BindingActivation<T>>,
   context: interfaces.Context,
-  resultPromise: Promise<T>,
+  resultPromise: Promise<T>
 ): Promise<T> => {
   let result: Awaited<T> = await resultPromise;
   let activation: IteratorResult<interfaces.BindingActivation<T>> =
@@ -290,13 +280,12 @@ const _activateContainerAsync: <T>(
   return result;
 };
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const _getContainerActivationsForService: <T>(
   container: interfaces.Container,
-  serviceIdentifier: interfaces.ServiceIdentifier<T>,
+  serviceIdentifier: interfaces.ServiceIdentifier<T>
 ) => ArrayIterator<interfaces.BindingActivation<unknown>> = <T>(
   container: interfaces.Container,
-  serviceIdentifier: interfaces.ServiceIdentifier<T>,
+  serviceIdentifier: interfaces.ServiceIdentifier<T>
 ) => {
   // smell accessing _activations, but similar pattern is done in planner.getBindingDictionary()
   const activations: interfaces.Lookup<interfaces.BindingActivation> = (
@@ -310,11 +299,10 @@ const _getContainerActivationsForService: <T>(
     : [].values();
 };
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const _getContainersIterator: (
-  container: interfaces.Container,
+  container: interfaces.Container
 ) => Iterator<interfaces.Container> = (
-  container: interfaces.Container,
+  container: interfaces.Container
 ): Iterator<interfaces.Container> => {
   const containersStack: interfaces.Container[] = [container];
 
@@ -345,12 +333,12 @@ const _getContainersIterator: (
 };
 
 function resolve<T>(
-  context: interfaces.Context,
+  context: interfaces.Context
 ): T | Promise<T> | (T | Promise<T>)[] {
   const resolveRequestFunction: (
-    request: interfaces.Request,
+    request: interfaces.Request
   ) => T | Promise<T> | (T | Promise<T>)[] | undefined = _resolveRequest<T>(
-    context.plan.rootRequest.requestScope as interfaces.RequestScope,
+    context.plan.rootRequest.requestScope as interfaces.RequestScope
   );
 
   return resolveRequestFunction(context.plan.rootRequest) as

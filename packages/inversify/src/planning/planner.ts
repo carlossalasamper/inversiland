@@ -3,33 +3,33 @@ import {
   getClassElementMetadataFromLegacyMetadata,
   LegacyTarget as Target,
   LegacyTargetImpl as TargetImpl,
-} from '@inversifyjs/core';
-import { ClassElementMetadata } from '@inversifyjs/core';
+} from "@inversifyjs/core";
+import { ClassElementMetadata } from "@inversifyjs/core";
 
-import { BindingCount } from '../bindings/binding_count';
-import * as ERROR_MSGS from '../constants/error_msgs';
-import { BindingTypeEnum } from '../constants/literal_types';
-import { interfaces } from '../interfaces/interfaces';
-import { isStackOverflowException } from '../utils/exceptions';
-import { getTargetMetadata } from '../utils/metadata_utils';
+import { interfaces } from "../";
+import { BindingCount } from "../bindings/binding_count";
+import * as ERROR_MSGS from "../constants/error_msgs";
+import { BindingTypeEnum } from "../constants/literal_types";
+import { isStackOverflowException } from "../utils/exceptions";
+import { getTargetMetadata } from "../utils/metadata_utils";
 import {
   circularDependencyToException,
   getServiceIdentifierAsString,
   listMetadataForTarget,
   listRegisteredBindingsForServiceIdentifier,
-} from '../utils/serialization';
-import { Context } from './context';
-import { Metadata } from './metadata';
-import { Plan } from './plan';
+} from "../utils/serialization";
+import { Context } from "./context";
+import { Metadata } from "./metadata";
+import { Plan } from "./plan";
 import {
   getBaseClassDependencyCount,
   getDependencies,
   getFunctionName,
-} from './reflection_utils';
-import { Request } from './request';
+} from "./reflection_utils";
+import { Request } from "./request";
 
 function getBindingDictionary(
-  cntnr: interfaces.Container,
+  cntnr: interfaces.Container
 ): interfaces.Lookup<interfaces.Binding<unknown>> {
   return (
     cntnr as unknown as {
@@ -44,20 +44,20 @@ function _createTarget(
   serviceIdentifier: interfaces.ServiceIdentifier,
   name: string,
   key?: string | number | symbol,
-  value?: unknown,
+  value?: unknown
 ): interfaces.Target {
   const metadataList: Metadata[] = getTargetMetadata(
     isMultiInject,
     serviceIdentifier,
     key,
-    value,
+    value
   );
 
   const classElementMetadata: ClassElementMetadata =
     getClassElementMetadataFromLegacyMetadata(metadataList);
 
   if (classElementMetadata.kind === ClassElementMetadataKind.unmanaged) {
-    throw new Error('Unexpected metadata when creating target');
+    throw new Error("Unexpected metadata when creating target");
   }
 
   const target: Target = new TargetImpl(name, classElementMetadata, targetType);
@@ -70,11 +70,11 @@ function _getActiveBindings(
   avoidConstraints: boolean,
   context: interfaces.Context,
   parentRequest: interfaces.Request | null,
-  target: interfaces.Target,
+  target: interfaces.Target
 ): interfaces.Binding<unknown>[] {
   let bindings: interfaces.Binding[] = getBindings(
     context.container,
-    target.serviceIdentifier,
+    target.serviceIdentifier
   );
   let activeBindings: interfaces.Binding<unknown>[] = [];
 
@@ -82,7 +82,7 @@ function _getActiveBindings(
   if (
     bindings.length === BindingCount.NoBindingsAvailable &&
     context.container.options.autoBindInjectable === true &&
-    typeof target.serviceIdentifier === 'function' &&
+    typeof target.serviceIdentifier === "function" &&
     metadataReader.getConstructorMetadata(target.serviceIdentifier)
       .compilerGeneratedMetadata
   ) {
@@ -99,7 +99,7 @@ function _getActiveBindings(
         context,
         parentRequest,
         binding,
-        target,
+        target
       );
 
       return binding.constraint(request);
@@ -115,7 +115,7 @@ function _getActiveBindings(
     activeBindings,
     parentRequest,
     target,
-    context.container,
+    context.container
   );
 
   return activeBindings;
@@ -126,7 +126,7 @@ function _validateActiveBindingCount(
   bindings: interfaces.Binding<unknown>[],
   parentRequest: interfaces.Request | null,
   target: interfaces.Target,
-  container: interfaces.Container,
+  container: interfaces.Container
 ): interfaces.Binding<unknown>[] {
   switch (bindings.length) {
     case BindingCount.NoBindingsAvailable:
@@ -140,11 +140,13 @@ function _validateActiveBindingCount(
         msg += listRegisteredBindingsForServiceIdentifier(
           container,
           serviceIdentifierString,
-          getBindings,
+          getBindings
         );
 
         if (parentRequest !== null) {
-          msg += `\n${ERROR_MSGS.TRYING_TO_RESOLVE_BINDINGS(getServiceIdentifierAsString(parentRequest.serviceIdentifier))}`;
+          msg += `\n${ERROR_MSGS.TRYING_TO_RESOLVE_BINDINGS(
+            getServiceIdentifierAsString(parentRequest.serviceIdentifier)
+          )}`;
         }
 
         throw new Error(msg);
@@ -157,11 +159,13 @@ function _validateActiveBindingCount(
       if (!target.isArray()) {
         const serviceIdentifierString: string =
           getServiceIdentifierAsString(serviceIdentifier);
-        let msg = `${ERROR_MSGS.AMBIGUOUS_MATCH(container.id)} ${serviceIdentifierString}`;
+        let msg = `${ERROR_MSGS.AMBIGUOUS_MATCH(
+          container.id
+        )} ${serviceIdentifierString}`;
         msg += listRegisteredBindingsForServiceIdentifier(
           container,
           serviceIdentifierString,
-          getBindings,
+          getBindings
         );
         throw new Error(msg);
       } else {
@@ -176,7 +180,7 @@ function _createSubRequests(
   serviceIdentifier: interfaces.ServiceIdentifier,
   context: interfaces.Context,
   parentRequest: interfaces.Request | null,
-  target: interfaces.Target,
+  target: interfaces.Target
 ) {
   let activeBindings: interfaces.Binding<unknown>[];
   let childRequest: interfaces.Request;
@@ -187,7 +191,7 @@ function _createSubRequests(
       avoidConstraints,
       context,
       null,
-      target,
+      target
     );
 
     childRequest = new Request(
@@ -195,7 +199,7 @@ function _createSubRequests(
       context,
       null,
       activeBindings,
-      target,
+      target
     );
 
     const thePlan: Plan = new Plan(context, childRequest);
@@ -206,12 +210,12 @@ function _createSubRequests(
       avoidConstraints,
       context,
       parentRequest,
-      target,
+      target
     );
     childRequest = parentRequest.addChildRequest(
       target.serviceIdentifier,
       activeBindings,
-      target,
+      target
     );
   }
 
@@ -222,10 +226,10 @@ function _createSubRequests(
       subChildRequest = childRequest.addChildRequest(
         binding.serviceIdentifier,
         binding,
-        target,
+        target
       );
     } else {
-      if (binding.cache !== null) {
+      if (binding.state.cache !== null) {
         return;
       }
       subChildRequest = childRequest;
@@ -237,7 +241,7 @@ function _createSubRequests(
     ) {
       const dependencies: interfaces.Target[] = getDependencies(
         metadataReader,
-        binding.implementationType as NewableFunction,
+        binding.implementationType as NewableFunction
       );
 
       if (context.container.options.skipBaseClassChecks !== true) {
@@ -246,12 +250,12 @@ function _createSubRequests(
         // and one of the derived classes (children) has no dependencies
         const baseClassDependencyCount: number = getBaseClassDependencyCount(
           metadataReader,
-          binding.implementationType as NewableFunction,
+          binding.implementationType as NewableFunction
         );
 
         if (dependencies.length < baseClassDependencyCount) {
           const error: string = ERROR_MSGS.ARGUMENTS_LENGTH_MISMATCH(
-            getFunctionName(binding.implementationType as NewableFunction),
+            getFunctionName(binding.implementationType as NewableFunction)
           );
           throw new Error(error);
         }
@@ -268,7 +272,7 @@ function _createSubRequests(
           dependency.serviceIdentifier,
           subContext,
           subChildRequest,
-          dependency,
+          dependency
         );
       });
     }
@@ -277,7 +281,7 @@ function _createSubRequests(
 
 function getBindings<T>(
   container: interfaces.Container,
-  serviceIdentifier: interfaces.ServiceIdentifier<T>,
+  serviceIdentifier: interfaces.ServiceIdentifier<T>
 ): interfaces.Binding<T>[] {
   let bindings: interfaces.Binding<T>[] = [];
   const bindingDictionary: interfaces.Lookup<interfaces.Binding> =
@@ -285,7 +289,7 @@ function getBindings<T>(
 
   if (bindingDictionary.hasKey(serviceIdentifier)) {
     bindings = bindingDictionary.get(
-      serviceIdentifier,
+      serviceIdentifier
     ) as interfaces.Binding<T>[];
   } else if (container.parent !== null) {
     // recursively try to get bindings from parent container
@@ -303,16 +307,16 @@ function plan(
   serviceIdentifier: interfaces.ServiceIdentifier,
   key?: string | number | symbol,
   value?: unknown,
-  avoidConstraints = false,
+  avoidConstraints = false
 ): interfaces.Context {
   const context: Context = new Context(container);
   const target: interfaces.Target = _createTarget(
     isMultiInject,
     targetType,
     serviceIdentifier,
-    '',
+    "",
     key,
-    value,
+    value
   );
 
   try {
@@ -322,7 +326,7 @@ function plan(
       serviceIdentifier,
       context,
       null,
-      target,
+      target
     );
     return context;
   } catch (error) {

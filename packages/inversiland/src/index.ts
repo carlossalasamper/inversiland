@@ -1,6 +1,4 @@
-import "reflect-metadata";
-
-export { default as InversifySugar } from "./inversifySugar/InversifySugar";
+export { default as Inversiland } from "./inversiland/Inversiland";
 export * from "./modules";
 export * from "./decorators";
 export * from "./middlewares";

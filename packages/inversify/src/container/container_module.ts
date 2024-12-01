@@ -1,5 +1,5 @@
-import { interfaces } from '../interfaces/interfaces';
-import { id } from '../utils/id';
+import { interfaces } from "../";
+import { id } from "../utils/id";
 
 export class ContainerModule implements interfaces.ContainerModule {
   public id: number;

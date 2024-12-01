@@ -1,8 +1,8 @@
-import * as ERROR_MSGS from '../constants/error_msgs';
-import { BindingScopeEnum, BindingTypeEnum } from '../constants/literal_types';
-import { interfaces } from '../interfaces/interfaces';
-import { BindingInWhenOnSyntax } from './binding_in_when_on_syntax';
-import { BindingWhenOnSyntax } from './binding_when_on_syntax';
+import { interfaces } from "../";
+import * as ERROR_MSGS from "../constants/error_msgs";
+import { BindingScopeEnum, BindingTypeEnum } from "../constants/literal_types";
+import { BindingInWhenOnSyntax } from "./binding_in_when_on_syntax";
+import { BindingWhenOnSyntax } from "./binding_when_on_syntax";
 
 class BindingToSyntax<T> implements interfaces.BindingToSyntax<T> {
   // TODO: Implement an internal type `_BindingToSyntax<T>` wherein this member
@@ -15,7 +15,7 @@ class BindingToSyntax<T> implements interfaces.BindingToSyntax<T> {
   }
 
   public to(
-    constructor: interfaces.Newable<T>,
+    constructor: interfaces.Newable<T>
   ): interfaces.BindingInWhenOnSyntax<T> {
     this._binding.type = BindingTypeEnum.Instance;
     this._binding.implementationType = constructor;
@@ -23,7 +23,7 @@ class BindingToSyntax<T> implements interfaces.BindingToSyntax<T> {
   }
 
   public toSelf(): interfaces.BindingInWhenOnSyntax<T> {
-    if (typeof this._binding.serviceIdentifier !== 'function') {
+    if (typeof this._binding.serviceIdentifier !== "function") {
       throw new Error(ERROR_MSGS.INVALID_TO_SELF_VALUE);
     }
 
@@ -35,7 +35,7 @@ class BindingToSyntax<T> implements interfaces.BindingToSyntax<T> {
 
   public toConstantValue(value: T): interfaces.BindingWhenOnSyntax<T> {
     this._binding.type = BindingTypeEnum.ConstantValue;
-    this._binding.cache = value;
+    this._binding.state.cache = value;
     this._binding.dynamicValue = null;
     this._binding.implementationType = null;
     this._binding.scope = BindingScopeEnum.Singleton;
@@ -43,17 +43,17 @@ class BindingToSyntax<T> implements interfaces.BindingToSyntax<T> {
   }
 
   public toDynamicValue(
-    func: interfaces.DynamicValue<T>,
+    func: interfaces.DynamicValue<T>
   ): interfaces.BindingInWhenOnSyntax<T> {
     this._binding.type = BindingTypeEnum.DynamicValue;
-    this._binding.cache = null;
+    this._binding.state.cache = null;
     this._binding.dynamicValue = func;
     this._binding.implementationType = null;
     return new BindingInWhenOnSyntax<T>(this._binding);
   }
 
   public toConstructor<T2>(
-    constructor: interfaces.Newable<T2>,
+    constructor: interfaces.Newable<T2>
   ): interfaces.BindingWhenOnSyntax<T> {
     this._binding.type = BindingTypeEnum.Constructor;
     this._binding.implementationType = constructor as unknown as T;
@@ -62,7 +62,7 @@ class BindingToSyntax<T> implements interfaces.BindingToSyntax<T> {
   }
 
   public toFactory<T2>(
-    factory: interfaces.FactoryCreator<T2>,
+    factory: interfaces.FactoryCreator<T2>
   ): interfaces.BindingWhenOnSyntax<T> {
     this._binding.type = BindingTypeEnum.Factory;
     this._binding.factory = factory;
@@ -72,7 +72,7 @@ class BindingToSyntax<T> implements interfaces.BindingToSyntax<T> {
 
   public toFunction(func: T): interfaces.BindingWhenOnSyntax<T> {
     // toFunction is an alias of toConstantValue
-    if (typeof func !== 'function') {
+    if (typeof func !== "function") {
       throw new Error(ERROR_MSGS.INVALID_FUNCTION_BINDING);
     }
     const bindingWhenOnSyntax: interfaces.BindingWhenOnSyntax<T> =
@@ -83,7 +83,7 @@ class BindingToSyntax<T> implements interfaces.BindingToSyntax<T> {
   }
 
   public toAutoFactory<T2>(
-    serviceIdentifier: interfaces.ServiceIdentifier<T2>,
+    serviceIdentifier: interfaces.ServiceIdentifier<T2>
   ): interfaces.BindingWhenOnSyntax<T> {
     this._binding.type = BindingTypeEnum.Factory;
     this._binding.factory = (context: interfaces.Context) => {
@@ -96,7 +96,7 @@ class BindingToSyntax<T> implements interfaces.BindingToSyntax<T> {
   }
 
   public toAutoNamedFactory<T2>(
-    serviceIdentifier: interfaces.ServiceIdentifier<T2>,
+    serviceIdentifier: interfaces.ServiceIdentifier<T2>
   ): BindingWhenOnSyntax<T> {
     this._binding.type = BindingTypeEnum.Factory;
     this._binding.factory = (context: interfaces.Context) => {
@@ -107,7 +107,7 @@ class BindingToSyntax<T> implements interfaces.BindingToSyntax<T> {
   }
 
   public toProvider<T2>(
-    provider: interfaces.ProviderCreator<T2>,
+    provider: interfaces.ProviderCreator<T2>
   ): interfaces.BindingWhenOnSyntax<T> {
     this._binding.type = BindingTypeEnum.Provider;
     this._binding.provider = provider;
@@ -116,14 +116,32 @@ class BindingToSyntax<T> implements interfaces.BindingToSyntax<T> {
   }
 
   public toService(service: interfaces.ServiceIdentifier<T>): void {
-    this.toDynamicValue((context: interfaces.Context): T | Promise<T> => {
+    this._binding.type = BindingTypeEnum.DynamicValue;
+
+    // Service bindings should never ever be cached. This is just a workaround to achieve that. A better design should replace this approach.
+    Object.defineProperty(this._binding, "cache", {
+      configurable: true,
+      enumerable: true,
+      get() {
+        return {
+          value: null,
+        };
+      },
+      set(_value: unknown) {
+        return;
+      },
+    });
+    this._binding.dynamicValue = (
+      context: interfaces.Context
+    ): T | Promise<T> => {
       try {
         return context.container.get<T>(service);
       } catch (_error: unknown) {
         // This is a performance degradation in this edge case, we do need to improve the internal resolution architecture in order to solve this properly.
         return context.container.getAsync<T>(service);
       }
-    });
+    };
+    this._binding.implementationType = null;
   }
 }
 

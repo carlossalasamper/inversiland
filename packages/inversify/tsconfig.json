@@ -1,22 +1,21 @@
 {
   "compilerOptions": {
+    "outDir": "./dist",
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "alwaysStrict": true,
     "assumeChangesOnlyAffectDirectDependencies": true,
-    "declaration": true,
+    "noEmit": true,
+    "declaration": false,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "exactOptionalPropertyTypes": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "importsNotUsedAsValues": "remove",
-    "isolatedModules": true,
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "isolatedModules": false,
+    "lib": ["esnext", "dom"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noErrorTruncation": true,
@@ -36,14 +35,7 @@
     "skipLibCheck": true,
     "sourceMap": false,
     "strict": true,
-    "target": "es5",
-    "types": [
-      "mocha",
-      "reflect-metadata",
-      "node"
-    ]
+    "target": "es6"
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*.ts", "test/**/*.ts"]
 }

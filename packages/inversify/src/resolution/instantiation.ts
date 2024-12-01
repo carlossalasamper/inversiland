@@ -1,13 +1,13 @@
+import { interfaces } from "../";
 import {
   ON_DEACTIVATION_ERROR,
   POST_CONSTRUCT_ERROR,
   PRE_DESTROY_ERROR,
-} from '../constants/error_msgs';
-import { BindingScopeEnum, TargetTypeEnum } from '../constants/literal_types';
-import * as METADATA_KEY from '../constants/metadata_keys';
-import { interfaces } from '../interfaces/interfaces';
-import { Metadata } from '../planning/metadata';
-import { isPromise, isPromiseOrContainsPromise } from '../utils/async';
+} from "../constants/error_msgs";
+import { BindingScopeEnum, TargetTypeEnum } from "../constants/literal_types";
+import * as METADATA_KEY from "../constants/metadata_keys";
+import { Metadata } from "../planning/metadata";
+import { isPromise, isPromiseOrContainsPromise } from "../utils/async";
 
 interface InstanceCreationInstruction {
   constructorInjections: unknown[];
@@ -26,7 +26,7 @@ interface CreateInstanceWithInjectionArg<T>
 
 function _resolveRequests(
   childRequests: interfaces.Request[],
-  resolveRequest: interfaces.ResolveRequestHandler,
+  resolveRequest: interfaces.ResolveRequestHandler
 ): ResolvedRequests {
   return childRequests.reduce<ResolvedRequests>(
     (resolvedRequests: ResolvedRequests, childRequest: interfaces.Request) => {
@@ -48,21 +48,21 @@ function _resolveRequests(
       isAsync: false,
       propertyInjections: [],
       propertyRequests: [],
-    },
+    }
   );
 }
 
 function _createInstance<T>(
   constr: interfaces.Newable<T>,
   childRequests: interfaces.Request[],
-  resolveRequest: interfaces.ResolveRequestHandler,
+  resolveRequest: interfaces.ResolveRequestHandler
 ): T | Promise<T> {
   let result: T | Promise<T>;
 
   if (childRequests.length > 0) {
     const resolved: ResolvedRequests = _resolveRequests(
       childRequests,
-      resolveRequest,
+      resolveRequest
     );
     const createInstanceWithInjectionsArg: CreateInstanceWithInjectionArg<T> = {
       ...resolved,
@@ -70,7 +70,7 @@ function _createInstance<T>(
     };
     if (resolved.isAsync) {
       result = createInstanceWithInjectionsAsync(
-        createInstanceWithInjectionsArg,
+        createInstanceWithInjectionsArg
       );
     } else {
       result = createInstanceWithInjections(createInstanceWithInjectionsArg);
@@ -83,7 +83,7 @@ function _createInstance<T>(
 }
 
 function createInstanceWithInjections<T>(
-  args: CreateInstanceWithInjectionArg<T>,
+  args: CreateInstanceWithInjectionArg<T>
 ): T {
   const instance: T = new args.constr(...args.constructorInjections);
   args.propertyRequests.forEach((r: interfaces.Request, index: number) => {
@@ -97,13 +97,13 @@ function createInstanceWithInjections<T>(
 }
 
 async function createInstanceWithInjectionsAsync<T>(
-  args: CreateInstanceWithInjectionArg<T>,
+  args: CreateInstanceWithInjectionArg<T>
 ): Promise<T> {
   const constructorInjections: unknown[] = await possiblyWaitInjections(
-    args.constructorInjections,
+    args.constructorInjections
   );
   const propertyInjections: unknown[] = await possiblyWaitInjections(
-    args.propertyInjections,
+    args.propertyInjections
   );
   return createInstanceWithInjections<T>({
     ...args,
@@ -126,11 +126,11 @@ async function possiblyWaitInjections(possiblePromiseinjections: unknown[]) {
 
 function _getInstanceAfterPostConstruct<T>(
   constr: interfaces.Newable<T>,
-  result: T,
+  result: T
 ): T | Promise<T> {
   const postConstructResult: void | Promise<void> = _postConstruct(
     constr,
-    result,
+    result
   );
 
   if (isPromise(postConstructResult)) {
@@ -142,12 +142,12 @@ function _getInstanceAfterPostConstruct<T>(
 
 function _postConstruct<T>(
   constr: interfaces.Newable<T>,
-  instance: T,
+  instance: T
 ): void | Promise<void> {
   if (Reflect.hasMetadata(METADATA_KEY.POST_CONSTRUCT, constr)) {
     const data: Metadata = Reflect.getMetadata(
       METADATA_KEY.POST_CONSTRUCT,
-      constr,
+      constr
     ) as Metadata;
     try {
       return (instance as interfaces.Instance<T>)[data.value as string]?.();
@@ -161,7 +161,7 @@ function _postConstruct<T>(
 
 function _validateInstanceResolution<T = unknown>(
   binding: interfaces.Binding<T>,
-  constr: interfaces.Newable<T>,
+  constr: interfaces.Newable<T>
 ): void {
   if (binding.scope !== BindingScopeEnum.Singleton) {
     _throwIfHandlingDeactivation(binding, constr);
@@ -170,12 +170,12 @@ function _validateInstanceResolution<T = unknown>(
 
 function _throwIfHandlingDeactivation<T = unknown>(
   binding: interfaces.Binding<T>,
-  constr: interfaces.Newable<T>,
+  constr: interfaces.Newable<T>
 ): void {
   const scopeErrorMessage = `Class cannot be instantiated in ${
-    binding.scope === BindingScopeEnum.Request ? 'request' : 'transient'
+    binding.scope === BindingScopeEnum.Request ? "request" : "transient"
   } scope.`;
-  if (typeof binding.onDeactivation === 'function') {
+  if (typeof binding.onDeactivation === "function") {
     throw new Error(ON_DEACTIVATION_ERROR(constr.name, scopeErrorMessage));
   }
 
@@ -188,19 +188,19 @@ function resolveInstance<T>(
   binding: interfaces.Binding<T>,
   constr: interfaces.Newable<T>,
   childRequests: interfaces.Request[],
-  resolveRequest: interfaces.ResolveRequestHandler,
+  resolveRequest: interfaces.ResolveRequestHandler
 ): T | Promise<T> {
   _validateInstanceResolution(binding, constr);
 
   const result: T | Promise<T> = _createInstance(
     constr,
     childRequests,
-    resolveRequest,
+    resolveRequest
   );
 
   if (isPromise(result)) {
     return result.then((resolvedResult: T): T | Promise<T> =>
-      _getInstanceAfterPostConstruct(constr, resolvedResult),
+      _getInstanceAfterPostConstruct(constr, resolvedResult)
     );
   } else {
     return _getInstanceAfterPostConstruct(constr, result);

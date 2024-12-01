@@ -1,7 +1,7 @@
-import { Container, injectable } from "@carlossalasamper/inversify";
+import { Container, injectable } from "@inversiland/inversify";
 
 import { debugMiddleware } from "../../src";
-import inversifySugarOptions from "../../src/inversifySugar/inversifySugarOptions";
+import inversilandOptions from "../../src/inversiland/inversilandOptions";
 import messagesMap from "../../src/messages/messagesMap";
 
 describe("debugMiddleware", () => {
@@ -9,7 +9,7 @@ describe("debugMiddleware", () => {
     @injectable()
     class TestService {}
 
-    inversifySugarOptions.debug = true;
+    inversilandOptions.debug = true;
 
     const consoleLogMock = jest.spyOn(console, "log").mockImplementation();
     const container = new Container();
@@ -27,7 +27,7 @@ describe("debugMiddleware", () => {
     @injectable()
     class TestService {}
 
-    inversifySugarOptions.debug = false;
+    inversilandOptions.debug = false;
 
     const consoleLogMock = jest.spyOn(console, "log").mockImplementation();
     const container = new Container();
@@ -48,7 +48,7 @@ describe("debugMiddleware", () => {
     @injectable()
     class TestService2 {}
 
-    inversifySugarOptions.debug = true;
+    inversilandOptions.debug = true;
 
     const consoleLogMock = jest.spyOn(console, "log").mockImplementation();
     const container = new Container();

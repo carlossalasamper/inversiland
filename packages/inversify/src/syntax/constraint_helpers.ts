@@ -1,13 +1,13 @@
-import * as METADATA_KEY from '../constants/metadata_keys';
-import { interfaces } from '../interfaces/interfaces';
-import { Metadata } from '../planning/metadata';
+import { interfaces } from "..";
+import * as METADATA_KEY from "../constants/metadata_keys";
+import { Metadata } from "../planning/metadata";
 
 const traverseAncerstors: (
   request: interfaces.Request,
-  constraint: interfaces.ConstraintFunction,
+  constraint: interfaces.ConstraintFunction
 ) => boolean = (
   request: interfaces.Request,
-  constraint: interfaces.ConstraintFunction,
+  constraint: interfaces.ConstraintFunction
 ): boolean => {
   const parent: interfaces.Request | null = request.parentRequest;
   if (parent !== null) {
@@ -20,11 +20,11 @@ const traverseAncerstors: (
 // This helpers use currying to help you to generate constraints
 
 const taggedConstraint: (
-  key: string | number | symbol,
+  key: string | number | symbol
 ) => (value: unknown) => interfaces.ConstraintFunction =
   (key: string | number | symbol) => (value: unknown) => {
     const constraint: interfaces.ConstraintFunction = (
-      request: interfaces.Request | null,
+      request: interfaces.Request | null
     ) =>
       request !== null &&
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -40,7 +40,7 @@ const namedConstraint: (value: unknown) => interfaces.ConstraintFunction =
   taggedConstraint(METADATA_KEY.NAMED_TAG);
 
 const typeConstraint: (
-  type: NewableFunction | string,
+  type: NewableFunction | string
 ) => (request: interfaces.Request | null) => boolean =
   (type: NewableFunction | string) => (request: interfaces.Request | null) => {
     // Using index 0 because constraints are applied
@@ -49,7 +49,7 @@ const typeConstraint: (
 
     if (request !== null) {
       binding = request.bindings[0] as interfaces.Binding<unknown>;
-      if (typeof type === 'string') {
+      if (typeof type === "string") {
         return binding.serviceIdentifier === type;
       } else {
         const constructor: unknown = (

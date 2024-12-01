@@ -1,6 +1,6 @@
-import * as ERROR_MSGS from '../constants/error_msgs';
-import { interfaces } from '../interfaces/interfaces';
-import { isClonable } from '../utils/clonable';
+import { interfaces } from "../";
+import * as ERROR_MSGS from "../constants/error_msgs";
+import { isClonable } from "../utils/clonable";
 
 class Lookup<T> implements interfaces.Lookup<T> {
   // dictionary used store multiple values for each key <key>
@@ -56,10 +56,10 @@ class Lookup<T> implements interfaces.Lookup<T> {
     this.traverse(
       (
         serviceIdentifier: interfaces.ServiceIdentifier<unknown>,
-        value: T[],
+        value: T[]
       ) => {
         const lookupActivations: T[] | undefined = lookup.hasKey(
-          serviceIdentifier,
+          serviceIdentifier
         )
           ? lookup.get(serviceIdentifier)
           : undefined;
@@ -67,13 +67,13 @@ class Lookup<T> implements interfaces.Lookup<T> {
           const filteredValues: T[] = value.filter(
             (lookupValue: T) =>
               !lookupActivations.some(
-                (moduleActivation: T) => lookupValue === moduleActivation,
-              ),
+                (moduleActivation: T) => lookupValue === moduleActivation
+              )
           );
 
           this._setValue(serviceIdentifier, filteredValues);
         }
-      },
+      }
     );
   }
 
@@ -119,7 +119,7 @@ class Lookup<T> implements interfaces.Lookup<T> {
   }
 
   public traverse(
-    func: (key: interfaces.ServiceIdentifier, value: T[]) => void,
+    func: (key: interfaces.ServiceIdentifier, value: T[]) => void
   ): void {
     this._map.forEach((value: T[], key: interfaces.ServiceIdentifier) => {
       func(key, value);
@@ -134,7 +134,7 @@ class Lookup<T> implements interfaces.Lookup<T> {
 
   private _setValue(
     serviceIdentifier: interfaces.ServiceIdentifier<unknown>,
-    value: T[],
+    value: T[]
   ): void {
     if (value.length > 0) {
       this._map.set(serviceIdentifier, value);

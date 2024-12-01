@@ -1,11 +1,11 @@
-import { interfaces } from '../interfaces/interfaces';
+import { interfaces } from "..";
 
 function isClonable<T>(obj: unknown): obj is interfaces.Clonable<T> {
   return (
-    typeof obj === 'object' &&
+    typeof obj === "object" &&
     obj !== null &&
-    'clone' in obj &&
-    typeof (obj as interfaces.Clonable<T>).clone === 'function'
+    "clone" in obj &&
+    typeof (obj as interfaces.Clonable<T>).clone === "function"
   );
 }
 

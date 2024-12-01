@@ -1,9 +1,9 @@
-import * as METADATA_KEY from '../constants/metadata_keys';
-import { interfaces } from '../interfaces/interfaces';
+import { interfaces } from "..";
+import * as METADATA_KEY from "../constants/metadata_keys";
 
 class MetadataReader implements interfaces.MetadataReader {
   public getConstructorMetadata(
-    constructorFunc: NewableFunction,
+    constructorFunc: NewableFunction
   ): interfaces.ConstructorMetadata {
     // TypeScript compiler generated annotations
     const compilerGeneratedMetadata: NewableFunction[] =
@@ -24,7 +24,7 @@ class MetadataReader implements interfaces.MetadataReader {
   }
 
   public getPropertiesMetadata(
-    constructorFunc: NewableFunction,
+    constructorFunc: NewableFunction
   ): interfaces.MetadataMap {
     // User generated properties annotations
     const userGeneratedMetadata: interfaces.MetadataMap | undefined =

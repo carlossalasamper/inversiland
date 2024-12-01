@@ -3,7 +3,7 @@ import {
   injectable,
   multiInject,
   optional,
-} from "@carlossalasamper/inversify";
+} from "@inversiland/inversify";
 
 import injectImported from "./injectImported";
 import injectProvided from "./injectProvided";

@@ -1,13 +1,13 @@
-import { interfaces } from "@carlossalasamper/inversify";
+import { interfaces } from "@inversiland/inversify";
 
-import inversifySugarOptions from "../inversifySugar/inversifySugarOptions";
+import inversilandOptions from "../inversiland/inversilandOptions";
 import messagesMap from "../messages/messagesMap";
 
 function debugMiddleware(planAndResolve: interfaces.Next): interfaces.Next {
   return (args: interfaces.NextArgs) => {
     const nextContextInterceptor = args.contextInterceptor;
     args.contextInterceptor = (context: interfaces.Context) => {
-      if (inversifySugarOptions.debug) {
+      if (inversilandOptions.debug) {
         console.log(
           messagesMap.providerRequested(
             args.serviceIdentifier,

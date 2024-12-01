@@ -1,4 +1,4 @@
-import { module,ModuleContainer } from "../../src";
+import { module, ModuleContainer } from "../../src";
 import { getModuleMetadata } from "../../src/metadata/getModuleMetadata";
 import ModuleMetadata from "../../src/types/ModuleMetadata";
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { inject, injectable, named, tagged } from "../../src/inversify";
+import { inject, injectable, named, tagged } from "../../src";
 
 export interface FooInterface {
   name: string;

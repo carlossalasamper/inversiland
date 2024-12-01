@@ -1,14 +1,9 @@
-import {
-  getModuleContainer,
-  injectable,
-  InversifySugar,
-  module,
-} from "../../src";
+import { getModuleContainer, injectable, Inversiland, module } from "../../src";
 import importModule from "../../src/importing/importModule";
 
 describe("ModuleContainer", () => {
   afterEach(async () => {
-    await InversifySugar.reset();
+    await Inversiland.reset();
   });
 
   it("isBound() should return true if the service is a bound provider.", () => {

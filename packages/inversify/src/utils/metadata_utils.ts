@@ -1,11 +1,11 @@
-import { interfaces, METADATA_KEY } from '../inversify';
-import { Metadata } from '../planning/metadata';
+import { interfaces, METADATA_KEY } from "..";
+import { Metadata } from "../planning/metadata";
 
 function getTargetMetadata(
   isMultiInject: boolean,
   serviceIdentifier: interfaces.ServiceIdentifier,
   key: string | number | symbol | undefined,
-  value: unknown,
+  value: unknown
 ): Metadata[] {
   const metadataKey: string = isMultiInject
     ? METADATA_KEY.MULTI_INJECT_TAG

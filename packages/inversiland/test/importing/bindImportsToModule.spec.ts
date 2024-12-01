@@ -1,14 +1,14 @@
 import {
   DynamicModule,
   getModuleContainer,
-  InversifySugar,
+  Inversiland,
   module,
 } from "../../src";
 import bindImportsToModule from "../../src/importing/bindImportsToModule";
 
 describe("bindImportsToModule", () => {
   afterEach(async () => {
-    await InversifySugar.reset();
+    await Inversiland.reset();
   });
 
   it("Should bind a NewableModule to a module.", () => {

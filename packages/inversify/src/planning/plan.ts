@@ -1,4 +1,4 @@
-import { interfaces } from '../interfaces/interfaces';
+import { interfaces } from "../";
 
 class Plan implements interfaces.Plan {
   public parentContext: interfaces.Context;
@@ -6,7 +6,7 @@ class Plan implements interfaces.Plan {
 
   constructor(
     parentContext: interfaces.Context,
-    rootRequest: interfaces.Request,
+    rootRequest: interfaces.Request
   ) {
     this.parentContext = parentContext;
     this.rootRequest = rootRequest;

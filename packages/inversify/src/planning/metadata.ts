@@ -1,5 +1,5 @@
-import * as METADATA_KEY from '../constants/metadata_keys';
-import { interfaces } from '../interfaces/interfaces';
+import { interfaces } from "..";
+import * as METADATA_KEY from "../constants/metadata_keys";
 
 class Metadata implements interfaces.Metadata {
   public key: string | number | symbol;
@@ -14,7 +14,9 @@ class Metadata implements interfaces.Metadata {
     if (this.key === METADATA_KEY.NAMED_TAG) {
       return `named: ${String(this.value).toString()} `;
     } else {
-      return `tagged: { key:${this.key.toString()}, value: ${String(this.value)} }`;
+      return `tagged: { key:${this.key.toString()}, value: ${String(
+        this.value
+      )} }`;
     }
   }
 }

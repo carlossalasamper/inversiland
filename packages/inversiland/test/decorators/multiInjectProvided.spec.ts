@@ -1,8 +1,8 @@
-import { injectable } from "@carlossalasamper/inversify";
+import { injectable } from "@inversiland/inversify";
 
 import {
   getModuleContainer,
-  InversifySugar,
+  Inversiland,
   module,
   multiInjectProvided,
 } from "../../src";
@@ -20,7 +20,7 @@ class TestController {
 
 describe("@multiInjectProvided", () => {
   beforeEach(() => {
-    InversifySugar.reset();
+    Inversiland.reset();
   });
 
   it("Should inject all the services provided with the same identifier.", () => {
@@ -29,7 +29,7 @@ describe("@multiInjectProvided", () => {
     })
     class AppModule {}
 
-    InversifySugar.run(AppModule);
+    Inversiland.run(AppModule);
 
     const appModuleContainer = getModuleContainer(AppModule);
 

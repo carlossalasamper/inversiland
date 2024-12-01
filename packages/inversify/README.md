@@ -4,7 +4,6 @@
   <a href="https://www.npmjs.com/package/inversify" target="__blank"><img src="https://img.shields.io/npm/v/inversify?color=0476bc&label=" alt="NPM version"></a>
   <a href="https://www.npmjs.com/package/inversify" target="__blank"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/inversify?color=3890aa&label="></a>
   <a href="https://github.com/inversify/InversifyJS#-the-inversifyjs-features-and-api" target="__blank"><img src="https://img.shields.io/static/v1?label=&message=docs&color=1e8a7a" alt="Docs"></a>
-  <a href="https://codecov.io/gh/inversify/InversifyJS" target="__blank"><img alt="Codecov" src="https://codecov.io/gh/inversify/InversifyJS/branch/master/graph/badge.svg?token=KfAKzuGs01"></a>
   <br>
   <br>
   <a href="https://github.com/inversify/InversifyJS" target="__blank"><img alt="GitHub stars" src="https://img.shields.io/github/stars/inversify/InversifyJS?style=social"></a>
@@ -95,12 +94,7 @@ InversifyJS requires a modern JavaScript engine with support for:
 - [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) (Only required if using [provider injection](https://github.com/inversify/InversifyJS/blob/master/wiki/provider_injection.md))
 - [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) (Only required if using [activation handlers](https://github.com/inversify/InversifyJS/blob/master/wiki/activation_handler.md))
 
-If your environment doesn't support one of these you will need to import a shim or polyfill.
-
-> :warning: **The `reflect-metadata` polyfill should be imported only once in your entire application** because the Reflect object is meant to be a global singleton. More details about this can be found [here](https://github.com/inversify/InversifyJS/issues/262#issuecomment-227593844).
-
-Check out the [Environment support and polyfills](https://github.com/inversify/InversifyJS/blob/master/wiki/environment.md)
-page in the wiki and the [Basic example](https://github.com/inversify/inversify-basic-example) to learn more.
+Importing `reflect-metadata` in the entrypoint of your source code is no longer required. This package do this under the hood.
 
 ## The Basics
 
@@ -137,9 +131,9 @@ PLEASE MAKE SURE TO PLACE THIS TYPES DECLARATION IN A SEPARATE FILE. (see bug #1
 // file types.ts
 
 const TYPES = {
-  Warrior: Symbol.for('Warrior'),
-  Weapon: Symbol.for('Weapon'),
-  ThrowableWeapon: Symbol.for('ThrowableWeapon'),
+  Warrior: Symbol.for("Warrior"),
+  Weapon: Symbol.for("Weapon"),
+  ThrowableWeapon: Symbol.for("ThrowableWeapon"),
 };
 
 export { TYPES };
@@ -156,22 +150,22 @@ When a class has a dependency on an interface we also need to use the `@inject` 
 ```ts
 // file entities.ts
 
-import { injectable, inject } from 'inversify';
-import 'reflect-metadata';
-import { Weapon, ThrowableWeapon, Warrior } from './interfaces';
-import { TYPES } from './types';
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+import { Weapon, ThrowableWeapon, Warrior } from "./interfaces";
+import { TYPES } from "./types";
 
 @injectable()
 class Katana implements Weapon {
   public hit() {
-    return 'cut!';
+    return "cut!";
   }
 }
 
 @injectable()
 class Shuriken implements ThrowableWeapon {
   public throw() {
-    return 'hit!';
+    return "hit!";
   }
 }
 
@@ -182,7 +176,7 @@ class Ninja implements Warrior {
 
   constructor(
     @inject(TYPES.Weapon) katana: Weapon,
-    @inject(TYPES.ThrowableWeapon) shuriken: ThrowableWeapon,
+    @inject(TYPES.ThrowableWeapon) shuriken: ThrowableWeapon
   ) {
     this._katana = katana;
     this._shuriken = shuriken;
@@ -223,10 +217,10 @@ In the rest of your application your classes should be free of references to oth
 ```ts
 // file inversify.config.ts
 
-import { Container } from 'inversify';
-import { TYPES } from './types';
-import { Warrior, Weapon, ThrowableWeapon } from './interfaces';
-import { Ninja, Katana, Shuriken } from './entities';
+import { Container } from "inversify";
+import { TYPES } from "./types";
+import { Warrior, Weapon, ThrowableWeapon } from "./interfaces";
+import { Ninja, Katana, Shuriken } from "./entities";
 
 const myContainer = new Container();
 myContainer.bind<Warrior>(TYPES.Warrior).to(Ninja);
@@ -243,14 +237,14 @@ Remember that you should do this only in your [composition root](http://blog.plo
 to avoid the [service locator anti-pattern](http://blog.ploeh.dk/2010/02/03/ServiceLocatorisanAnti-Pattern/).
 
 ```ts
-import { myContainer } from './inversify.config';
-import { TYPES } from './types';
-import { Warrior } from './interfaces';
+import { myContainer } from "./inversify.config";
+import { TYPES } from "./types";
+import { Warrior } from "./interfaces";
 
 const ninja = myContainer.get<Warrior>(TYPES.Warrior);
 
-expect(ninja.fight()).eql('cut!'); // true
-expect(ninja.sneak()).eql('hit!'); // true
+expect(ninja.fight()).eql("cut!"); // true
+expect(ninja.sneak()).eql("hit!"); // true
 ```
 
 As we can see the `Katana` and `Shuriken` were successfully resolved and injected into `Ninja`.
@@ -291,6 +285,15 @@ Let's take a look to the InversifyJS features!
 - [Inheritance](https://github.com/inversify/InversifyJS/blob/master/wiki/inheritance.md)
 
 Please refer to the [wiki](https://github.com/inversify/InversifyJS/blob/master/wiki/readme.md) for additional details.
+
+## Testing
+
+Trust our code, [we have used robust tests](./test) to verify that everything works correctly.
+
+<img src="./assets/badges/coverage/badge-functions.svg" />
+<img src="./assets/badges/coverage/badge-lines.svg" />
+<img src="./assets/badges/coverage/badge-statements.svg" />
+<img src="./assets/badges/coverage/badge-branches.svg" />
 
 ## 🧩 Ecosystem
 

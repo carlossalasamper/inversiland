@@ -1,8 +1,8 @@
-import { Container, interfaces } from "@carlossalasamper/inversify";
+import { Container, interfaces } from "@inversiland/inversify";
 
 import bindProviderToContainer from "../binding/bindProviderToContainer";
 import { IMPORTED_TAG, PROVIDED_TAG } from "../constants";
-import InversifySugar from "../inversifySugar/InversifySugar";
+import Inversiland from "../inversiland/Inversiland";
 import { debugMiddleware } from "../middlewares";
 import { Provider } from "../types";
 
@@ -13,7 +13,7 @@ export default class ModuleContainer {
   private container: Container;
 
   constructor() {
-    (this.container = InversifySugar.globalContainer.createChild()),
+    (this.container = Inversiland.globalContainer.createChild()),
       this.container.applyMiddleware(debugMiddleware);
   }
 

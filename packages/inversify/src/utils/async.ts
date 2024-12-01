@@ -1,15 +1,15 @@
 function isPromise<T>(object: unknown): object is Promise<T> {
   const isObjectOrFunction: boolean =
-    (typeof object === 'object' && object !== null) ||
-    typeof object === 'function';
+    (typeof object === "object" && object !== null) ||
+    typeof object === "function";
 
   return (
-    isObjectOrFunction && typeof (object as PromiseLike<T>).then === 'function'
+    isObjectOrFunction && typeof (object as PromiseLike<T>).then === "function"
   );
 }
 
 function isPromiseOrContainsPromise<T>(
-  object: unknown,
+  object: unknown
 ): object is Promise<T> | (T | Promise<T>)[] {
   if (isPromise(object)) {
     return true;

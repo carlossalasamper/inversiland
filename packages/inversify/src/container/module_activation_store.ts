@@ -1,5 +1,5 @@
-import { interfaces } from '../interfaces/interfaces';
-import { Lookup } from './lookup';
+import { interfaces } from "../";
+import { Lookup } from "./lookup";
 
 export class ModuleActivationStore implements interfaces.ModuleActivationStore {
   private readonly _map: Map<number, interfaces.ModuleActivationHandlers> =
@@ -21,22 +21,22 @@ export class ModuleActivationStore implements interfaces.ModuleActivationStore {
   public addDeactivation<T>(
     moduleId: number,
     serviceIdentifier: interfaces.ServiceIdentifier<T>,
-    onDeactivation: interfaces.BindingDeactivation<T>,
+    onDeactivation: interfaces.BindingDeactivation<T>
   ) {
     this._getModuleActivationHandlers(moduleId).onDeactivations.add(
       serviceIdentifier,
-      onDeactivation as interfaces.BindingDeactivation<unknown>,
+      onDeactivation as interfaces.BindingDeactivation<unknown>
     );
   }
 
   public addActivation<T>(
     moduleId: number,
     serviceIdentifier: interfaces.ServiceIdentifier<T>,
-    onActivation: interfaces.BindingActivation<T>,
+    onActivation: interfaces.BindingActivation<T>
   ) {
     this._getModuleActivationHandlers(moduleId).onActivations.add(
       serviceIdentifier,
-      onActivation as interfaces.BindingActivation<unknown>,
+      onActivation as interfaces.BindingActivation<unknown>
     );
   }
 
@@ -46,20 +46,20 @@ export class ModuleActivationStore implements interfaces.ModuleActivationStore {
     this._map.forEach(
       (
         handlersStore: interfaces.ModuleActivationHandlers,
-        moduleId: number,
+        moduleId: number
       ) => {
         clone._map.set(moduleId, {
           onActivations: handlersStore.onActivations.clone(),
           onDeactivations: handlersStore.onDeactivations.clone(),
         });
-      },
+      }
     );
 
     return clone;
   }
 
   private _getModuleActivationHandlers(
-    moduleId: number,
+    moduleId: number
   ): interfaces.ModuleActivationHandlers {
     let moduleActivationHandlers:
       | interfaces.ModuleActivationHandlers

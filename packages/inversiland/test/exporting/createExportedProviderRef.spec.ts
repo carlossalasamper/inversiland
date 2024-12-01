@@ -1,6 +1,6 @@
-import { injectable } from "@carlossalasamper/inversify";
+import { injectable } from "@inversiland/inversify";
 
-import { DynamicModule, InversifySugar, module } from "../../src";
+import { DynamicModule, Inversiland, module } from "../../src";
 import createExportedProviderRef from "../../src/exporting/createExportedProviderRef";
 import importDynamicModule from "../../src/importing/importDynamicModule";
 import importModule from "../../src/importing/importModule";
@@ -9,7 +9,7 @@ import Module from "../../src/types/Module";
 
 describe("createExportedProviderRef", () => {
   beforeEach(async () => {
-    await InversifySugar.reset();
+    await Inversiland.reset();
   });
 
   it("Should create a ExportedProviderRef of a NewableModule.", () => {

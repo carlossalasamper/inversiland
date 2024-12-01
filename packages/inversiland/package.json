@@ -1,5 +1,6 @@
 {
   "name": "inversiland",
+  "type": "module",
   "version": "0.6.0",
   "description": "InversifyJS framework to build hierarchical dependency systems with an elegant API.",
   "author": {
@@ -9,17 +10,18 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/carlossalasamper/inversiland.git",
+    "url": "https://github.com/inversiland/inversiland.git",
     "directory": "/packages/inversiland"
   },
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist",
-    ".yalc"
+    "dist"
   ],
   "keywords": [
     "dependency injection",
@@ -35,15 +37,16 @@
     "container"
   ],
   "scripts": {
-    "test": "jest --coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ../../assets/badges/coverage",
-    "build": "tspc --project tsconfig.build.json",
-    "build:dev": "yarn build --project tsconfig.build.json --watch",
-    "yalc:publish": "yarn test && yarn build && npx yalc publish",
-    "yalc:update": "yarn test && yarn build && npx yalc push --scripts --update --replace",
-    "npm:publish": "yarn test && yarn build && npm publish"
+    "prepublish": "yarn test && yarn build",
+    "test": "jest --coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ./assets/badges/coverage",
+    "build": "rollup -c",
+    "build:dev": "tspc --project tsconfig.json --watch"
   },
-  "dependencies": {
-    "@carlossalasamper/inversify": "file:.yalc/@carlossalasamper/inversify",
-    "reflect-metadata": "^0.2.2"
+  "devDependencies": {
+    "@inversiland/inversify": "6.1.5"
+  },
+  "peerDependencies": {
+    "reflect-metadata": "^0.2.2",
+    "@inversiland/inversify": "^6.1.5"
   }
 }

@@ -1,4 +1,4 @@
-import { interfaces } from "@carlossalasamper/inversify";
+import { interfaces } from "@inversiland/inversify";
 
 export default function getServiceIdentifierName(
   serviceIdentifier: interfaces.ServiceIdentifier

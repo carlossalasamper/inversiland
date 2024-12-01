@@ -1,6 +1,6 @@
-import { BindingScopeEnum } from '../constants/literal_types';
-import { interfaces } from '../interfaces/interfaces';
-import { BindingWhenOnSyntax } from './binding_when_on_syntax';
+import { interfaces } from "../";
+import { BindingScopeEnum } from "../constants/literal_types";
+import { BindingWhenOnSyntax } from "./binding_when_on_syntax";
 
 class BindingInSyntax<T> implements interfaces.BindingInSyntax<T> {
   private readonly _binding: interfaces.Binding<T>;

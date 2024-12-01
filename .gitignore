@@ -18,10 +18,6 @@ node_modules/
 [._]ss[a-gi-z]
 [._]sw[a-p]
 
-# Yalc
-.yalc
-yalc.lock
-
 # Build
 dist/
 
@@ -32,3 +28,6 @@ dist/
 # Logs
 logs
 *.log
+
+# Coverage
+/packages/*/coverage

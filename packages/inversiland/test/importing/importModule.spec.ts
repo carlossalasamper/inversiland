@@ -1,11 +1,11 @@
-import { inject, injectable,InversifySugar, module } from "../../src";
+import { inject, injectable, Inversiland, module } from "../../src";
 import importModule from "../../src/importing/importModule";
 import messagesMap from "../../src/messages/messagesMap";
 import getModuleContainer from "../../src/modules/getModuleContainer";
 
 describe("importModule", () => {
   beforeEach(async () => {
-    await InversifySugar.reset();
+    await Inversiland.reset();
   });
 
   it("Should import a module that is importing another module.", () => {
@@ -122,7 +122,7 @@ describe("importModule", () => {
 
     importModule(RootModule, true);
 
-    expect(InversifySugar.globalContainer.isBound(GlobalService)).toBe(true);
+    expect(Inversiland.globalContainer.isBound(GlobalService)).toBe(true);
   });
 
   it("Should bind global providers to the global container.", () => {
@@ -141,7 +141,7 @@ describe("importModule", () => {
 
     importModule(RootModule, true);
 
-    expect(InversifySugar.globalContainer.isBound(GlobalService)).toBe(true);
+    expect(Inversiland.globalContainer.isBound(GlobalService)).toBe(true);
   });
 
   it("Should resolve dependencies of global providers.", () => {
@@ -180,7 +180,7 @@ describe("importModule", () => {
 
     importModule(RootModule, true);
 
-    const globalService = InversifySugar.globalContainer.get(GlobalService);
+    const globalService = Inversiland.globalContainer.get(GlobalService);
 
     expect(globalService).toBeInstanceOf(GlobalService);
     expect(globalService.aService).toBeInstanceOf(AService);

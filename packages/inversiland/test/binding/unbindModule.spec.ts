@@ -1,6 +1,6 @@
-import { injectable } from "@carlossalasamper/inversify";
+import { injectable } from "@inversiland/inversify";
 
-import { getModuleContainer, InversifySugar, module } from "../../src";
+import { getModuleContainer, Inversiland, module } from "../../src";
 import unbindModule from "../../src/binding/unbindModule";
 import importModule from "../../src/importing/importModule";
 import messagesMap from "../../src/messages/messagesMap";
@@ -8,7 +8,7 @@ import { getModuleMetadata } from "../../src/metadata/getModuleMetadata";
 
 describe("unbindModule", () => {
   beforeEach(async () => {
-    await InversifySugar.reset();
+    await Inversiland.reset();
   });
 
   it("Should unbind a module with imports.", async () => {

@@ -1,6 +1,6 @@
-import { injectable } from "@carlossalasamper/inversify";
+import { injectable } from "@inversiland/inversify";
 
-import { getModuleContainer, module,ModuleContainer } from "../../src";
+import { getModuleContainer, module, ModuleContainer } from "../../src";
 import importModule from "../../src/importing/importModule";
 
 @injectable()

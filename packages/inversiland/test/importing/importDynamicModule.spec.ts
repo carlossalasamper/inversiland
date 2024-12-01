@@ -2,7 +2,7 @@ import {
   getModuleContainer,
   inject,
   injectable,
-  InversifySugar,
+  Inversiland,
   module,
 } from "../../src";
 import importDynamicModule from "../../src/importing/importDynamicModule";
@@ -11,7 +11,7 @@ import { DynamicModule } from "../../src/types/Module";
 
 describe("importDynamicModule", () => {
   beforeEach(async () => {
-    await InversifySugar.reset();
+    await Inversiland.reset();
   });
 
   it("Should import an empty dynamic module.", () => {
@@ -132,7 +132,7 @@ describe("importDynamicModule", () => {
     importDynamicModule(dynamicModule);
 
     expect(getModuleContainer(Module).isBound("test")).toBe(true);
-    expect(InversifySugar.globalContainer.isBound("test")).toBe(true);
+    expect(Inversiland.globalContainer.isBound("test")).toBe(true);
   });
 
   it("Should resolve dependencies of global providers.", () => {
@@ -169,7 +169,7 @@ describe("importDynamicModule", () => {
 
     importDynamicModule(dynamicModule);
 
-    const globalService = InversifySugar.globalContainer.get(GlobalService);
+    const globalService = Inversiland.globalContainer.get(GlobalService);
 
     expect(globalService).toBeInstanceOf(GlobalService);
     expect(globalService.aService).toBeInstanceOf(AService);

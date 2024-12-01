@@ -16,14 +16,6 @@ const jestUnitConfig: JestConfigWithTsJest = {
     "!./src/index.ts",
   ],
   coverageReporters: ["text", "json-summary"],
-  transform: {
-    "^.+\\.ts$": [
-      "ts-jest",
-      {
-        compiler: "ts-patch/compiler",
-      },
-    ],
-  },
 };
 
 export default jestUnitConfig;

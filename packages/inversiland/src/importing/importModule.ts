@@ -1,7 +1,7 @@
 import bindProviderToContainer from "../binding/bindProviderToContainer";
 import { MODULE_IS_BOUND_KEY } from "../constants";
 import createExportedProviderRef from "../exporting/createExportedProviderRef";
-import InversifySugar from "../inversifySugar/InversifySugar";
+import Inversiland from "../inversiland/Inversiland";
 import messagesMap from "../messages/messagesMap";
 import defineMetadata from "../metadata/defineMetadata";
 import { getModuleMetadata } from "../metadata/getModuleMetadata";
@@ -44,12 +44,12 @@ function importRootModule(Module: NewableModule) {
     for (const provider of metadata.providers.concat(
       ...metadata.globalProviders
     )) {
-      bindProviderToContainer(provider, InversifySugar.globalContainer);
+      bindProviderToContainer(provider, Inversiland.globalContainer);
     }
 
     defineMetadata(MODULE_IS_BOUND_KEY, true, Module.prototype);
 
-    InversifySugar.onModuleBound(Module);
+    Inversiland.onModuleBound(Module);
   }
 }
 
@@ -63,7 +63,7 @@ function importChildModule(Module: NewableModule): ExportedProviderRef[] {
     for (const globalProvider of metadata.globalProviders) {
       bindProviderToContainer(
         globalProvider,
-        InversifySugar.globalContainer,
+        Inversiland.globalContainer,
         metadata.container.innerContainer
       );
     }
@@ -74,7 +74,7 @@ function importChildModule(Module: NewableModule): ExportedProviderRef[] {
 
     defineMetadata(MODULE_IS_BOUND_KEY, true, Module.prototype);
 
-    InversifySugar.onModuleBound(Module);
+    Inversiland.onModuleBound(Module);
   }
 
   for (const exportedProvider of metadata.exports) {

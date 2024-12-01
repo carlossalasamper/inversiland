@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { interfaces } from "@carlossalasamper/inversify";
+import { interfaces } from "@inversiland/inversify";
 
 import {
   AsyncFactory,

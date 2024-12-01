@@ -1,5 +1,5 @@
-import { interfaces } from '../interfaces/interfaces';
-import { id } from '../utils/id';
+import { interfaces } from "../";
+import { id } from "../utils/id";
 
 class Request implements interfaces.Request {
   public id: number;
@@ -17,7 +17,7 @@ class Request implements interfaces.Request {
     parentRequest: interfaces.Request | null,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     bindings: interfaces.Binding<any> | interfaces.Binding<any>[],
-    target: interfaces.Target,
+    target: interfaces.Target
   ) {
     this.id = id();
     this.serviceIdentifier = serviceIdentifier;
@@ -34,14 +34,14 @@ class Request implements interfaces.Request {
   public addChildRequest(
     serviceIdentifier: interfaces.ServiceIdentifier,
     bindings: interfaces.Binding<unknown> | interfaces.Binding<unknown>[],
-    target: interfaces.Target,
+    target: interfaces.Target
   ): interfaces.Request {
     const child: Request = new Request(
       serviceIdentifier,
       this.parentContext,
       this,
       bindings,
-      target,
+      target
     );
     this.childRequests.push(child);
     return child;

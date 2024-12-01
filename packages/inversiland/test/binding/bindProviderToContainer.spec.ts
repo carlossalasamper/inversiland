@@ -1,4 +1,4 @@
-import { Container, injectable } from "@carlossalasamper/inversify";
+import { Container, injectable } from "@inversiland/inversify";
 
 import bindProviderToContainer from "../../src/binding/bindProviderToContainer";
 import { PROVIDED_TAG } from "../../src/constants";
@@ -43,12 +43,12 @@ describe("bindProviderToContainer", () => {
     expect(container.getTagged(TestClass, PROVIDED_TAG, true)).toBeInstanceOf(
       TestClass
     );
-    expect(onActivationMock).toBeCalledTimes(1);
+    expect(onActivationMock).toHaveBeenCalledTimes(1);
 
     container.unbindAll();
 
     // Should not call onActivation when scope is not singleton.
-    expect(provider.onDeactivation).toBeCalledTimes(0);
+    expect(provider.onDeactivation).toHaveBeenCalledTimes(0);
   });
 
   it("Should bind a ClassProvider with provide to a container.", () => {
@@ -71,11 +71,11 @@ describe("bindProviderToContainer", () => {
     expect(
       container.getTagged(TestClassToken, PROVIDED_TAG, true)
     ).toBeInstanceOf(TestClass);
-    expect(onActivationMock).toBeCalledTimes(1);
+    expect(onActivationMock).toHaveBeenCalledTimes(1);
 
     container.unbindAll();
 
-    expect(provider.onDeactivation).toBeCalledTimes(1);
+    expect(provider.onDeactivation).toHaveBeenCalledTimes(1);
   });
 
   it("Should bind a ValueProvider to a container.", () => {
@@ -96,11 +96,11 @@ describe("bindProviderToContainer", () => {
     bindProviderToContainer(provider, container);
 
     expect(container.getTagged(TestClassToken, PROVIDED_TAG, true)).toBe(value);
-    expect(onActivationMock).toBeCalledTimes(1);
+    expect(onActivationMock).toHaveBeenCalledTimes(1);
 
     container.unbindAll();
 
-    expect(provider.onDeactivation).toBeCalledTimes(1);
+    expect(provider.onDeactivation).toHaveBeenCalledTimes(1);
   });
 
   it("Should bind a FactoryProvider to a container.", () => {
@@ -122,11 +122,11 @@ describe("bindProviderToContainer", () => {
     expect(
       container.getTagged<() => TestClass>(TestClassToken, PROVIDED_TAG, true)()
     ).toBeInstanceOf(TestClass);
-    expect(onActivationMock).toBeCalledTimes(1);
+    expect(onActivationMock).toHaveBeenCalledTimes(1);
 
     container.unbindAll();
 
-    expect(provider.onDeactivation).toBeCalledTimes(1);
+    expect(provider.onDeactivation).toHaveBeenCalledTimes(1);
   });
 
   it("Should bind a AsyncFactoryProvider to a container.", () => {
@@ -155,11 +155,11 @@ describe("bindProviderToContainer", () => {
         true
       )()
     ).resolves.toBeInstanceOf(TestClass);
-    expect(onActivationMock).toBeCalledTimes(1);
+    expect(onActivationMock).toHaveBeenCalledTimes(1);
 
     container.unbindAll();
 
-    expect(provider.onDeactivation).toBeCalledTimes(1);
+    expect(provider.onDeactivation).toHaveBeenCalledTimes(1);
   });
 
   it("Should bind a ExistingProvider to a container.", () => {

@@ -1,7 +1,7 @@
-import { Container } from "@carlossalasamper/inversify";
+import { Container } from "@inversiland/inversify";
 
 import providedConstraint from "../constraints/providedConstraint";
-import inversifySugarOptions from "../inversifySugar/inversifySugarOptions";
+import inversilandOptions from "../inversiland/inversilandOptions";
 import { Provider } from "../types";
 import {
   AsyncFactoryProvider,
@@ -26,7 +26,7 @@ export default function bindProviderToContainer(
 ) {
   if (isNewable(provider)) {
     const newableProvider = provider as NewableProvider;
-    const scope = inversifySugarOptions.defaultScope;
+    const scope = inversilandOptions.defaultScope;
 
     bindScope(
       container.bind(newableProvider, resolutionContainer).toSelf(),
@@ -34,7 +34,7 @@ export default function bindProviderToContainer(
     ).when(providedConstraint);
   } else if (isClassProvider(provider)) {
     const classProvider = provider as ClassProvider;
-    const scope = classProvider.scope || inversifySugarOptions.defaultScope;
+    const scope = classProvider.scope || inversilandOptions.defaultScope;
     const bindingOnSyntax = bindScope(
       classProvider.provide
         ? container

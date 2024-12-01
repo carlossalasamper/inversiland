@@ -1,4 +1,4 @@
-import * as ERROR_MSGS from '../constants/error_msgs';
+import * as ERROR_MSGS from "../constants/error_msgs";
 
 export function isStackOverflowException(error: unknown): error is RangeError {
   return (
@@ -9,7 +9,7 @@ export function isStackOverflowException(error: unknown): error is RangeError {
 
 export const tryAndThrowErrorIfStackOverflow: <T>(
   fn: () => T,
-  errorCallback: () => Error,
+  errorCallback: () => Error
 ) => T = <T>(fn: () => T, errorCallback: () => Error) => {
   try {
     return fn();
