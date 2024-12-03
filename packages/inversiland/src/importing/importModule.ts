@@ -1,9 +1,10 @@
+import { defineMetadata } from "@inversiland/metadata-utils";
+
 import bindProviderToContainer from "../binding/bindProviderToContainer";
 import { MODULE_IS_BOUND_KEY } from "../constants";
 import createExportedProviderRef from "../exporting/createExportedProviderRef";
 import Inversiland from "../inversiland/Inversiland";
 import messagesMap from "../messages/messagesMap";
-import defineMetadata from "../metadata/defineMetadata";
 import { getModuleMetadata } from "../metadata/getModuleMetadata";
 import { Newable } from "../types";
 import { ExportedProviderRef } from "../types/ExportedProvider";

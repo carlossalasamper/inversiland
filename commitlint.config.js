@@ -1,6 +1,11 @@
 module.exports = {
   extends: ["@commitlint/config-conventional"],
   rules: {
-    "scope-enum": [2, "always", ["shared", "inversify", "inversiland"]],
+    "scope-empty": [2, "never"],
+    "scope-enum": [
+      2,
+      "always",
+      ["shared", "inversify", "inversiland", "metadata-utils"],
+    ],
   },
 };

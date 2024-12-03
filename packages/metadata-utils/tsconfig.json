@@ -16,13 +16,7 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "paths": {
-      "@inversiland/metadata-utils": ["./packages/metadata-utils/src"],
-      "@inversiland/metadata-utils/*": ["./packages/metadata-utils/src/*"],
-      "@inversiland/inversify": ["./packages/inversify/src"],
-      "@inversiland/inversify/*": ["./packages/inversify/src/*"]
-    }
+    "emitDecoratorMetadata": true
   },
   "include": ["src/**/*.ts", "test/**/*.ts"]
 }

@@ -1,6 +1,4 @@
-import "reflect-metadata";
-
-export function clearMetadata(target: object) {
+export default function clearMetadata(target: object) {
   const keys = Reflect.getMetadataKeys(target);
 
   keys.forEach((key) => {

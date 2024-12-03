@@ -1,3 +1,5 @@
+import { getMetadata, hasMetadata } from "@inversiland/metadata-utils";
+
 import { interfaces } from "../";
 import {
   ON_DEACTIVATION_ERROR,
@@ -144,8 +146,8 @@ function _postConstruct<T>(
   constr: interfaces.Newable<T>,
   instance: T
 ): void | Promise<void> {
-  if (Reflect.hasMetadata(METADATA_KEY.POST_CONSTRUCT, constr)) {
-    const data: Metadata = Reflect.getMetadata(
+  if (hasMetadata(METADATA_KEY.POST_CONSTRUCT, constr)) {
+    const data: Metadata = getMetadata(
       METADATA_KEY.POST_CONSTRUCT,
       constr
     ) as Metadata;

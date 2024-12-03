@@ -15,7 +15,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- `reflect-metadata` is now imported internally in the library so the user doesn't have to worry about it.
 - Method `bind` of `Container` accepts now an optional second parameter `container` to resolve dependencies of the binding in another container.
 - Showing container ID in `NOT_REGISTERED` exception.
 - Showing container ID in `AMBIGUOUS_MATCH` exception.

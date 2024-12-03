@@ -1,4 +1,4 @@
-import { clearMetadata } from "../../src/metadata/clearMetadata";
+import clearMetadata from "../src/clearMetadata";
 
 describe("clearMetadata", () => {
   it("Should clear all metadata keys of a object.", () => {

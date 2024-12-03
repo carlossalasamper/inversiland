@@ -69,8 +69,12 @@ export default function createRollupConfig(
     },
     {
       input: "src/index.ts",
-      output: [{ file: "dist/index.d.ts", format: "es", validate: true }],
-      plugins: [dts()],
+      output: [{ file: "dist/index.d.ts", format: "es" }],
+      plugins: [
+        dts({
+          tsconfig: "tsconfig.build.json",
+        }),
+      ],
     },
   ];
 }

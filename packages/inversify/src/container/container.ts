@@ -1,3 +1,5 @@
+import { getMetadata, hasMetadata } from "@inversiland/metadata-utils";
+
 import { interfaces } from "../";
 import { Binding } from "../bindings/binding";
 import * as ERROR_MSGS from "../constants/error_msgs";
@@ -604,9 +606,9 @@ class Container implements interfaces.Container {
   ): Promise<void> | void {
     if (
       constructor !== undefined &&
-      Reflect.hasMetadata(METADATA_KEY.PRE_DESTROY, constructor)
+      hasMetadata(METADATA_KEY.PRE_DESTROY, constructor)
     ) {
-      const data: interfaces.Metadata = Reflect.getMetadata(
+      const data: interfaces.Metadata = getMetadata(
         METADATA_KEY.PRE_DESTROY,
         constructor
       ) as interfaces.Metadata;

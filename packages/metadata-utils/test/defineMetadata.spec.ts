@@ -1,4 +1,4 @@
-import defineMetadata from "../../src/metadata/defineMetadata";
+import defineMetadata from "../src/defineMetadata";
 
 describe("defineMetadata", () => {
   it("Should define a metadata key of a object.", () => {

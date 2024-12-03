@@ -1,4 +1,4 @@
-import getAllMetadata from "../../src/metadata/getAllMetadata";
+import getAllMetadata from "../src/getAllMetadata";
 
 describe("getAllMetadata", () => {
   it("Should return all metadata.", () => {

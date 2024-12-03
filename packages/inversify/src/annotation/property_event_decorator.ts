@@ -1,3 +1,5 @@
+import { defineMetadata, hasOwnMetadata } from "@inversiland/metadata-utils";
+
 import { Metadata } from "../planning/metadata";
 
 function propertyEventDecorator(eventKey: string, errorMessage: string) {
@@ -5,10 +7,10 @@ function propertyEventDecorator(eventKey: string, errorMessage: string) {
     return (target: { constructor: NewableFunction }, propertyKey: string) => {
       const metadata: Metadata = new Metadata(eventKey, propertyKey);
 
-      if (Reflect.hasOwnMetadata(eventKey, target.constructor)) {
+      if (hasOwnMetadata(eventKey, target.constructor)) {
         throw new Error(errorMessage);
       }
-      Reflect.defineMetadata(eventKey, metadata, target.constructor);
+      defineMetadata(eventKey, metadata, target.constructor);
     };
   };
 }

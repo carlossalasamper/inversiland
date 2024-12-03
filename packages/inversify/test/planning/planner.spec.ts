@@ -555,7 +555,7 @@ describe("Planner", () => {
     @injectable()
     class Ninja {
       @named("name")
-      public set weapon(weapon: unknown) {
+      public set weapon(_weapon: unknown) {
         // noop
       }
     }

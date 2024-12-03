@@ -1,3 +1,5 @@
+import { defineMetadata } from "@inversiland/metadata-utils";
+
 import { interfaces } from "../";
 import * as ERROR_MSGS from "../constants/error_msgs";
 import * as METADATA_KEY from "../constants/metadata_keys";
@@ -123,11 +125,7 @@ function _tagParameterOrProperty(
   // set metadata
   paramOrPropertyMetadata.push(...metadatas);
   paramsOrPropertiesMetadata[key] = paramOrPropertyMetadata;
-  Reflect.defineMetadata(
-    metadataKey,
-    paramsOrPropertiesMetadata,
-    annotationTarget
-  );
+  defineMetadata(metadataKey, paramsOrPropertiesMetadata, annotationTarget);
 }
 
 function createTaggedDecorator(metadata: interfaces.MetadataOrMetadataArray) {
