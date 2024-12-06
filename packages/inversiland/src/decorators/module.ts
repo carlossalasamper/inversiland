@@ -1,4 +1,4 @@
-import { defineMetadata } from "@inversiland/metadata-utils";
+import { defineMetadata } from "@inversiland/metadata";
 
 import ModuleContainer from "../modules/ModuleContainer";
 import { Newable } from "../types";

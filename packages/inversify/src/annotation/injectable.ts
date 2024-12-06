@@ -2,7 +2,7 @@ import {
   defineMetadata,
   getMetadata,
   hasOwnMetadata,
-} from "@inversiland/metadata-utils";
+} from "@inversiland/metadata";
 
 import * as ERRORS_MSGS from "../constants/error_msgs";
 import * as METADATA_KEY from "../constants/metadata_keys";

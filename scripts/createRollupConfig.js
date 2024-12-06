@@ -1,4 +1,3 @@
-import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
@@ -48,7 +47,6 @@ export default function createRollupConfig(
       ],
       plugins: [
         resolve(), // Resolve Node.js modules
-        commonjs(), // Convert CommonJS modules to ES6
         typescript({
           tsconfig: "tsconfig.build.json",
         }), // Transpile TypeScript to JavaScript

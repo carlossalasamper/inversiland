@@ -1,4 +1,4 @@
-import { defineMetadata } from "@inversiland/metadata-utils";
+import { defineMetadata } from "@inversiland/metadata";
 
 import { IS_MODULE_KEY, MODULE_IS_BOUND_KEY } from "../constants";
 import messagesMap from "../messages/messagesMap";

@@ -1,4 +1,4 @@
-import { defineMetadata } from "@inversiland/metadata-utils";
+import { defineMetadata } from "@inversiland/metadata";
 
 import bindProviderToContainer from "../binding/bindProviderToContainer";
 import { MODULE_IS_BOUND_KEY } from "../constants";

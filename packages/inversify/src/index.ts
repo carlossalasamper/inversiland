@@ -1,6 +1,6 @@
 import * as keys from "./constants/metadata_keys";
 
-export { LazyServiceIdentifier } from "@inversifyjs/common";
+export { LazyServiceIdentifier } from "@inversiland/common";
 export const METADATA_KEY = keys;
 export { Container } from "./container/container";
 export {

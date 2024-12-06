@@ -1,6 +1,5 @@
+import { getServiceIdentifierName } from "@inversiland/common";
 import { interfaces } from "@inversiland/inversify";
-
-import getServiceIdentifierName from "./getServiceIdentifierName";
 
 const messagesMap = {
   alreadyRunning: "You are trying to run Inversiland twice.",

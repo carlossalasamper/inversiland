@@ -9,7 +9,7 @@ declare function __param(
   decorator: ParameterDecorator
 ): ClassDecorator;
 
-import { LazyServiceIdentifier } from "@inversifyjs/common";
+import { LazyServiceIdentifier } from "@inversiland/common";
 
 import { interfaces } from "../../src";
 import { decorate } from "../../src/annotation/decorator_utils";

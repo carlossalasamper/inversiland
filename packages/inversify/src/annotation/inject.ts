@@ -1,4 +1,4 @@
-import { LazyServiceIdentifier } from "@inversifyjs/common";
+import { LazyServiceIdentifier } from "@inversiland/common";
 
 import { interfaces } from "../";
 import * as METADATA_KEY from "../constants/metadata_keys";

@@ -1,25 +1,14 @@
 {
+  "$schema": "http://json.schemastore.org/tsconfig",
+  "extends": "../../tsconfig/tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "strict": true,
-    "target": "es6",
-    "lib": ["esnext", "dom"],
-    "module": "CommonJS",
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noEmit": true,
-    "declaration": false,
-    "noFallthroughCasesInSwitch": true,
-    "forceConsistentCasingInFileNames": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
     "paths": {
-      "@inversiland/metadata-utils": ["./packages/metadata-utils/src"],
-      "@inversiland/metadata-utils/*": ["./packages/metadata-utils/src/*"]
+      "@inversiland/metadata": ["./packages/metadata/src"],
+      "@inversiland/metadata/*": ["./packages/metadata/src/*"],
+      "@inversiland/common": ["./packages/common/src"],
+      "@inversiland/common/*": ["./packages/common/src/*"],
+      "@inversiland/core": ["./packages/core/src"],
+      "@inversiland/core/*": ["./packages/core/src/*"]
     }
   },
   "include": ["src/**/*.ts", "test/**/*.ts"]

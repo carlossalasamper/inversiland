@@ -3,8 +3,8 @@
 import type {
   Newable as CommonNewable,
   ServiceIdentifier as CommonServiceIdentifier,
-} from "@inversifyjs/common";
-import { LegacyTarget } from "@inversifyjs/core";
+} from "@inversiland/common";
+import { LegacyTarget } from "@inversiland/core";
 
 import { FactoryType } from "../utils/factory_type";
 

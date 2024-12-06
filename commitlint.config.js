@@ -5,7 +5,7 @@ module.exports = {
     "scope-enum": [
       2,
       "always",
-      ["shared", "inversify", "inversiland", "metadata-utils"],
+      ["shared", "inversify", "inversiland", "metadata", "common", "core"],
     ],
   },
 };

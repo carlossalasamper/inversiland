@@ -3,8 +3,8 @@ import {
   getClassElementMetadataFromLegacyMetadata,
   LegacyTarget as Target,
   LegacyTargetImpl as TargetImpl,
-} from "@inversifyjs/core";
-import { ClassElementMetadata } from "@inversifyjs/core";
+} from "@inversiland/core";
+import { ClassElementMetadata } from "@inversiland/core";
 
 import { interfaces } from "../";
 import { BindingCount } from "../bindings/binding_count";

@@ -1,4 +1,4 @@
-import { defineMetadata, hasOwnMetadata } from "@inversiland/metadata-utils";
+import { defineMetadata, hasOwnMetadata } from "@inversiland/metadata";
 
 import { Metadata } from "../planning/metadata";
 

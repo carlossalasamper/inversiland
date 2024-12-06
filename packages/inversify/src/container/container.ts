@@ -1,4 +1,4 @@
-import { getMetadata, hasMetadata } from "@inversiland/metadata-utils";
+import { getMetadata, hasMetadata } from "@inversiland/metadata";
 
 import { interfaces } from "../";
 import { Binding } from "../bindings/binding";

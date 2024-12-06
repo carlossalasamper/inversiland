@@ -1,7 +1,7 @@
 import {
   ClassElementMetadataKind,
   LegacyTargetImpl as TargetImpl,
-} from "@inversifyjs/core";
+} from "@inversiland/core";
 
 import { interfaces } from "../../src";
 import { Binding } from "../../src/bindings/binding";

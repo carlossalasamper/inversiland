@@ -1,4 +1,4 @@
-import { LazyServiceIdentifier } from "@inversifyjs/common";
+import { LazyServiceIdentifier } from "@inversiland/common";
 
 import { interfaces } from "../";
 import { UNDEFINED_INJECT_ANNOTATION } from "../constants/error_msgs";

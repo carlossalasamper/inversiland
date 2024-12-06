@@ -1,7 +1,7 @@
 import {
   ClassElementMetadataKind,
   LegacyTargetImpl as TargetImpl,
-} from "@inversifyjs/core";
+} from "@inversiland/core";
 
 import { interfaces } from "../../src";
 import { TargetTypeEnum } from "../../src/constants/literal_types";

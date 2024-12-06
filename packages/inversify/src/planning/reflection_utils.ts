@@ -1,5 +1,5 @@
-import { Newable } from "@inversifyjs/common";
-import { getTargets } from "@inversifyjs/core";
+import { Newable } from "@inversiland/common";
+import { getTargets } from "@inversiland/core";
 
 import { interfaces } from "../";
 import * as METADATA_KEY from "../constants/metadata_keys";

@@ -1,0 +1,38 @@
+{
+  "name": "@inversiland/common",
+  "version": "1.4.0",
+  "description": "Inversiland common package.",
+  "author": "Remo H. Jansen",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inversiland/inversiland.git",
+    "directory": "/packages/common"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "browser": "dist/umd/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "dependency injection",
+    "dependency inversion",
+    "di",
+    "inversion of control container",
+    "ioc",
+    "javascript",
+    "node",
+    "typescript"
+  ],
+  "scripts": {
+    "prepublish": "yarn test && yarn build",
+    "prebuild": "rimraf ./dist",
+    "build": "rollup -c",
+    "test": "jest --coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ./assets/badges/coverage"
+  }
+}

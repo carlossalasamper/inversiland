@@ -4,7 +4,7 @@ import {
   getClassElementMetadataFromLegacyMetadata,
   LegacyTarget as Target,
   LegacyTargetImpl as TargetImpl,
-} from "@inversifyjs/core";
+} from "@inversiland/core";
 
 import { interfaces } from "..";
 import { Context } from "../planning/context";

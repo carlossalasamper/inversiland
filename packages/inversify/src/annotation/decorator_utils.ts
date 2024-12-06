@@ -1,4 +1,4 @@
-import { defineMetadata } from "@inversiland/metadata-utils";
+import { defineMetadata } from "@inversiland/metadata";
 
 import { interfaces } from "../";
 import * as ERROR_MSGS from "../constants/error_msgs";

@@ -21,14 +21,18 @@
     "lint:fix": "yarn lint --fix",
     "format": "prettier \"packages/**/*.ts\" \"packages/**/*.json\" --ignore-path ./.prettierignore",
     "format:fix": "yarn format --write",
+    "test:common": "cd packages/common && yarn test && cd ../..",
+    "test:metadata": "cd packages/metadata && yarn test && cd ../..",
+    "test:core": "cd packages/core && yarn test && cd ../..",
     "test:inversify": "cd packages/inversify && yarn test && cd ../..",
     "test:inversiland": "cd packages/inversiland && yarn test && cd ../..",
-    "test:metadata-utils": "cd packages/metadata-utils && yarn test && cd ../..",
-    "test": "yarn test:inversify && yarn test:inversiland && yarn test:metadata-utils",
+    "test": "yarn test:common && yarn test:metadata && yarn test:core && yarn test:inversify && yarn test:inversiland",
+    "build:common": "cd packages/common && yarn build && cd ../..",
+    "build:metadata": "cd packages/metadata && yarn build && cd ../..",
+    "build:core": "cd packages/core && yarn build && cd ../..",
     "build:inversify": "cd packages/inversify && yarn build && cd ../..",
     "build:inversiland": "cd packages/inversiland && yarn build && cd ../..",
-    "build:metadata-utils": "cd packages/metadata-utils && yarn build && cd ../..",
-    "build": "yarn build:inversify && yarn build:inversiland && yarn build:metadata-utils"
+    "build": "yarn build:common && yarn build:metadata && yarn build:core && yarn build:inversify && yarn build:inversiland"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.6.7",

@@ -1,4 +1,4 @@
-import { ClassElementMetadataKind, LegacyTargetImpl } from "@inversifyjs/core";
+import { ClassElementMetadataKind, LegacyTargetImpl } from "@inversiland/core";
 
 import { TargetTypeEnum } from "../../src/constants/literal_types";
 import { Container } from "../../src/container/container";

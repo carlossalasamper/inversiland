@@ -42,13 +42,9 @@
     "build": "rollup -c",
     "test": "jest --coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ./assets/badges/coverage"
   },
-  "devDependencies": {
-    "@inversiland/metadata-utils": "0.2.5",
-    "@inversiland/inversify": "6.1.5"
-  },
-  "peerDependencies": {
-    "reflect-metadata": "^0.2.2",
-    "@inversify/metadata-utils": "^0.2.5",
-    "@inversiland/inversify": "^6.1.5"
+  "dependencies": {
+    "@inversiland/metadata": "0.2.5",
+    "@inversiland/inversify": "6.1.5",
+    "@inversiland/common": "1.4.0"
   }
 }
