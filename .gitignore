@@ -1,4 +1,33 @@
+# Dependencies
 node_modules/
+
+# IDE
+/.idea
+/.awcache
+/.vscode
+/.devcontainer
+/.classpath
+/.project
+/.settings 
+*.code-workspace
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Build
 dist/
-yarn-error.log
-/coverage
+
+# Misc
+.DS_store
+.idea
+
+# Logs
+logs
+*.log
+
+# Coverage
+/packages/*/coverage

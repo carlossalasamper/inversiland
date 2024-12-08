@@ -1,0 +1,50 @@
+{
+  "name": "inversiland",
+  "type": "module",
+  "version": "0.6.0-beta.0",
+  "description": "InversifyJS framework to build hierarchical dependency systems with an elegant API.",
+  "author": {
+    "name": "Carlos Sala Samper",
+    "url": "https://godofprogramming.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inversiland/inversiland.git",
+    "directory": "/packages/inversiland"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "browser": "dist/umd/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "dependency injection",
+    "inversify",
+    "inversifyjs",
+    "javascript",
+    "typescript",
+    "ioc",
+    "nest",
+    "nestjs",
+    "angular",
+    "inversion of control",
+    "container"
+  ],
+  "scripts": {
+    "prepublish": "in-publish && (yarn test && yarn build) || not-in-publish",
+    "prebuild": "rimraf ./dist",
+    "build": "rollup -c",
+    "test": "jest --coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ./assets/badges/coverage"
+  },
+  "dependencies": {
+    "@inversiland/metadata": "0.2.5-beta.0",
+    "@inversiland/inversify": "6.1.5-beta.0",
+    "@inversiland/common": "1.4.0-beta.0"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json.schemastore.org/tsconfig",
+  "extends": "../../tsconfig/tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "@inversiland/metadata": ["./packages/metadata/src"],
+      "@inversiland/metadata/*": ["./packages/metadata/src/*"],
+      "@inversiland/common": ["./packages/common/src"],
+      "@inversiland/common/*": ["./packages/common/src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"]
+}

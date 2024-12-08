@@ -1,0 +1,43 @@
+{
+  "name": "@inversiland/metadata",
+  "type": "module",
+  "version": "0.2.5-beta.0",
+  "description": "Inversiland metadata package.",
+  "author": "Roberto Pintos López",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inversiland/inversiland.git",
+    "directory": "/packages/metadata"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "browser": "dist/umd/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "dependency injection",
+    "dependency inversion",
+    "di",
+    "inversion of control container",
+    "ioc",
+    "javascript",
+    "node",
+    "reflect-metadata",
+    "typescript"
+  ],
+  "peerDependencies": {
+    "reflect-metadata": "0.2.2"
+  },
+  "scripts": {
+    "prepublish": "in-publish && (yarn test && yarn build) || not-in-publish",
+    "prebuild": "rimraf ./dist",
+    "build": "rollup -c",
+    "test": "jest --coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ./assets/badges/coverage"
+  }
+}
