@@ -1,8 +1,4 @@
-name: Build and Publish
-
-defaults:
-  run:
-    working-directory: packages/inversiland
+name: Test, Build and Publish
 
 on:
   release:
@@ -10,7 +6,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-publish:
+  install-workspaces:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+      - name: Install Workspaces
+        run: yarn
+  test-build-and-publish:
+    default:
+      run:
+        working-directory: packages/inversiland
+    needs: install-workspaces
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -24,6 +33,8 @@ jobs:
           always-auth: true
       - name: Install
         run: yarn
+      - name: Test
+        run: yarn test
       - name: Build
         run: yarn build
       - name: Publish
