@@ -16,7 +16,7 @@ jobs:
       - name: Install Workspaces
         run: yarn
   test-build-and-publish:
-    default:
+    defaults:
       run:
         working-directory: packages/inversiland
     needs: install-workspaces
