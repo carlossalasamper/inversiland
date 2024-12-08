@@ -18,29 +18,12 @@ jobs:
           node-version: "20.x"
           registry-url: "https://registry.npmjs.org"
           always-auth: true
-      - name: Install Workspaces
-        run: yarn
-      - name: Install metadata
-        working-directory: packages/metadata
-        run: yarn
-      - name: Install common
-        working-directory: packages/common
-        run: yarn
-      - name: Install core
-        working-directory: packages/core
-        run: yarn
-      - name: Install inversify
-        working-directory: packages/inversify
-        run: yarn
       - name: Install
-        working-directory: packages/inversiland
         run: yarn
       - name: Test
-        working-directory: packages/inversiland
-        run: yarn test
+        run: yarn test:inversiland
       - name: Build
-        working-directory: packages/inversiland
-        run: yarn build
+        run: yarn build:inversiland
       - name: Publish
         working-directory: packages/inversiland
         run: npm publish
