@@ -13,6 +13,7 @@
 - [Introduction](#introduction)
 - [Why Inversiland](#why-inversiland)
 - [Documentation](#documentation)
+- [Templates](#templates)
 - [Support the Project](#support-the-project)
 - [License](#license)
 
@@ -223,6 +224,12 @@ Follow [the official guide to start using Inversiland](./documentation/GettingSt
 - [Modules](./documentation/Modules.md)
 - [Injection](./documentation/Injection.md)
 - [Dynamic Modules](./documentation/DynamicModules.md)
+
+## Templates
+
+Don't start your projects from scratch, choose a well-configured template.
+
+- [react-clean-architecture](https://github.com/carlossalasamper/react-clean-architecture)
 
 ## Support the Project
 
