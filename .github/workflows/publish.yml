@@ -20,6 +20,18 @@ jobs:
           always-auth: true
       - name: Install Workspaces
         run: yarn
+      - name: Install metadata
+        working-directory: packages/metadata
+        run: yarn
+      - name: Install common
+        working-directory: packages/common
+        run: yarn
+      - name: Install core
+        working-directory: packages/core
+        run: yarn
+      - name: Install inversify
+        working-directory: packages/inversify
+        run: yarn
       - name: Install
         working-directory: packages/inversiland
         run: yarn
