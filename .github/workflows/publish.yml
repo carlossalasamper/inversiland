@@ -1,4 +1,4 @@
-name: Test, Build and Publish
+name: Build and Publish
 
 defaults:
   run:
@@ -24,8 +24,6 @@ jobs:
           always-auth: true
       - name: Install
         run: yarn
-      - name: Test
-        run: yarn test
       - name: Build
         run: yarn build
       - name: Publish

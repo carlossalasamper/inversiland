@@ -1,7 +1,6 @@
 import resolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
-import copy from "rollup-plugin-copy";
 import dts from "rollup-plugin-dts";
 const defaultOptions = {
   sourcemap: false,
@@ -51,18 +50,6 @@ export default function createRollupConfig(
           tsconfig: "tsconfig.build.json",
         }), // Transpile TypeScript to JavaScript
         terser(), // Minify JavaScript,
-        copy({
-          targets: [
-            {
-              src: "package.json",
-              dest: "dist",
-            },
-            {
-              src: "README.md",
-              dest: "dist",
-            },
-          ],
-        }),
       ],
     },
     {
