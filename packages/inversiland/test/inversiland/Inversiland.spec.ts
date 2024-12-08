@@ -39,7 +39,6 @@ describe("Inversiland", () => {
     const onModuleBound = jest.fn();
     const inversilandOnModuleBound = jest.spyOn(Inversiland, "onModuleBound");
 
-    Inversiland.options.debug = true;
     Inversiland.setOnModuleBound(onModuleBound);
     Inversiland.run(AppModule);
 
@@ -49,10 +48,10 @@ describe("Inversiland", () => {
     expect(onModuleBound).toHaveBeenCalledTimes(importedModules.length);
   });
 
-  it("Should print a message for each imported module.", () => {
+  it("Should print a message for each imported module when logLevel is 'info'.", () => {
     const consoleLogMock = jest.spyOn(console, "log").mockImplementation();
 
-    Inversiland.options.debug = true;
+    Inversiland.options.logLevel = "info";
     Inversiland.run(AppModule);
 
     for (const importedModule of importedModules) {
@@ -61,20 +60,90 @@ describe("Inversiland", () => {
       expect(consoleLogMock).toHaveBeenCalledWith(
         messagesMap.moduleBound(
           importedModule.name,
-          metadata.container.innerContainer.id
+          metadata.container.innerContainer.id,
+          Inversiland.options.logLevel
         )
       );
     }
   });
 
-  it("Should print a message when global providers are bound.", () => {
+  it("Should print a message for each imported module when logLevel is 'debug'.", () => {
     const consoleLogMock = jest.spyOn(console, "log").mockImplementation();
 
-    Inversiland.options.debug = true;
+    Inversiland.options.logLevel = "debug";
+    Inversiland.run(AppModule);
+
+    for (const importedModule of importedModules) {
+      const metadata = getModuleMetadata(importedModule);
+
+      expect(consoleLogMock).toHaveBeenCalledWith(
+        messagesMap.moduleBound(
+          importedModule.name,
+          metadata.container.innerContainer.id,
+          Inversiland.options.logLevel
+        )
+      );
+    }
+  });
+
+  it("Shouldn't print a message for each imported module when logLevel is 'none'.", () => {
+    const consoleLogMock = jest.spyOn(console, "log").mockImplementation();
+
+    Inversiland.options.logLevel = "none";
+    Inversiland.run(AppModule);
+
+    for (const importedModule of importedModules) {
+      const metadata = getModuleMetadata(importedModule);
+
+      expect(consoleLogMock).not.toHaveBeenCalledWith(
+        messagesMap.moduleBound(
+          importedModule.name,
+          metadata.container.innerContainer.id,
+          Inversiland.options.logLevel
+        )
+      );
+    }
+  });
+
+  it("Should print a message when global providers are bound and logLevel is 'info'.", () => {
+    const consoleLogMock = jest.spyOn(console, "log").mockImplementation();
+
+    Inversiland.options.logLevel = "info";
     Inversiland.run(AppModule);
 
     expect(consoleLogMock).toHaveBeenCalledWith(
-      messagesMap.globalProvidersBound(Inversiland.globalContainer.id)
+      messagesMap.globalProvidersBound(
+        Inversiland.globalContainer.id,
+        Inversiland.options.logLevel
+      )
+    );
+  });
+
+  it("Should print a message when global providers are bound and logLevel is 'debug'.", () => {
+    const consoleLogMock = jest.spyOn(console, "log").mockImplementation();
+
+    Inversiland.options.logLevel = "debug";
+    Inversiland.run(AppModule);
+
+    expect(consoleLogMock).toHaveBeenCalledWith(
+      messagesMap.globalProvidersBound(
+        Inversiland.globalContainer.id,
+        Inversiland.options.logLevel
+      )
+    );
+  });
+
+  it("Shouldn't print a message when global providers are bound and logLevel is 'none'.", () => {
+    const consoleLogMock = jest.spyOn(console, "log").mockImplementation();
+
+    Inversiland.options.logLevel = "none";
+    Inversiland.run(AppModule);
+
+    expect(consoleLogMock).not.toHaveBeenCalledWith(
+      messagesMap.globalProvidersBound(
+        Inversiland.globalContainer.id,
+        Inversiland.options.logLevel
+      )
     );
   });
 

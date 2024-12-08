@@ -1,5 +1,6 @@
 import { interfaces } from "@inversiland/inversify";
 
+import { InversilandLogLevelType } from "./InversilandLogLevel";
 import ModuleMetadata from "./ModuleMetadata";
 
 export default interface InversilandOptions {
@@ -9,9 +10,10 @@ export default interface InversilandOptions {
   defaultScope: interfaces.BindingScope;
 
   /**
-   * @description Flag that enables debug mode.
+   * @description Configures the log level.
+   * @default "info"
    */
-  debug: boolean;
+  logLevel: InversilandLogLevelType;
 
   /**
    * @description Callback that is called when a module is bound.

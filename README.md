@@ -4,9 +4,9 @@
 # Inversiland
 
 <p align="center">
-  <img alt="Inversiland banner" src="https://raw.githubusercontent.com/carlossalasamper/inversiland/master/assets/images/inversiland-banner.png" style="max-width: 900px; width: 100%;" />
+  <img alt="Inversiland banner" src="./assets/images/inversiland-cover.jpg" style="max-width: 1280px; width: 100%;" />
 </p>
-<p align="center" style="margin-top: 10px;"> 🎡 <a href="https://inversify.io/">InversifyJS</a> framework to build hierarchical dependency systems with an elegant API.</p>
+<p align="center" style="margin-top: 10px;"> 🎡 <a href="https://inversify.io/">InversifyJS</a> framework to manage dependencies elegantly.</p>
 
 ## Table of Contents
 
@@ -32,10 +32,6 @@
 - [Injection](#injection)
   - [Local Provider Injection](#local-provider-injection)
   - [Imported Provider Injection](#imported-provider-injection)
-- [Advanced Usage](#advanced-usage)
-  - [Creating Modules at Runtime](#creating-modules-at-runtime)
-  - [Submodules and Facades](#submodules-and-facades)
-- [Testing](#testing)
 - [Support the Project](#support-the-project)
 - [License](#license)
 
@@ -221,7 +217,8 @@ import { Inversiland } from "inversiland";
 import { AppModule } from "./AppModule";
 
 // Configure the Inversiland instance
-Inversiland.options.debug = process.env.NODE_ENV === "development";
+Inversiland.options.logLevel =
+  process.env.NODE_ENV === "development" ? "debug" : "info";
 Inversiland.options.defaultScope = "Singleton";
 
 // Entrypoint
@@ -871,29 +868,6 @@ import { CatsModule } from "./cats/CatsModule";
 })
 export class AppModule {}
 ```
-
-## Advanced Usage
-
-### Creating Modules at Runtime
-
-// TODO
-
-### Submodules and Facades
-
-// TODO
-
-## Testing
-
-The complexity of the memory state during the execution of Inversiland, managing multiple Inversify containers under the hood, is too high to ensure that it is working correctly without writing unit tests of each of the functionalities separately.
-
-For this reason, a set of tests have been written that you can consult [here](./test).
-
-So you can use it without worries. You are facing a completely armored dependency system.
-
-<img src="./assets/badges/coverage/badge-functions.svg" />
-<img src="./assets/badges/coverage/badge-lines.svg" />
-<img src="./assets/badges/coverage/badge-statements.svg" />
-<img src="./assets/badges/coverage/badge-branches.svg" />
 
 ## Support the Project
 

@@ -1,8 +1,8 @@
 import { InversilandOptions } from "../types";
 
 export const defaultInversilandOptions: InversilandOptions = {
-  debug: false,
   defaultScope: "Transient",
+  logLevel: "info",
   onModuleBound: undefined,
 };
 

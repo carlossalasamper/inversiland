@@ -41,9 +41,17 @@ export default class Inversiland {
 
     importModule(AppModule, true);
 
-    console.log(
-      messagesMap.globalProvidersBound(Inversiland.globalContainer.id)
-    );
+    if (
+      Inversiland.options.logLevel === "info" ||
+      Inversiland.options.logLevel === "debug"
+    ) {
+      console.log(
+        messagesMap.globalProvidersBound(
+          Inversiland.globalContainer.id,
+          Inversiland.options.logLevel
+        )
+      );
+    }
   }
 
   /**
@@ -67,13 +75,17 @@ export default class Inversiland {
   static onModuleBound(Module: NewableModule) {
     const metadata = getModuleMetadata(Module);
 
-    inversilandOptions.onModuleBound?.(metadata);
+    Inversiland.options.onModuleBound?.(metadata);
 
-    if (inversilandOptions.debug) {
+    if (
+      Inversiland.options.logLevel === "info" ||
+      Inversiland.options.logLevel === "debug"
+    ) {
       console.log(
         messagesMap.moduleBound(
           Module.name,
-          metadata.container.innerContainer.id
+          metadata.container.innerContainer.id,
+          Inversiland.options.logLevel
         )
       );
     }

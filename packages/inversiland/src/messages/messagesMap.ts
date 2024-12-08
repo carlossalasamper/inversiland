@@ -1,6 +1,8 @@
 import { getServiceIdentifierName } from "@inversiland/common";
 import { interfaces } from "@inversiland/inversify";
 
+import { InversilandLogLevelType } from "../types/InversilandLogLevel";
+
 const messagesMap = {
   alreadyRunning: "You are trying to run Inversiland twice.",
   providerRequested: (
@@ -11,10 +13,35 @@ const messagesMap = {
 
     return `[Container ${containerId}] Requested ${serviceIdentifierName}.`;
   },
-  globalProvidersBound: (containerId: number) =>
-    `[Global] Global providers bound in container ${containerId}.`,
-  moduleBound: (moduleName: string, containerId: number) =>
-    `[@module] ${moduleName} bound in container ${containerId}.`,
+  globalProvidersBound: (
+    containerId: number,
+    logLevel: InversilandLogLevelType
+  ) => {
+    let message = "";
+
+    if (logLevel == "debug") {
+      message = `[Global] Global providers bound in container ${containerId}.`;
+    } else if (logLevel == "info") {
+      message = "[Global] Global providers bound.";
+    }
+
+    return message;
+  },
+  moduleBound: (
+    moduleName: string,
+    containerId: number,
+    logLevel: InversilandLogLevelType
+  ) => {
+    let message = "";
+
+    if (logLevel == "debug") {
+      message = `[@module] ${moduleName} bound in container ${containerId}.`;
+    } else if (logLevel == "info") {
+      message = `[@module] ${moduleName} bound.`;
+    }
+
+    return message;
+  },
   notAModuleImported: (importedItemName: string) =>
     `importModule() was called with a class that is not a module: ${importedItemName}. Skipping...`,
   notAModuleUnbound: (unboundItemName: string) =>

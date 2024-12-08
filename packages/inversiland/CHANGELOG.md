@@ -26,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The `@imported` decorator is renamed to `@injectImported` since it is more meaningful.
 - `@imported` decorator will throw an exception when more than one provider is imported for the same `ServiceIdentifier`. You have to use `@multiInjectImported` from now the same way you do with local providers of a module.
 - Renames `logMiddleware` to `debugMiddleware`.
-- Improved debug logs to show container ID.
+- Changed `debug` boolean option for `logLevel` in order to config how logs behave.
 
 ### Fixed
 

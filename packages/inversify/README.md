@@ -1,19 +1,12 @@
-![](https://raw.githubusercontent.com/inversify/inversify.github.io/master/img/cover.jpg)
+<a href="https://www.npmjs.com/package/inversiland/inversify" target="_blank"><img src="https://img.shields.io/npm/v/inversiland/inversify.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/package/inversiland/inversify" target="_blank"><img src="https://img.shields.io/npm/l/inversiland/inversify.svg" alt="Package License" /></a>
+
+# @inversiland/inversify
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/inversify" target="__blank"><img src="https://img.shields.io/npm/v/inversify?color=0476bc&label=" alt="NPM version"></a>
-  <a href="https://www.npmjs.com/package/inversify" target="__blank"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/inversify?color=3890aa&label="></a>
-  <a href="https://github.com/inversify/InversifyJS#-the-inversifyjs-features-and-api" target="__blank"><img src="https://img.shields.io/static/v1?label=&message=docs&color=1e8a7a" alt="Docs"></a>
-  <br>
-  <br>
-  <a href="https://github.com/inversify/InversifyJS" target="__blank"><img alt="GitHub stars" src="https://img.shields.io/github/stars/inversify/InversifyJS?style=social"></a>
-  <a href="https://twitter.com/inversifyjs" target="__blank"><img alt="Twitter" src="https://img.shields.io/twitter/follow/InversifyJS.svg?maxAge=86400&style=social"></a>
-  <a href="https://discord.gg/jXcMagAPnm" target="__blank"><img alt="Discord Server" src="https://img.shields.io/discord/816766547879657532?style=social&logo=discord"></a>
+  <img alt="Inversify cover" src="https://github.com/inversiland/inversiland/blob/master/packages/inversify/assets/images/inversify-cover.jpg" style="max-width: 1280px; width: 100%;" />
 </p>
-
-# InversifyJS
-
-A powerful and lightweight inversion of control container for JavaScript & Node.js apps powered by TypeScript.
+<p align="center" style="margin-top: 10px;"> A powerful and lightweight inversion of control container for JavaScript & Node.js apps powered by TypeScript.</p>
 
 ## About
 
@@ -286,35 +279,16 @@ Let's take a look to the InversifyJS features!
 
 Please refer to the [wiki](https://github.com/inversify/InversifyJS/blob/master/wiki/readme.md) for additional details.
 
-## Testing
+## Code You Can Trust
 
-Trust our code, [we have used robust tests](./test) to verify that everything works correctly.
+The development and maintenance of this software is drived by a test battery to ensure that it works correctly.
+
+[See the tests](./test) for more information.
 
 <img src="./assets/badges/coverage/badge-functions.svg" />
 <img src="./assets/badges/coverage/badge-lines.svg" />
 <img src="./assets/badges/coverage/badge-statements.svg" />
 <img src="./assets/badges/coverage/badge-branches.svg" />
-
-## 🧩 Ecosystem
-
-In order to provide a state of the art development experience we are also working on:
-
-- [Middleware extensions](https://github.com/inversify/InversifyJS/blob/master/wiki/ecosystem.md#extensions).
-- [Development tools](https://github.com/inversify/InversifyJS/blob/master/wiki/ecosystem.md#development-tools).
-- [Examples](https://github.com/inversify/InversifyJS/blob/master/wiki/ecosystem.md#examples).
-
-Please refer to the [ecosystem wiki page](https://github.com/inversify/InversifyJS/blob/master/wiki/ecosystem.md) to learn more.
-
-## Support
-
-If you are experience any kind of issues we will be happy to help. You can report an issue using the [issues page](https://github.com/inversify/InversifyJS/issues) or the [chat](https://gitter.im/inversify/InversifyJS). You can also ask questions at [Stack overflow](http://stackoverflow.com/tags/inversifyjs) using the `inversifyjs` tag.
-
-If you want to share your thoughts with the development team or join us you will be able to do so using the [official the mailing list](https://groups.google.com/forum/#!forum/inversifyjs). You can check out the
-[wiki](https://github.com/inversify/InversifyJS/blob/master/wiki/readme.md) to learn more about InversifyJS internals.
-
-## Acknowledgements
-
-Thanks a lot to all the [contributors](https://github.com/inversify/InversifyJS/graphs/contributors), all the developers out there using InversifyJS and all those that help us to spread the word by sharing content about InversifyJS online. Without your feedback and support this project would not be possible.
 
 ## License
 

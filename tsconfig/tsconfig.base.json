@@ -4,6 +4,7 @@
     "strict": true,
     "target": "ES2022",
     "lib": ["ES2022", "DOM"],
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
@@ -15,7 +16,6 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "moduleResolution": "node"
+    "emitDecoratorMetadata": true
   }
 }
