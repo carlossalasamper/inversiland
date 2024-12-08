@@ -37,7 +37,7 @@
     "container"
   ],
   "scripts": {
-    "prepublish": "yarn test && yarn build",
+    "prepublish": "in-publish && (yarn test && yarn build) || not-in-publish",
     "prebuild": "rimraf ./dist",
     "build": "rollup -c",
     "test": "jest --coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ./assets/badges/coverage"
