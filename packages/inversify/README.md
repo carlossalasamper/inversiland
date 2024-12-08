@@ -80,14 +80,20 @@ The InversifyJS type definitions are included in the inversify npm package.
 }
 ```
 
+Import `reflect-metadata` package in the entrypoint of your application:
+
+```typescript
+// index.ts
+
+import "reflect-metadata";
+```
+
 InversifyJS requires a modern JavaScript engine with support for:
 
 - [Reflect metadata](https://rbuckton.github.io/reflect-metadata/)
 - [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
 - [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) (Only required if using [provider injection](https://github.com/inversify/InversifyJS/blob/master/wiki/provider_injection.md))
 - [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) (Only required if using [activation handlers](https://github.com/inversify/InversifyJS/blob/master/wiki/activation_handler.md))
-
-Importing `reflect-metadata` in the entrypoint of your source code is no longer required. This package do this under the hood.
 
 ## The Basics
 

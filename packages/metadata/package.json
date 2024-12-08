@@ -1,13 +1,13 @@
 {
   "name": "@inversiland/metadata",
   "type": "module",
-  "version": "0.2.5",
+  "version": "0.2.5-beta.0",
   "description": "Inversiland metadata package.",
   "author": "Roberto Pintos López",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/inversiland/inversiland.git",
+    "url": "git+https://github.com/inversiland/inversiland.git",
     "directory": "/packages/metadata"
   },
   "publishConfig": {

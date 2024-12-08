@@ -1,7 +1,7 @@
 {
   "name": "inversiland",
   "type": "module",
-  "version": "0.6.0",
+  "version": "0.6.0-beta.0",
   "description": "InversifyJS framework to build hierarchical dependency systems with an elegant API.",
   "author": {
     "name": "Carlos Sala Samper",
@@ -10,7 +10,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/inversiland/inversiland.git",
+    "url": "git+https://github.com/inversiland/inversiland.git",
     "directory": "/packages/inversiland"
   },
   "publishConfig": {
