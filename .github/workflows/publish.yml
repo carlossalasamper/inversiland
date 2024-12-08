@@ -9,7 +9,7 @@ on:
     types: [created]
   workflow_dispatch:
 
-  jobs:
+jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     permissions:
