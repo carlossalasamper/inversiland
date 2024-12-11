@@ -1,7 +1,7 @@
 {
   "name": "@inversiland/core",
   "type": "module",
-  "version": "1.3.5-beta.1",
+  "version": "1.3.5",
   "description": "Inversiland core package.",
   "author": "Roberto Pintos López",
   "license": "MIT",
@@ -37,8 +37,8 @@
     "test": "jest --coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ./assets/badges/coverage"
   },
   "dependencies": {
-    "@inversiland/common": "1.4.0-beta.0",
-    "@inversiland/metadata": "0.2.5-beta.0"
+    "@inversiland/common": "1.4.0",
+    "@inversiland/metadata": "0.2.5"
   },
   "devDependencies": {
     "reflect-metadata": "0.2.2"

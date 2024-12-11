@@ -4,7 +4,7 @@
 # Inversiland
 
 <p align="center">
-  <img alt="Inversiland banner" src="https://github.com/inversiland/inversiland/blob/master/assets/images/inversiland-cover.jpg" style="max-width: 1280px; width: 100%;" />
+  <img alt="Inversiland - inversifyjs framework cover" src="https://raw.githubusercontent.com/inversiland/inversiland/refs/heads/master/assets/images/inversiland-cover.webp" style="max-width: 1280px; width: 100%;" />
 </p>
 <p align="center" style="margin-top: 10px;"> 🎡 <a href="https://inversify.io/">InversifyJS</a> framework to manage dependencies elegantly.</p>
 

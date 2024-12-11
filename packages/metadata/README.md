@@ -1,5 +1,5 @@
-<a href="https://www.npmjs.com/package/inversiland/metadata" target="_blank"><img src="https://img.shields.io/npm/v/inversiland/metadata.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/package/inversiland/metadata" target="_blank"><img src="https://img.shields.io/npm/l/inversiland/metadata.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/package/@inversiland/metadata" target="_blank"><img src="https://img.shields.io/npm/v/@inversiland/metadata.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/package/@inversiland/metadata" target="_blank"><img src="https://img.shields.io/npm/l/@inversiland/metadata.svg" alt="Package License" /></a>
 
 # @inversiland/metadata
 

@@ -1,7 +1,6 @@
 {
   "name": "inversiland",
   "private": true,
-  "version": "0.6.0",
   "description": "InversifyJS framework to build hierarchical dependency systems with an elegant API.",
   "author": {
     "name": "Carlos Sala Samper",
