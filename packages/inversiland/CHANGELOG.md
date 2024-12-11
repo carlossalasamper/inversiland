@@ -3,7 +3,20 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.6.0]
+## 0.6.2
+
+### Added
+
+- [react-native-clean-architecture](https://github.com/carlossalasamper/react-native-clean-architecture) project template.
+
+### Changed
+
+- Updated `@inversiland/metadata` version from `0.2.5-beta.0` to `0.2.5`.
+- Updated `@inversiland/common` version from `1.4.0-beta.0` to `1.4.0`.
+- Updated `@inversiland/core` version from `1.3.5-beta.1` to `1.3.5`.
+- Updated `@inversiland/inversify` version from `6.1.5-beta.0` to `6.1.5`.
+
+## 0.6.0
 
 ### Added
 
@@ -33,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Providers `provide` property allows a `ServiceIdentifier` rather than the current limited type `string  | Symbol`.
 - Applying `debugMiddleware` to every module container. It was only being applied to the `Inversiland.globalContainer`. Now you can debug resolutions in any module when `Inversiland.options.debug = true`.
 
-## [0.5.9]
+## 0.5.9
 
 ### Added
 

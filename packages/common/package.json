@@ -1,6 +1,7 @@
 {
   "name": "@inversiland/common",
-  "version": "1.4.0-beta.0",
+  "type": "module",
+  "version": "1.4.0",
   "description": "Inversiland common package.",
   "author": "Remo H. Jansen",
   "license": "MIT",

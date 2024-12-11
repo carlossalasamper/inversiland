@@ -1,7 +1,7 @@
 {
   "name": "@inversiland/inversify",
   "type": "module",
-  "version": "6.1.5-beta.0",
+  "version": "6.1.5",
   "description": "A powerful and lightweight inversion of control container for JavaScript and Node.js apps powered by TypeScript.",
   "author": {
     "name": "Carlos Sala Samper",
@@ -40,9 +40,9 @@
     "test": "jest --coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ./assets/badges/coverage"
   },
   "dependencies": {
-    "@inversiland/common": "1.4.0-beta.0",
-    "@inversiland/core": "1.3.5-beta.1",
-    "@inversiland/metadata": "0.2.5-beta.0"
+    "@inversiland/common": "1.4.0",
+    "@inversiland/core": "1.3.5",
+    "@inversiland/metadata": "0.2.5"
   },
   "devDependencies": {
     "reflect-metadata": "0.2.2"

@@ -1,7 +1,7 @@
 {
   "name": "inversiland",
   "type": "module",
-  "version": "0.6.0",
+  "version": "0.6.2",
   "description": "InversifyJS framework to build hierarchical dependency systems with an elegant API.",
   "author": {
     "name": "Carlos Sala Samper",
@@ -43,9 +43,9 @@
     "test": "jest --coverage && jest-coverage-badges --input ./coverage/coverage-summary.json --output ./assets/badges/coverage"
   },
   "dependencies": {
-    "@inversiland/metadata": "0.2.5-beta.0",
-    "@inversiland/inversify": "6.1.5-beta.0",
-    "@inversiland/common": "1.4.0-beta.0",
+    "@inversiland/metadata": "0.2.5",
+    "@inversiland/inversify": "6.1.5",
+    "@inversiland/common": "1.4.0",
     "reflect-metadata": "^0.2.2"
   }
 }

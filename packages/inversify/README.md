@@ -1,5 +1,5 @@
-<a href="https://www.npmjs.com/package/inversiland/inversify" target="_blank"><img src="https://img.shields.io/npm/v/inversiland/inversify.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/package/inversiland/inversify" target="_blank"><img src="https://img.shields.io/npm/l/inversiland/inversify.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/package/@inversiland/inversify" target="_blank"><img src="https://img.shields.io/npm/v/@inversiland/inversify.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/package/@inversiland/inversify" target="_blank"><img src="https://img.shields.io/npm/l/@inversiland/inversify.svg" alt="Package License" /></a>
 
 # @inversiland/inversify
 
